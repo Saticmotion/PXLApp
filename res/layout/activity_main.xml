@@ -4,15 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context=".MainActivity" >
-    
-    <EditText android:id="@+id/edit_message"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content" 
-        android:layout_weight="1"
-        android:hint="@string/edit_message" />
     <Button 
+        android:id="@+id/button_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_send" 
-        android:onClick="sendMessage" />
+        android:text="@string/button_menu" 
+        android:onClick="openMenu" />
+
+    <Button
+        android:id="@+id/button_lesroosters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_lesroosters"  
+        android:onClick="openLesroosters" />
+
+    <Button
+        android:id="@+id/button_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_info"  
+        android:onClick="openInfo" />
+
 </LinearLayout>
