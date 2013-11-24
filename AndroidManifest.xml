@@ -7,6 +7,7 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -24,7 +25,7 @@
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.MenuActivity"
-            android:label="@string/title_activity_display_message"
+            android:label="@string/title_activity_menu"
             android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
