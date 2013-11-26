@@ -8,6 +8,9 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
 /**
@@ -23,8 +26,7 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Document> {
 		String URL = URLs[0];
 		
 		try 
-		{
-			
+		{			
 			document = Jsoup.connect(URL).get();
 		} 
 		catch (IOException e) 
@@ -41,4 +43,5 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Document> {
 	{
 		
 	}
+	
 }

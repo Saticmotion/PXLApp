@@ -1,10 +1,15 @@
 package com.mobsoft.pxlapp;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Lesrooster 
 {
-	ArrayList<Les> lessen;
+	private ArrayList<Les> lessen;
+	private SimpleDateTime beginDag;
+	private SimpleDateTime eindDag;
+	private int week;
 	
 	/**
 	 * maak een lege lesrooster aan
@@ -53,5 +58,53 @@ public class Lesrooster
 	public void addLes(Les les)
 	{
 		lessen.add(les);
+	}
+
+	
+	/**
+	 * @return De eerste dag van de week
+	 */
+	public SimpleDateTime getBeginDag() {
+		return beginDag;
+	}
+
+	
+	/**
+	 * @param beginDag De eerste dag van de week
+	 */
+	public void setBeginDag(SimpleDateTime beginDag) {
+		this.beginDag = beginDag;
+	}
+
+	
+	/**
+	 * @return De laatste dag van de week
+	 */
+	public SimpleDateTime getEindDag() {
+		return eindDag;
+	}
+
+	
+	/**
+	 * @param eindDag De laatste dag van de week
+	 */
+	public void setEindDag(SimpleDateTime eindDag) {
+		this.eindDag = eindDag;
+	}
+
+	
+	/**
+	 * @return Het weeknummer
+	 */
+	public int getWeek() {
+		return week;
+	}
+
+	
+	/**
+	 * @param week Het weeknummer
+	 */
+	public void setWeek(int week) {
+		this.week = week;
 	}
 }
