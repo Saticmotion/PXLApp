@@ -20,8 +20,8 @@ public class Les
 	private String naam;
 	private String lokaal;
 	private String leerkracht;
-	private Date start;
-	private Date einde;
+	private SimpleDateTime start;
+	private SimpleDateTime einde;
 
 	/**
 	 * 
@@ -31,7 +31,7 @@ public class Les
 	 * @param start het beginuur van de les
 	 * @param einde het einduur van de les
 	 */
-	public Les(String naam, String lokaal, String leerkracht, Date start, Date einde) 
+	public Les(String naam, String lokaal, String leerkracht, SimpleDateTime start, SimpleDateTime einde) 
 	{
 		super();
 		this.naam = naam;
@@ -86,28 +86,28 @@ public class Les
 	/**
 	 * @return het startuur van de les
 	 */
-	public Date getStart() {
+	public SimpleDateTime getStart() {
 		return start;
 	}
 
 	/**
 	 * @param start het startuur van de les
 	 */
-	public void setStart(Date start) {
+	public void setStart(SimpleDateTime start) {
 		this.start = start;
 	}
 
 	/**
 	 * @return het einduur van de les
 	 */
-	public Date getEinde() {
+	public SimpleDateTime getEinde() {
 		return einde;
 	}
 
 	/**
 	 * @param einde het einduur van de les
 	 */
-	public void setEinde(Date einde) {
+	public void setEinde(SimpleDateTime einde) {
 		this.einde = einde;
 	}
 	
