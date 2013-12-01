@@ -68,7 +68,6 @@ public class LesroostersActivity extends Activity {
 	//			
 	//			Log.d("Pxl App", header.text());
 				
-				Elements content = document.select("table table a font");
 				Elements datums = document.select("table th span.hdr_date font");
 				
 	//			ArrayList<Calendar> datumsList = new ArrayList<Calendar>();
@@ -81,6 +80,31 @@ public class LesroostersActivity extends Activity {
 				Log.d("Pxl App", lesrooster.getBeginDag().toDateString());
 				Log.d("Pxl App", lesrooster.getEindDag().toDateString());
 				
+				
+				
+				Elements rows = document.select("table.asio_basic > tbody > tr");
+				Log.d("Pxl App", String.valueOf(rows.size()));
+				Elements dataCells = new Elements();
+				
+				for (int i = 0; i < rows.size(); i++)
+				{
+					Log.d("Pxl App", String.valueOf(rows.get(i).childNodeSize()));
+					
+					for (int j = 0; j < rows.get(i).children().size(); j++)
+					{
+						Element cell = rows.get(i).child(j);
+						
+						if (cell.hasAttr("rowspan"))
+						{
+							j += Integer.parseInt(cell.attr("rowspan"));
+							dataCells.add(cell);
+						}
+					}
+				}
+				
+				Log.d("Pxl App", dataCells.toString());
+				
+				Log.d("Pxl App", "Done");
 				
 	//			TextView lessen = new TextView(this);
 	//			lessen.setTextSize(12);
