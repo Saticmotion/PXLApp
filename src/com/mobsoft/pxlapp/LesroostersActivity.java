@@ -58,23 +58,23 @@ public class LesroostersActivity extends Activity {
 			{
 				document = downloadLesrooster.execute("https://kalender.phl.be/kalenterit2/index.php?kt=lk&yks=&cluokka=2TING&av=131118131124131124&guest=IT%2Fphl&lang=fla&print=arkipaivat").get();
 				
-				Element header = document.select("h1").first();
+				Element header = document.select("h1").first(); //Vraag de titel van het document op ("Klas {klas} / Week {weeknummer})
 				
-	//			TextView text = new TextView(this);
-	//			text.setTextSize(12);
-	//			text.setText(header.text());
-	//			
-	//			setContentView(text);
-	//			
-	//			Log.d("Pxl App", header.text());
+				TextView text = new TextView(this);
+				text.setTextSize(12);
+				text.setText(header.text());
 				
-				Elements datums = document.select("table th span.hdr_date font");
+				setContentView(text); // Voeg de titel toe aan het scherm
+				
+				Log.d("Pxl App", header.text());
+				
+				Elements datums = document.select("table th span.hdr_date font"); //Haal de datums op uit de tableheaders
 				
 	//			ArrayList<Calendar> datumsList = new ArrayList<Calendar>();
 				
-				SimpleDateTime beginDag = SimpleDateTime.parseDate(datums.first().text());
+				SimpleDateTime beginDag = SimpleDateTime.parseDate(datums.first().text()); //Steek de eerste dag van de week in een Datum-object
 				lesrooster.setBeginDag(beginDag);
-				SimpleDateTime eindDag = SimpleDateTime.parseDate(datums.last().text());
+				SimpleDateTime eindDag = SimpleDateTime.parseDate(datums.last().text()); //Steek de laatste dag van de week in een Datum object
 				lesrooster.setEindDag(eindDag);
 				
 				Log.d("Pxl App", lesrooster.getBeginDag().toDateString());
@@ -82,22 +82,22 @@ public class LesroostersActivity extends Activity {
 				
 				
 				
-				Elements rows = document.select("table.asio_basic > tbody > tr");
+				Elements rows = document.select("table.asio_basic > tbody > tr"); // Vraag alle tablerows op
 				Log.d("Pxl App", String.valueOf(rows.size()));
-				Elements dataCells = new Elements();
+				Elements dataCells = new Elements(); //Een object voor onze cellen met data in op te slaan
 				
-				for (int i = 0; i < rows.size(); i++)
+				for (int i = 0; i < rows.size(); i++) //Voor elke tablerow
 				{
 					Log.d("Pxl App", String.valueOf(rows.get(i).childNodeSize()));
 					
-					for (int j = 0; j < rows.get(i).children().size(); j++)
+					for (int j = 0; j < rows.get(i).children().size(); j++) //Voor elk child van een datarow
 					{
 						Element cell = rows.get(i).child(j);
 						
-						if (cell.hasAttr("rowspan"))
+						if (cell.hasAttr("rowspan")) //Als de cell een rowspan heeft
 						{
-							j += Integer.parseInt(cell.attr("rowspan"));
-							dataCells.add(cell);
+							j += Integer.parseInt(cell.attr("rowspan")); // Tel de rowspan op bij j, om correct door de rows te loopen
+							dataCells.add(cell); //Cell heeft een rowspan, en is dus een cel met data (TODO: betere manier zoeken? Zeer moeilijk want tabel slecht opgemaakt
 						}
 					}
 				}
@@ -116,12 +116,10 @@ public class LesroostersActivity extends Activity {
 			} 
 			catch (InterruptedException e) 
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 			catch (ExecutionException e) 
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

@@ -31,7 +31,6 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Document> {
 		} 
 		catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
