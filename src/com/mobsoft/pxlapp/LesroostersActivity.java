@@ -1,6 +1,5 @@
 package com.mobsoft.pxlapp;
 
-import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
 import org.jsoup.nodes.Document;
@@ -17,18 +16,18 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
-public class LesroostersActivity extends Activity {
-
-	
-	
+public class LesroostersActivity extends Activity 
+{	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lesroosters);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.lesroosters, menu);
 		return true;
@@ -52,11 +51,9 @@ public class LesroostersActivity extends Activity {
 			
 			DownloadLesroosterTask downloadLesrooster = new DownloadLesroosterTask();
 			
-			Document document;
-			
 			try 
 			{
-				document = downloadLesrooster.execute("https://kalender.phl.be/kalenterit2/index.php?kt=lk&yks=&cluokka=2TING&av=131118131124131124&guest=IT%2Fphl&lang=fla&print=arkipaivat").get();
+				Document document = downloadLesrooster.execute("https://kalender.phl.be/kalenterit2/index.php?kt=lk&yks=&cluokka=2TING&av=131118131124131124&guest=IT%2Fphl&lang=fla&print=arkipaivat").get();
 				
 				Element header = document.select("h1").first(); //Vraag de titel van het document op ("Klas {klas} / Week {weeknummer})
 				
@@ -70,8 +67,6 @@ public class LesroostersActivity extends Activity {
 				
 				Elements datums = document.select("table th span.hdr_date font"); //Haal de datums op uit de tableheaders
 				
-	//			ArrayList<Calendar> datumsList = new ArrayList<Calendar>();
-				
 				SimpleDateTime beginDag = SimpleDateTime.parseDate(datums.first().text()); //Steek de eerste dag van de week in een Datum-object
 				lesrooster.setBeginDag(beginDag);
 				SimpleDateTime eindDag = SimpleDateTime.parseDate(datums.last().text()); //Steek de laatste dag van de week in een Datum object
@@ -82,37 +77,36 @@ public class LesroostersActivity extends Activity {
 				
 				
 				
-				Elements rows = document.select("table.asio_basic > tbody > tr"); // Vraag alle tablerows op
-				Log.d("Pxl App", String.valueOf(rows.size()));
-				Elements dataCells = new Elements(); //Een object voor onze cellen met data in op te slaan
+				Elements rows = document.select("table.asio_basic > tbody > tr"); 		// Vraag alle tablerows op
+				Elements dataCells = new Elements();
+				int[] offsets = new int[rows.size()];
 				
-				for (int i = 0; i < rows.size(); i++) //Voor elke tablerow
+				for (int i = 0; i < rows.get(0).children().size(); i++) 				//Voor elke kolom
 				{
-					Log.d("Pxl App", String.valueOf(rows.get(i).childNodeSize()));
-					
-					for (int j = 0; j < rows.get(i).children().size(); j++) //Voor elk child van een datarow
+					for (int j = 0; j < rows.size(); j++) 								//Voor elke rij
 					{
-						Element cell = rows.get(i).child(j);
-						
-						if (cell.hasAttr("rowspan")) //Als de cell een rowspan heeft
+						if (i + offsets[j] < rows.get(j).children().size()) 			//Als de kolomindex niet groter is dan de lengte van de rij
 						{
-							j += Integer.parseInt(cell.attr("rowspan")); // Tel de rowspan op bij j, om correct door de rows te loopen
-							dataCells.add(cell); //Cell heeft een rowspan, en is dus een cel met data (TODO: betere manier zoeken? Zeer moeilijk want tabel slecht opgemaakt
+							Element cell = rows.get(j).child(i + offsets[j]); 			//Cel opvragen. Offsets om een 'kolom' naar links te schuiven 
+																			  			//wanneer er in de vorige kolom een rowspan was							
+							if (cell.hasAttr("rowspan")) 								//Als de cell een rowspan heeft
+							{
+								int rowspan = Integer.parseInt(cell.attr("rowspan")); 	// Tel de rowspan op bij j, om 'lege' cellen over te slaan.
+								
+								for (int k = 1; k < rowspan; k++)
+								{
+									offsets[j + k]--;
+								}
+								
+								j += rowspan - 1;
+								
+								dataCells.add(cell); 									//Cell heeft een rowspan, en is dus een cel met data
+							}
 						}
 					}
 				}
 				
-				Log.d("Pxl App", dataCells.toString());
-				
 				Log.d("Pxl App", "Done");
-				
-	//			TextView lessen = new TextView(this);
-	//			lessen.setTextSize(12);
-	//			lessen.setText(content.text());
-	//			
-	//			setContentView(lessen);
-	//			
-	//			Log.d("Pxl App", content.html());
 			} 
 			catch (InterruptedException e) 
 			{
