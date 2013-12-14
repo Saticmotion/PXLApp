@@ -2,6 +2,8 @@ package com.mobsoft.pxlapp;
 
 import java.util.Date;
 
+import com.mobsoft.pxlapp.util.SimpleDateTime;
+
 /**
  * Stelt een les voor. <br>
  * Bevat volgende velden:
