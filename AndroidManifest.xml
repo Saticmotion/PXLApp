@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -25,14 +26,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mobsoft.pxlapp.MenuActivity"
-            android:label="@string/title_activity_menu"
-            android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mobsoft.pxlapp.MainActivity" />
-        </activity>
-        <activity
             android:name="com.mobsoft.pxlapp.Lesroosters"
             android:label="@string/title_activity_lesroosters" >
         </activity>
@@ -43,6 +36,14 @@
         <activity
             android:name="com.mobsoft.pxlapp.InfoActivity"
             android:label="@string/title_activity_info" >
+        </activity>
+        <activity
+            android:name="com.mobsoft.pxlapp.WeekmenuActivity"
+            android:label="@string/title_activity_weekmenu"
+            android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobsoft.pxlapp.MainActivity" />
         </activity>
     </application>
 
