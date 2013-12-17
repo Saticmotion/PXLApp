@@ -35,8 +35,7 @@ public final class R {
         public static final int activity_info=0x7f030000;
         public static final int activity_lesroosters=0x7f030001;
         public static final int activity_main=0x7f030002;
-        public static final int activity_menu=0x7f030003;
-        public static final int activity_weekmenu=0x7f030004;
+        public static final int activity_weekmenu=0x7f030003;
     }
     public static final class menu {
         public static final int display_message=0x7f070000;

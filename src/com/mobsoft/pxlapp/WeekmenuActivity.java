@@ -1,19 +1,25 @@
 package com.mobsoft.pxlapp;
 
-import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.os.Build;
+import android.widget.TextView;
 
 public class WeekmenuActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_weekmenu);
+		
+		
+		TextView text = new TextView(this);
+		text.setText("test");
+		setContentView(text);
+		
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
