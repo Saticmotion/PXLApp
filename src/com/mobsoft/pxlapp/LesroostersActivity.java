@@ -7,6 +7,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.mobsoft.pxlapp.util.SimpleDateTime;
+
 import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;

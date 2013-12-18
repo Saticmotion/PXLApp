@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class WeekmenuActivity extends Activity {
@@ -14,11 +16,7 @@ public class WeekmenuActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		
-		TextView text = new TextView(this);
-		text.setText("test");
-		setContentView(text);
+		setContentView(R.layout.activity_weekmenu);
 		
 		// Show the Up button in the action bar.
 		setupActionBar();
@@ -56,6 +54,10 @@ public class WeekmenuActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void geefMenu(View view){
+		findViewById(R.id.button_menuElfde).setVisibility(View.GONE);
 	}
 
 }

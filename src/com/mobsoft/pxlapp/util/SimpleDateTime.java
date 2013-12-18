@@ -1,4 +1,4 @@
-package com.mobsoft.pxlapp;
+package com.mobsoft.pxlapp.util;
 
 /**
  * A simple class for storing dates and times.

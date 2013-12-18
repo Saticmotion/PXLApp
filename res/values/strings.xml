@@ -13,5 +13,6 @@
     <string name="geef_klas_message">Geef klas</string>
     <string name="title_activity_weekmenu">PXL Weekmenu</string>
     <string name="button_weekmenu">Weekmenu</string>
+    <string name="button_menuElfde">Campus Elfde Linie</string>
 
 </resources>
