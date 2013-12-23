@@ -40,7 +40,7 @@ public class Lesrooster
 	}
 
 	/**
-	 * @return the lessen
+	 * @return de lessen
 	 */
 	public ArrayList<Les> getLessen() {
 		return lessen;

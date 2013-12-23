@@ -3,9 +3,13 @@ package com.mobsoft.pxlapp;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import com.mobsoft.pxlapp.util.SimpleDateTime;
+
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -16,8 +20,9 @@ import android.widget.TextView;
 
 public class LesroostersActivity extends Activity 
 {	
-	DownloadLesroosterTask downloadLesrooster = new DownloadLesroosterTask(this);
-	ProgressDialog progress;
+	private DownloadLesroosterTask downloadLesrooster = new DownloadLesroosterTask(this);
+	private ProgressDialog progress;
+	private AlertDialog error;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -36,6 +41,11 @@ public class LesroostersActivity extends Activity
 
 	public void displayLesrooster(View view)
 	{
+		SimpleDateTime test = new SimpleDateTime();
+		Log.d("Pxl App", " " + test.getJaar());
+		
+		
+		
 		findViewById(R.id.gekozen_klas_string).setVisibility(View.GONE);
 		findViewById(R.id.lesrooster_weergeven_button).setVisibility(View.GONE);
 		
@@ -95,5 +105,19 @@ public class LesroostersActivity extends Activity
 	        return true;
 	    }
 	    return false;
+	}
+
+	public void showError(String title, String message)
+	{
+		error = new AlertDialog.Builder(this)
+				.setTitle(title)
+				.setMessage(message)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				}).show();		
 	}
 }

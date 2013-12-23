@@ -1,12 +1,11 @@
 package com.mobsoft.pxlapp.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 /**
- * A simple class for storing dates and times.
- * There is no support for time zones, leap years, etc.
- * So only use then when you're certain the dates and times you're storing are generated with special cases in mind.
+ * A wrapper class for a Calendar object.
  * @author Simon
  *
  */
@@ -17,12 +16,106 @@ public class SimpleDateTime
 	public SimpleDateTime()
 	{
 		datum = Calendar.getInstance();
+		datum.setLenient(true);
 	}
 	
+	public SimpleDateTime(int minuut, int uur, int dag, int maand, int jaar)
+	{
+		this();
+		setDag(dag);
+		setMaand(maand);
+		setJaar(jaar);
+		setUur(uur);
+		setMinuut(minuut);
+	}
+	
+	public SimpleDateTime(int dag, int maand, int jaar)
+	{
+		this();
+		setDag(dag);
+		setMaand(maand);
+		setJaar(jaar);
+	}
+	
+	public SimpleDateTime(int minuut, int uur)
+	{
+		this();
+		setUur(uur);
+		setMinuut(minuut);
+	}
+	
+	
+	public SimpleDateTime(SimpleDateTime dateTime) 
+	{
+		this();
+		this.datum = dateTime.datum;
+	}
+
 	public int getJaar()
 	{
-		return datum.get(0);
+		return datum.get(Calendar.YEAR);
 	}
+	
+	public void setJaar(int jaar)
+	{
+		datum.set(Calendar.YEAR, jaar);
+	}
+	
+	
+	public int getMaand()
+	{
+		return datum.get(Calendar.MONTH);
+	}
+	
+	public void setMaand(int maand)
+	{
+		datum.set(Calendar.MONTH, maand);
+	}
+	
+	
+	public int getDag()
+	{
+		return datum.get(Calendar.DAY_OF_MONTH);
+	}
+	
+	public void setDag(int dag)
+	{
+		datum.set(Calendar.DAY_OF_MONTH, dag);
+	}
+	
+	
+	public int getDagVanWeek()
+	{
+		return datum.get(Calendar.DAY_OF_WEEK);
+	}
+	
+	public void setDagVanWeek(int dag)
+	{
+		datum.set(Calendar.DAY_OF_WEEK, dag);
+	}
+	
+	
+	public int getUur()
+	{
+		return datum.get(Calendar.HOUR_OF_DAY);
+	}
+	
+	public void setUur(int uur)
+	{
+		datum.set(Calendar.HOUR_OF_DAY, uur);
+	}
+	
+	
+	public int getMinuut()
+	{
+		return datum.get(Calendar.MINUTE);
+	}
+	
+	public void setMinuut(int minuut)
+	{
+		datum.set(Calendar.MINUTE, minuut);
+	}
+		
 	
 	/**
 	 * Parses a date from a string to a {@link SimpleDateTime} object.
@@ -46,13 +139,12 @@ public class SimpleDateTime
 	public static SimpleDateTime parseDate(String date)
 	{
 		String[] dateParts = date.split("[-\\.:]");
-		int day = Integer.parseInt(dateParts[0]);
-		int month = Integer.parseInt(dateParts[1]);
-		int year = Integer.parseInt(dateParts[2]);
+		int dag = Integer.parseInt(dateParts[0]);
+		int maand = Integer.parseInt(dateParts[1]);
+		int jaar = Integer.parseInt(dateParts[2]);
 		
-		return null;//new SimpleDateTime(year, month, day);
+		return new SimpleDateTime(dag, maand, jaar);
 	}
-
 	
 	/**
 	 * Parses a time from a string to a {@link SimpleDateTime} object.
@@ -68,9 +160,15 @@ public class SimpleDateTime
 	public static SimpleDateTime parseTime(String time)
 	{
 		String[] timeParts = time.split("[-\\.:]");
-		int hours = Integer.parseInt(timeParts[0]);
-		int minutes = Integer.parseInt(timeParts[1]);
+		int uur = Integer.parseInt(timeParts[0]);
+		int minuut = Integer.parseInt(timeParts[1]);
 		
-		return null; //new SimpleDateTime(hours, minutes);
+		return new SimpleDateTime(minuut, uur);
+	}
+
+	public String toString(String patroon)
+	{
+		String output = new SimpleDateFormat(patroon).format(datum.getTime());
+		return output;
 	}
 }
