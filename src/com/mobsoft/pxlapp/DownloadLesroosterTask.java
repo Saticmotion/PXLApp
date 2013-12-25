@@ -91,7 +91,16 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 					einde.setDag(lesrooster.getBeginDag().getDag() + e.getDag());
 					String naam = parts[1]; //lesnaam selecteren
 					
-					Log.d(debugTag, "dag: " + e.getDag() + " begin: " + begin.toString("dd-MM-yyyy HH:mm") + " einde: " + einde.toString("dd-MM-yyyy HH:mm") + " naam: " + naam);
+					String lokaalHMTL = e.getElement().select("font").html();
+					String lokaalParts[] = lokaalHMTL.split("<br />");
+					String lokaal = "";
+					
+					if (lokaalParts.length >= 3) //Het is mogelijk dat er geen lokaal is opgegeven. In dat geval blijft lokaal een lege string
+					{
+						  lokaal = lokaalParts[2];
+					}
+					
+					Log.d(debugTag, "dag: " + e.getDag() + " begin: " + begin.toString("dd-MM-yyyy HH:mm") + " einde: " + einde.toString("dd-MM-yyyy HH:mm") + " naam: " + naam + " lokaal: " + lokaal);
 					//lesrooster.addLes(new Les(naam, lokaal, leerkracht, start, einde))
 				}
 			} 
