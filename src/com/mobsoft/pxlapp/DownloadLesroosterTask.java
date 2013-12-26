@@ -92,7 +92,7 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 					String naam = parts[1]; //lesnaam selecteren
 					
 					String lokaalHMTL = e.getElement().select("font").html();
-					String lokaalParts[] = lokaalHMTL.split("<br />");
+					String[] lokaalParts = lokaalHMTL.split("<br />");
 					String lokaal = "";
 					
 					if (lokaalParts.length >= 3) //Het is mogelijk dat er geen lokaal is opgegeven. In dat geval blijft lokaal een lege string
@@ -100,8 +100,13 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 						  lokaal = lokaalParts[2];
 					}
 					
-					Log.d(debugTag, "dag: " + e.getDag() + " begin: " + begin.toString("dd-MM-yyyy HH:mm") + " einde: " + einde.toString("dd-MM-yyyy HH:mm") + " naam: " + naam + " lokaal: " + lokaal);
-					//lesrooster.addLes(new Les(naam, lokaal, leerkracht, start, einde))
+					String leerkrachtHTML = e.getElement().select("td").html();
+					String[] leerkrachtParts = leerkrachtHTML.split("</div>");
+					String leerkracht = leerkrachtParts[leerkrachtParts.length - 1];
+					
+					
+					Log.d(debugTag, "dag: " + e.getDag() + " begin: " + begin.toString("dd-MM-yyyy HH:mm") + " einde: " + einde.toString("dd-MM-yyyy HH:mm") + " naam: " + naam + " lokaal: " + lokaal + " leerkracht: " + leerkracht);
+					lesrooster.addLes(new Les(naam, lokaal, leerkracht, begin, einde));
 				}
 			} 
 			
