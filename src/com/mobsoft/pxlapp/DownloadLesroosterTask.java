@@ -8,15 +8,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.mobsoft.pxlapp.util.MathUtil;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
 
 /**
  * @author Simon
@@ -43,72 +38,12 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 			Document document = Jsoup.connect(URL).get();
 			lesrooster = new Lesrooster();
 			
-			Elements datums = document.select("table th span.hdr_date font"); //Haal de datums op uit de tableheaders
-			
-			SimpleDateTime beginDag = SimpleDateTime.parseDate(datums.first().text()); //Steek de eerste dag van de week in een Datum-object
+			SimpleDateTime beginDag = SimpleDateTime.parseDate(document.select("table th span.hdr_date font").first().text()); //Haal de datums op uit de tableheaders
 			lesrooster.setBeginDag(beginDag);
-			SimpleDateTime eindDag = SimpleDateTime.parseDate(datums.last().text()); //Steek de laatste dag van de week in een Datum object
-			lesrooster.setEindDag(eindDag);
 			
-			Elements rows = document.select("table.asio_basic > tbody > tr"); // Vraag alle tablerows op
-			int[] offsets = new int[rows.size()];
-			ArrayList<IndexedElement> elements = new ArrayList<IndexedElement>();
-			
-			for (int i = 0; i < rows.get(0).children().size(); i++) //Voor elke kolom (1 kolom = 1 dag)
-			{
-				int lesIndex = 0;
-				
-				for (int j = 0; j < rows.size(); j++) 				//Voor elke rij (1 rij = 30 min)
-				{
-					Element cell = rows.get(j).child(i + offsets[j]); //Cel opvragen. Offsets om een 'kolom' naar links te schuiven 
-																	  //wanneer er in de vorige kolom een rowspan was							
-					if (cell.hasAttr("rowspan")) 					//Als de cell een rowspan heeft
-					{
-						int rowspan = Integer.parseInt(cell.attr("rowspan")); // Tel de rowspan op bij j, om 'lege' cellen over te slaan.
-						
-						for (int k = 1; k < rowspan; k++)
-						{
-							offsets[j + k]--;
-						}
-						
-						j += rowspan - 1;
-						
-						elements.add(new IndexedElement(cell, i - 1, lesIndex++));				//Cell heeft een rowspan, en is dus een cel met data. i - 1 als correctie voor kolom met uren.
-					}
-				}
-			}
-			
-			for (IndexedElement e : elements) 
-			{
-				String tijdEnNaam = e.getElement().select("b").html(); //selecteert "[beginuur] - [einduur]<br/>[lesnaam]"
-				if (!tijdEnNaam.equals(""))
-				{
-					String[] parts = tijdEnNaam.split("<br />"); // selecteert "[beginuur] - [einduur]" en "[lesnaam]"
-					String[] tijden = parts[0].split(" - "); //selecteert "[beginuur]" en "[einduur]"
-					SimpleDateTime begin = new SimpleDateTime(SimpleDateTime.parseTime(tijden[0])); //beginuur parsen
-					begin.setDag(lesrooster.getBeginDag().getDag() + e.getDag());
-					SimpleDateTime einde = new SimpleDateTime(SimpleDateTime.parseTime(tijden[1])); //einduur parsen
-					einde.setDag(lesrooster.getBeginDag().getDag() + e.getDag());
-					String naam = parts[1]; //lesnaam selecteren
-					
-					String lokaalHMTL = e.getElement().select("font").html();
-					String[] lokaalParts = lokaalHMTL.split("<br />");
-					String lokaal = "";
-					
-					if (lokaalParts.length >= 3) //Het is mogelijk dat er geen lokaal is opgegeven. In dat geval blijft lokaal een lege string
-					{
-						  lokaal = lokaalParts[2];
-					}
-					
-					String leerkrachtHTML = e.getElement().select("td").html();
-					String[] leerkrachtParts = leerkrachtHTML.split("</div>");
-					String leerkracht = leerkrachtParts[leerkrachtParts.length - 1];
-					
-					
-					Log.d(debugTag, "dag: " + e.getDag() + " begin: " + begin.toString("dd-MM-yyyy HH:mm") + " einde: " + einde.toString("dd-MM-yyyy HH:mm") + " naam: " + naam + " lokaal: " + lokaal + " leerkracht: " + leerkracht);
-					lesrooster.addLes(new Les(naam, lokaal, leerkracht, begin, einde));
-				}
-			} 
+			Elements rows = document.select("table.asio_basic > tbody > tr"); // Vraag alle tablerows op			
+			ArrayList<IndexedElement> elements = parseRows(rows);			
+			parseElements(elements);
 			
 			Log.d(debugTag, "Done");
 		} 
@@ -124,6 +59,70 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 	protected void onPostExecute(Void result)
 	{
 		activity.ontvangLesrooster(lesrooster);
+	}
+	
+	private ArrayList<IndexedElement> parseRows(Elements rows)
+	{
+		int[] offsets = new int[rows.size()];
+		ArrayList<IndexedElement> elements = new ArrayList<IndexedElement>();
+		
+		for (int i = 0; i < rows.get(0).children().size(); i++) //Voor elke kolom (1 kolom = 1 dag)
+		{
+			int lesIndex = 0;
+			
+			for (int j = 0; j < rows.size(); j++) 				//Voor elke rij (1 rij = 30 min)
+			{
+				Element cell = rows.get(j).child(i + offsets[j]); //Cel opvragen. Offsets om een 'kolom' naar links te schuiven 
+																  //wanneer er in de vorige kolom een rowspan was.
+				if (cell.hasAttr("rowspan")) 					//Als de cell een rowspan heeft
+				{
+					int rowspan = Integer.parseInt(cell.attr("rowspan")); // Tel de rowspan op bij j, om 'lege' cellen over te slaan.
+					
+					for (int k = 1; k < rowspan; k++)
+					{
+						offsets[j + k]--;
+					}
+					
+					j += rowspan - 1;
+					
+					elements.add(new IndexedElement(cell, i - 1, lesIndex++));				//Cell heeft een rowspan, en is dus een cel met data. i - 1 als correctie voor kolom met uren.
+				}
+			}
+		}
+		
+		return elements;
+	}
+	
+	private void parseElements(ArrayList<IndexedElement> elements)
+	{
+		for (IndexedElement e : elements) 
+		{
+			String tijdEnNaam = e.getElement().select("b").html(); //selecteert "[beginuur] - [einduur]<br/>[lesnaam]"
+			if (!tijdEnNaam.equals(""))
+			{
+				String[] parts = tijdEnNaam.split("<br />"); // selecteert "[beginuur] - [einduur]" en "[lesnaam]"
+				String[] tijden = parts[0].split(" - "); //selecteert "[beginuur]" en "[einduur]"
+				SimpleDateTime begin = new SimpleDateTime(SimpleDateTime.parseTime(tijden[0])); //beginuur parsen
+				begin.setDag(lesrooster.getBeginDag().getDag() + e.getDag());
+				SimpleDateTime einde = new SimpleDateTime(SimpleDateTime.parseTime(tijden[1])); //einduur parsen
+				einde.setDag(lesrooster.getBeginDag().getDag() + e.getDag());
+				String naam = parts[1]; //lesnaam selecteren
+				
+				String lokaalHMTL = e.getElement().select("font").html();
+				String[] lokaalParts = lokaalHMTL.split("<br />");
+				String lokaal = "";
+				
+				if (lokaalParts.length > 2) //Het is mogelijk dat er geen lokaal is opgegeven. In dat geval blijft lokaal een lege string
+				{
+					  lokaal = lokaalParts[2];
+				}
+				
+				String leerkrachtHTML = e.getElement().select("tr > td").first().ownText();
+				
+				Log.d(debugTag, "dag: " + e.getDag() + " begin: " + begin.toString("dd-MM-yyyy HH:mm") + " einde: " + einde.toString("dd-MM-yyyy HH:mm") + " naam: " + naam + " lokaal: " + lokaal + " leerkracht: " + leerkrachtHTML);
+				lesrooster.addLes(new Les(naam, lokaal, leerkrachtHTML, begin, einde));
+			}
+		} 
 	}
 	
 	private class IndexedElement

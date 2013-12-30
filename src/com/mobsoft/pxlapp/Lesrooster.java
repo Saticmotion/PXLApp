@@ -1,17 +1,17 @@
 package com.mobsoft.pxlapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
-public class Lesrooster 
+public class Lesrooster implements Serializable
 {
+	/**
+	 * Random ID voor serialising van deze klasse.
+	 */
+	private static final long serialVersionUID = -7400401550283180060L;
 	private ArrayList<Les> lessen;
 	private SimpleDateTime beginDag;
-	private SimpleDateTime eindDag;
-	private int week;
 	
 	/**
 	 * maak een lege lesrooster aan
@@ -62,7 +62,6 @@ public class Lesrooster
 		lessen.add(les);
 	}
 
-	
 	/**
 	 * @return De eerste dag van de week
 	 */
@@ -70,43 +69,25 @@ public class Lesrooster
 		return beginDag;
 	}
 
-	
 	/**
 	 * @param beginDag De eerste dag van de week
 	 */
 	public void setBeginDag(SimpleDateTime beginDag) {
 		this.beginDag = beginDag;
 	}
-
-	
-	/**
-	 * @return De laatste dag van de week
-	 */
-	public SimpleDateTime getEindDag() {
-		return eindDag;
-	}
-
-	
-	/**
-	 * @param eindDag De laatste dag van de week
-	 */
-	public void setEindDag(SimpleDateTime eindDag) {
-		this.eindDag = eindDag;
-	}
-
 	
 	/**
 	 * @return Het weeknummer
 	 */
-	public int getWeek() {
-		return week;
+	public int getWeek() 
+	{
+		return beginDag.getWeek();
 	}
-
 	
 	/**
 	 * @param week Het weeknummer
 	 */
 	public void setWeek(int week) {
-		this.week = week;
+		this.beginDag.setWeek(week);
 	}
 }

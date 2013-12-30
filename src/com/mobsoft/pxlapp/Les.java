@@ -1,5 +1,7 @@
 package com.mobsoft.pxlapp;
 
+import java.io.Serializable;
+
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 /**
@@ -15,8 +17,9 @@ import com.mobsoft.pxlapp.util.SimpleDateTime;
  * @author Simon
  *
  */
-public class Les 
+public class Les implements Serializable
 {
+	
 	private String naam;
 	private String lokaal;
 	private String leerkracht;

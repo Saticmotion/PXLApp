@@ -44,13 +44,18 @@ public class SimpleDateTime
 		setMinuut(minuut);
 	}
 	
-	
 	public SimpleDateTime(SimpleDateTime dateTime) 
 	{
 		this();
 		this.datum = dateTime.datum;
 	}
 
+	public SimpleDateTime(Long milliseconden)
+	{
+		this();
+		datum.setTimeInMillis(milliseconden);
+	}
+	
 	public int getJaar()
 	{
 		return datum.get(Calendar.YEAR);
@@ -70,6 +75,17 @@ public class SimpleDateTime
 	public void setMaand(int maand)
 	{
 		datum.set(Calendar.MONTH, maand);
+	}
+	
+	
+	public int getWeek()
+	{
+		return datum.get(Calendar.WEEK_OF_YEAR);
+	}
+	
+	public void setWeek(int week)
+	{
+		datum.set(Calendar.WEEK_OF_YEAR, week);
 	}
 	
 	
@@ -166,6 +182,15 @@ public class SimpleDateTime
 		return new SimpleDateTime(minuut, uur);
 	}
 
+	/**
+	 * Geeft de tijd sinds Epoch (1 januari 1970 00:00:00.000 GMT) in milliseconden
+	 * @return tijd in milliseconden
+	 */
+	public Long getMilliseconden()
+	{
+		return datum.getTimeInMillis();
+	}
+	
 	public String toString(String patroon)
 	{
 		String output = new SimpleDateFormat(patroon).format(datum.getTime());

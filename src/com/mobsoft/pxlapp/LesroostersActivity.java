@@ -1,7 +1,12 @@
 package com.mobsoft.pxlapp;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
+
+import org.apache.http.message.BufferedHeader;
 
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
@@ -50,7 +55,7 @@ public class LesroostersActivity extends Activity
 		findViewById(R.id.lesrooster_weergeven_button).setVisibility(View.GONE);
 		
 		TextView klasText = (TextView) findViewById(R.id.gekozen_klas_string);
-		String klas = klasText.getText().toString().toUpperCase().replace(" ", ""); //formatteer klas volgens voorbeeld: 2TING.
+		String klas = klasText.getText().toString().toUpperCase().replace("\n ", ""); //formatteer klas volgens voorbeeld: 2TING.
 		Log.d("Pxl App", klas);
 		
 		try 
@@ -95,7 +100,12 @@ public class LesroostersActivity extends Activity
 		
 		setContentView(titel);
 	}
-
+	
+	private void cacheLesrooster(Lesrooster lesrooster)
+	{
+		
+	}
+	
 	public boolean isOnline() 
 	{
 	    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -112,10 +122,11 @@ public class LesroostersActivity extends Activity
 		error = new AlertDialog.Builder(this)
 				.setTitle(title)
 				.setMessage(message)
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() 
+				{					
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
+					public void onClick(DialogInterface dialog, int which) 
+					{
 						dialog.cancel();
 					}
 				}).show();		
