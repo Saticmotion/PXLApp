@@ -12,5 +12,6 @@
     <string name="title_activity_lesroosters">Lesroosters</string>
     <string name="title_activity_info">Info</string>
     <string name="geef_klas_message">Geef klas</string>
+    <string name="info_message">Info</string>
 
 </resources>
