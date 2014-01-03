@@ -1,12 +1,7 @@
 package com.mobsoft.pxlapp;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
-
-import org.apache.http.message.BufferedHeader;
 
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
@@ -94,16 +89,21 @@ public class LesroostersActivity extends Activity
 	
 	public void ontvangLesrooster(Lesrooster lesrooster)
 	{
+		try
+		{
+			Log.d("Pxl App", lesrooster.toCacheString());
+			CacheManager.cacheData(this, lesrooster.toCacheString().getBytes(), "lesrooster");
+			Lesrooster lesrooster2 = new Lesrooster();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		progress.dismiss();
 		TextView titel = new TextView(this);
 		titel.setText("Done");
 		
 		setContentView(titel);
-	}
-	
-	private void cacheLesrooster(Lesrooster lesrooster)
-	{
-		
 	}
 	
 	public boolean isOnline() 

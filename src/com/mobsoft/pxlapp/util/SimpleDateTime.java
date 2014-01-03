@@ -2,7 +2,6 @@ package com.mobsoft.pxlapp.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * A wrapper class for a Calendar object.

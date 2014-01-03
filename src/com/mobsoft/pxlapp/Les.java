@@ -44,6 +44,17 @@ public class Les implements Serializable
 		this.einde = einde;
 	}
 	
+	public Les(String cacheString)
+	{
+		String[] waardes = cacheString.split(",");
+		
+		naam = waardes[0];
+		lokaal = waardes[1];
+		leerkracht = waardes[2];
+		start = new SimpleDateTime(Long.valueOf(waardes[3]));
+		einde = new SimpleDateTime(Long.valueOf(waardes[4]));
+	}
+
 	/**
 	 * @return de naam van de les
 	 */
@@ -114,4 +125,15 @@ public class Les implements Serializable
 		this.einde = einde;
 	}
 	
+	public String toCacheString()
+	{
+		String cacheString;
+		
+		Long beginUur = start.getMilliseconden();
+		Long eindUur = einde.getMilliseconden();
+		
+		cacheString = "\nles=" + naam + "," + lokaal + "," + leerkracht + "," + beginUur + "," + eindUur;
+		
+		return cacheString;
+	}
 }
