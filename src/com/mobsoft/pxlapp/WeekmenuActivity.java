@@ -1,12 +1,11 @@
 package com.mobsoft.pxlapp;
 
 import java.io.IOException;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
@@ -64,6 +63,7 @@ public class WeekmenuActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	@SuppressLint("NewApi")
 	public void geefMenu(View view){
 		findViewById(R.id.button_menuElfde).setVisibility(View.GONE);
 		String gedrukt = ((Button)view).getText().toString();
@@ -74,9 +74,15 @@ public class WeekmenuActivity extends Activity {
 			setContentView(waarde);
 			try {
 				Document weekmenu = Jsoup.connect("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html").get();
-				Elements dagen = weekmenu.select("h2.date");
+				Elements dagen = weekmenu.select("div[class=catering catering1]");
 				for (Element dag: dagen){
-					waarde.append("\n"+dag.text());
+					Element datum = dag.select("h2.date").first();
+					Elements menus = dag.select("div.wysiwyg p:matches(^(?!\\s*$).+)");
+					waarde.append("\n"+datum.text());
+					for(Element menu: menus){
+							waarde.append("\n"+menu.text());
+					}
+					waarde.append("\n");
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
