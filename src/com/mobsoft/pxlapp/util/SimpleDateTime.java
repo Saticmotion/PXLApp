@@ -173,7 +173,7 @@ public class SimpleDateTime
 	 */
 	public static SimpleDateTime parseDate(String date)
 	{
-		String[] dateParts = date.split("[-\\.:]");
+		String[] dateParts = date.split("[-\\.:/]");
 		int day = Integer.parseInt(dateParts[0]);
 		int month = Integer.parseInt(dateParts[1]);
 		int year = Integer.parseInt(dateParts[2]);

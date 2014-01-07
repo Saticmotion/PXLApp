@@ -14,5 +14,7 @@
     <string name="title_activity_weekmenu">PXL Weekmenu</string>
     <string name="button_weekmenu">Weekmenu</string>
     <string name="button_menuElfde">Campus Elfde Linie</string>
+    <string name="button_menuDiep">Campus Diepenbeek</string>
+    <string name="button_menuVild">Campus Vildersstraat</string>
 
 </resources>

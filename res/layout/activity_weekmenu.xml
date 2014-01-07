@@ -14,5 +14,22 @@
     android:layout_height="wrap_content"
     android:text="@string/button_menuElfde"  
     android:onClick="geefMenu" />
+    
+    
+   <Button
+    android:id="@+id/button_menuDiep"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/button_menuDiep"  
+    android:layout_below="@+id/button_menuElfde"
+    android:onClick="geefMenu" />
+    
+    <Button
+    android:id="@+id/button_menuVild"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/button_menuVild" 
+    android:layout_below="@+id/button_menuDiep" 
+    android:onClick="geefMenu" />
 
 </RelativeLayout>
