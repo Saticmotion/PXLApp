@@ -67,23 +67,29 @@ public class WeekmenuActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	/**
+	 * methode voor het ophalen van de gegevens voor de weekmenu
+	 * @param url url van de pagina waar de gegevens zich bevinden
+	 * @param waarde textview waaraan de opgehaalde gegevens worden toegevoegd(voorlopig)
+	 */
 	public void zoekMenu(String url, TextView waarde){
 		
+		//ophalen html pagina
 		try {
 			Document weekmenudoc = Jsoup.connect(url).get();
-			Elements dagen = weekmenudoc.select("div[class=catering catering1]");
+			Elements dagen = weekmenudoc.select("div[class=catering catering1]"); //selecteren van alle dagen met hun info
 			Weekmenu weekmenu = new Weekmenu();
 			Dagmenu dagmenu;
-			for (Element dag: dagen){
+			for (Element dag: dagen){ //per dag de naam van de dag eruithalen en deze opslaan in de klasse Dagmenu
 				Element datum = dag.select("h2.date").first();
 				dagmenu = new Dagmenu(datum.text());
 				
-				if(dag==dagen.first()){
+				if(dag==dagen.first()){ //datum van de eerste dag opslaan als de begindatum voor het weekmenu (voor caching later)
 					String begindatumstring = datum.text().substring(datum.text().indexOf('(')+1,datum.text().indexOf(')'));
 					weekmenu.setBegindatum(SimpleDateTime.parseDate(begindatumstring));
 				}
 				
-				Elements menus = dag.select("div.wysiwyg p:matches(^(?!\\s*$).+)");
+				Elements menus = dag.select("div.wysiwyg p:matches(^(?!\\s*$).+)"); //ophalen van de gerechten op de huidige dag en lege <p> tags eruit filteren
 				waarde.append("\n"+dagmenu.getDag());
 				for(Element menu: menus){
 					dagmenu.AddGerecht(menu.text());
@@ -105,6 +111,7 @@ public class WeekmenuActivity extends Activity {
 	@SuppressLint("NewApi")
 	public void geefMenu(View view){
 		String gedrukt = ((Button)view).getText().toString();
+		//nieuwe scrollview maken waaraan later een textview met info wordt toegevoegd
 		ScrollView scroll = new ScrollView(this);
 		TextView waarde = new TextView(this);
 		waarde.setText(gedrukt);
