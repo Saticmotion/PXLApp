@@ -26,14 +26,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mobsoft.pxlapp.MenuActivity"
-            android:label="@string/title_activity_menu"
-            android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.mobsoft.pxlapp.MainActivity" />
-        </activity>
-        <activity
             android:name="com.mobsoft.pxlapp.Lesroosters"
             android:label="@string/title_activity_lesroosters" >
         </activity>
@@ -46,11 +38,22 @@
             android:label="@string/title_activity_info" >
         </activity>
         <activity
+<<<<<<< HEAD
             android:name="com.mobsoft.pxlapp.ExtraInfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_extra_info"
             android:theme="@style/FullscreenTheme" >
         </activity>
+=======
+            android:name="com.mobsoft.pxlapp.WeekmenuActivity"
+            android:label="@string/title_activity_weekmenu"
+            android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobsoft.pxlapp.MainActivity" />
+        </activity>
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+>>>>>>> origin/Carl
     </application>
 
 </manifest>

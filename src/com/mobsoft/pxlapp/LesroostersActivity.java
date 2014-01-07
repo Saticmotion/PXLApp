@@ -7,6 +7,8 @@ import java.util.concurrent.ExecutionException;
 import com.mobsoft.pxlapp.util.LogUtil;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
+import com.mobsoft.pxlapp.util.SimpleDateTime;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

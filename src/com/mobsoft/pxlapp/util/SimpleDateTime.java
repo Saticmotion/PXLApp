@@ -1,137 +1,157 @@
 package com.mobsoft.pxlapp.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 /**
- * A wrapper class for a Calendar object.
+ * A simple class for storing dates and times.
+ * There is no support for time zones, leap years, etc.
+ * So only use then when you're certain the dates and times you're storing are generated with special cases in mind.
  * @author Simon
  *
  */
 public class SimpleDateTime 
 {
-	private Calendar datum;
+	int year;
+	int month;
+	int day;
+	int hour;
+	int minute;	
 	
-	public SimpleDateTime()
-	{
-		datum = Calendar.getInstance();
-		datum.setLenient(true);
+	
+	/**
+	 * Construct a simple date and time object
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @param hour
+	 * @param minute
+	 */
+	public SimpleDateTime(int year, int month, int day, int hour, int minute) {
+		super();
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.hour = hour;
+		this.minute = minute;
 	}
 	
-	public SimpleDateTime(int minuut, int uur, int dag, int maand, int jaar)
-	{
-		this();
-		setDag(dag);
-		setMaand(maand);
-		setJaar(jaar);
-		setUur(uur);
-		setMinuut(minuut);
+	/**
+	 * Construct a simple date object, with time component initialised to 0
+	 * @param year
+	 * @param month
+	 * @param day
+	 */
+	public SimpleDateTime(int year, int month, int day) {
+		super();
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.hour = 0;
+		this.minute = 0;
 	}
 	
-	public SimpleDateTime(int dag, int maand, int jaar)
+	/**
+	 * Construct a simple time object, with date component initialised to 0
+	 * @param hour
+	 * @param minute
+	 */
+	public SimpleDateTime(int hour, int minute)
 	{
-		this();
-		setDag(dag);
-		setMaand(maand);
-		setJaar(jaar);
+		super();
+		this.year = 0;
+		this.month = 0;
+		this.day = 0;
+		this.hour = hour;
+		this.minute = minute;
 	}
 	
-	public SimpleDateTime(int minuut, int uur)
-	{
-		this();
-		setUur(uur);
-		setMinuut(minuut);
+	/**
+	 * @return the year
+	 */
+	public int getYear() {
+		return year;
 	}
 	
-	public SimpleDateTime(SimpleDateTime dateTime) 
+	/**
+	 * @param year the year to set
+	 */
+	public void setYear(int year) {
+		this.year = year;
+	}
+	
+	/**
+	 * @return the month
+	 */
+	public int getMonth() {
+		return month;
+	}
+	
+	/**
+	 * @param month the month to set
+	 */
+	public void setMonth(int month) {
+		this.month = month;
+	}
+	
+	/**
+	 * @return the day
+	 */
+	public int getDay() {
+		return day;
+	}
+	
+	/**
+	 * @param day the day to set
+	 */
+	public void setDay(int day) {
+		this.day = day;
+	}
+	
+	/**
+	 * @return the hour
+	 */
+	public int getHour() {
+		return hour;
+	}
+	
+	/**
+	 * @param hour the hour to set
+	 */
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+	
+	/**
+	 * @return the minute
+	 */
+	public int getMinute() {
+		return minute;
+	}
+	
+	/**
+	 * @param minute the minute to set
+	 */
+	public void setMinute(int minute) {
+		this.minute = minute;
+	}	
+
+	
+	/**
+	 * 
+	 * @return returns a date string with the following format: dd/mm/yyyy
+	 */
+	public String toDateString()
 	{
-		this();
-		this.datum = dateTime.datum;
+		return (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
+	}
+	
+	/**
+	 * 
+	 * @return returns a time string in the following format: hh:mm
+	 */
+	public String toTimeString()
+	{
+		return (hour < 10 ? "0" + hour : hour) + ":" + (minute < 10 ? "0" + minute : minute);
 	}
 
-	public SimpleDateTime(Long milliseconden)
-	{
-		this();
-		datum.setTimeInMillis(milliseconden);
-	}
-	
-	public int getJaar()
-	{
-		return datum.get(Calendar.YEAR);
-	}
-	
-	public void setJaar(int jaar)
-	{
-		datum.set(Calendar.YEAR, jaar);
-	}
-	
-	
-	public int getMaand()
-	{
-		return datum.get(Calendar.MONTH);
-	}
-	
-	public void setMaand(int maand)
-	{
-		datum.set(Calendar.MONTH, maand);
-	}
-	
-	
-	public int getWeek()
-	{
-		return datum.get(Calendar.WEEK_OF_YEAR);
-	}
-	
-	public void setWeek(int week)
-	{
-		datum.set(Calendar.WEEK_OF_YEAR, week);
-	}
-	
-	
-	public int getDag()
-	{
-		return datum.get(Calendar.DAY_OF_MONTH);
-	}
-	
-	public void setDag(int dag)
-	{
-		datum.set(Calendar.DAY_OF_MONTH, dag);
-	}
-	
-	
-	public int getDagVanWeek()
-	{
-		return datum.get(Calendar.DAY_OF_WEEK);
-	}
-	
-	public void setDagVanWeek(int dag)
-	{
-		datum.set(Calendar.DAY_OF_WEEK, dag);
-	}
-	
-	
-	public int getUur()
-	{
-		return datum.get(Calendar.HOUR_OF_DAY);
-	}
-	
-	public void setUur(int uur)
-	{
-		datum.set(Calendar.HOUR_OF_DAY, uur);
-	}
-	
-	
-	public int getMinuut()
-	{
-		return datum.get(Calendar.MINUTE);
-	}
-	
-	public void setMinuut(int minuut)
-	{
-		datum.set(Calendar.MINUTE, minuut);
-	}
-		
-	
 	/**
 	 * Parses a date from a string to a {@link SimpleDateTime} object.
 	 * Can handle various delimiters, as in these examples:
@@ -153,13 +173,14 @@ public class SimpleDateTime
 	 */
 	public static SimpleDateTime parseDate(String date)
 	{
-		String[] dateParts = date.split("[-\\.:]");
-		int dag = Integer.parseInt(dateParts[0]);
-		int maand = Integer.parseInt(dateParts[1]);
-		int jaar = Integer.parseInt(dateParts[2]);
+		String[] dateParts = date.split("[-\\.:/]");
+		int day = Integer.parseInt(dateParts[0]);
+		int month = Integer.parseInt(dateParts[1]);
+		int year = Integer.parseInt(dateParts[2]);
 		
-		return new SimpleDateTime(dag, maand, jaar);
+		return new SimpleDateTime(year, month, day);
 	}
+
 	
 	/**
 	 * Parses a time from a string to a {@link SimpleDateTime} object.
@@ -175,24 +196,9 @@ public class SimpleDateTime
 	public static SimpleDateTime parseTime(String time)
 	{
 		String[] timeParts = time.split("[-\\.:]");
-		int uur = Integer.parseInt(timeParts[0]);
-		int minuut = Integer.parseInt(timeParts[1]);
+		int hours = Integer.parseInt(timeParts[0]);
+		int minutes = Integer.parseInt(timeParts[1]);
 		
-		return new SimpleDateTime(minuut, uur);
-	}
-
-	/**
-	 * Geeft de tijd sinds Epoch (1 januari 1970 00:00:00.000 GMT) in milliseconden
-	 * @return tijd in milliseconden
-	 */
-	public Long getMilliseconden()
-	{
-		return datum.getTimeInMillis();
-	}
-	
-	public String toString(String patroon)
-	{
-		String output = new SimpleDateFormat(patroon).format(datum.getTime());
-		return output;
+		return new SimpleDateTime(hours, minutes);
 	}
 }

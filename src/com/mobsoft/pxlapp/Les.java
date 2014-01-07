@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
+import com.mobsoft.pxlapp.util.SimpleDateTime;
+
 /**
  * Stelt een les voor. <br>
  * Bevat volgende velden:
