@@ -3,13 +3,7 @@ package com.mobsoft.pxlapp;
 import java.util.ArrayList;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
-<<<<<<< HEAD
 public class Lesrooster
-=======
-import com.mobsoft.pxlapp.util.SimpleDateTime;
-
-public class Lesrooster 
->>>>>>> origin/Carl
 {
 	private String klas;
 	private ArrayList<Les> lessen;
