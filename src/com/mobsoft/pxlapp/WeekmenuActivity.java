@@ -104,12 +104,12 @@ public class WeekmenuActivity extends Activity {
 	
 	@SuppressLint("NewApi")
 	public void geefMenu(View view){
-		findViewById(R.id.button_menuElfde).setVisibility(View.GONE);
 		String gedrukt = ((Button)view).getText().toString();
-		
+		ScrollView scroll = new ScrollView(this);
 		TextView waarde = new TextView(this);
 		waarde.setText(gedrukt);
-		setContentView(waarde);
+		scroll.addView(waarde);
+		setContentView(scroll);
 		if(gedrukt.equals("Campus Elfde Linie")){
 			zoekMenu("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html",waarde);
 		}else if(gedrukt.equals("Campus Diepenbeek")){
