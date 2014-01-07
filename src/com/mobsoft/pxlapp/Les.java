@@ -132,7 +132,7 @@ public class Les implements Serializable
 		Long beginUur = start.getMilliseconden();
 		Long eindUur = einde.getMilliseconden();
 		
-		cacheString = "\nles=" + naam + "," + lokaal + "," + leerkracht + "," + beginUur + "," + eindUur;
+		cacheString = "\n" + naam + "," + lokaal + "," + leerkracht + "," + beginUur + "," + eindUur;
 		
 		return cacheString;
 	}

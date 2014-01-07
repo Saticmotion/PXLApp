@@ -44,7 +44,6 @@ public class CacheManager
 
 	public static byte[] retrieveData(Context context, String name) throws IOException
 	{
-
 		File cacheDir = context.getCacheDir();
 		File file = new File(cacheDir, name);
 
@@ -68,6 +67,36 @@ public class CacheManager
 		return data;
 	}
 
+	public static Long getCacheAge(Context context, String name) throws IOException
+	{
+		File cacheDir = context.getCacheDir();
+		File file = new File(cacheDir, name);
+
+		if (!file.exists())
+		{
+			// Data doesn't exist
+			return null;
+		}
+
+		byte[] data = new byte[(int) file.length()];
+		FileInputStream is = new FileInputStream(file);
+		try
+		{
+			is.read(data);
+		}
+		finally
+		{
+			is.close();
+		}
+		
+		String dataString = new String(data, "UTF-8");
+		String[] parts = dataString.split("\n");
+		
+		Long date = Long.valueOf(parts[0]);
+		
+		return date;
+	}
+	
 	private static void cleanDir(File dir, long bytes)
 	{
 
