@@ -1,6 +1,7 @@
 package com.mobsoft.pxlapp;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,6 +13,11 @@ import com.mobsoft.pxlapp.util.SimpleDateTime;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -24,7 +30,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class WeekmenuActivity extends Activity {
-
+	private DownloadWeekMenuTask weekmenuDownloader;
+	private ProgressDialog progress;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,59 +80,83 @@ public class WeekmenuActivity extends Activity {
 	 * @param url url van de pagina waar de gegevens zich bevinden
 	 * @param waarde textview waaraan de opgehaalde gegevens worden toegevoegd(voorlopig)
 	 */
-	public void zoekMenu(String url, TextView waarde){
-		
-		//ophalen html pagina
-		try {
-			Document weekmenudoc = Jsoup.connect(url).get();
-			Elements dagen = weekmenudoc.select("div[class=catering catering1]"); //selecteren van alle dagen met hun info
-			Weekmenu weekmenu = new Weekmenu();
-			Dagmenu dagmenu;
-			for (Element dag: dagen){ //per dag de naam van de dag eruithalen en deze opslaan in de klasse Dagmenu
-				Element datum = dag.select("h2.date").first();
-				dagmenu = new Dagmenu(datum.text());
-				
-				if(dag==dagen.first()){ //datum van de eerste dag opslaan als de begindatum voor het weekmenu (voor caching later)
-					String begindatumstring = datum.text().substring(datum.text().indexOf('(')+1,datum.text().indexOf(')'));
-					weekmenu.setBegindatum(SimpleDateTime.parseDate(begindatumstring));
-				}
-				
-				Elements menus = dag.select("div.wysiwyg p:matches(^(?!\\s*$).+)"); //ophalen van de gerechten op de huidige dag en lege <p> tags eruit filteren
-				waarde.append("\n"+dagmenu.getDag());
-				for(Element menu: menus){
-					dagmenu.AddGerecht(menu.text());
-						
-						
-				}
-				for(String gerecht: dagmenu.getGerechten()){
-					waarde.append("\n"+gerecht);
-				}
-				weekmenu.AddDagmenu(dagmenu);
-				waarde.append("\n");
-			}
-		} catch (IOException e) {
-			waarde.append("\n geen verbinding");
-			e.printStackTrace();
-		}
-	}
+	
 	
 	@SuppressLint("NewApi")
 	public void geefMenu(View view){
-		String gedrukt = ((Button)view).getText().toString();
-		//nieuwe scrollview maken waaraan later een textview met info wordt toegevoegd
-		ScrollView scroll = new ScrollView(this);
-		TextView waarde = new TextView(this);
-		waarde.setText(gedrukt);
-		scroll.addView(waarde);
-		setContentView(scroll);
-		if(gedrukt.equals("Campus Elfde Linie")){
-			zoekMenu("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html",waarde);
-		}else if(gedrukt.equals("Campus Diepenbeek")){
-			zoekMenu("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html",waarde);
-		}else{
-			zoekMenu("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html",waarde);
+		
+		try{
+			
+				String gedrukt = ((Button)view).getText().toString();
+				//nieuwe scrollview maken waaraan later een textview met info wordt toegevoegd
+				TextView waarde = new TextView(this);
+			if(isOnline()){
+				waarde.setText(gedrukt);
+			
+				Weekmenu weekmenu= null;
+				progress = new ProgressDialog(this);
+				progress.setMessage("Weekmenu downloaden");
+				progress.show();
+				
+				weekmenuDownloader = new DownloadWeekMenuTask();
+				if(gedrukt.equals("Campus Elfde Linie")){
+					weekmenu=weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html").get();
+				}else if(gedrukt.equals("Campus Diepenbeek")){
+					weekmenu=weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html").get();
+				}else{
+					weekmenu=weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html").get();
+				}
+				vulWeekmenu(weekmenu,waarde);
+				
+			}else{
+				AlertDialog.Builder fout  = new AlertDialog.Builder(this);
+				fout.setTitle("Fout !");
+				fout.setMessage("Er is geen verbinding met het internet, probeer opnieuw");
+				fout.setPositiveButton("OK", null);
+				fout.create().show();
+			}
+		}catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+			if(progress!=null){
+				progress.dismiss();
+			}
 		}
 		
+		
+		
+	}
+	public boolean isOnline() 
+	{
+        try
+        {
+            ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+            return cm.getActiveNetworkInfo().isConnectedOrConnecting(); 
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+	}
+	
+	public void vulWeekmenu(Weekmenu weekmenu,TextView tekst){
+		ScrollView scroll = new ScrollView(this);
+		scroll.addView(tekst);
+		
+		for(Dagmenu dag:weekmenu.getDagmenus()){
+			tekst.append("\n"+dag.getDag());
+			
+			for(String gerecht:dag.getGerechten()){
+				tekst.append("\n -"+gerecht);
+			}
+			tekst.append("\n\n");
+		}
+		setContentView(scroll);
 	}
 
 }

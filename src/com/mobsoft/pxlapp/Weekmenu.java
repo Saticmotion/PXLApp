@@ -29,5 +29,8 @@ public class Weekmenu{
 	public SimpleDateTime getBegindatum(){
 		return begindatum;
 	}
+	public ArrayList<Dagmenu> getDagmenus(){
+		return dagmenus;
+	}
 	
 }
