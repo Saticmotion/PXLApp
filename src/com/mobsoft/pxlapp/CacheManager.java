@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+
+import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.content.Context;
 
@@ -92,9 +95,11 @@ public class CacheManager
 		String dataString = new String(data, "UTF-8");
 		String[] parts = dataString.split("\n");
 		
-		Long date = Long.valueOf(parts[0]);
+		SimpleDateTime date = new SimpleDateTime(Long.valueOf(parts[0]));
 		
-		return date;
+		Long difference = new SimpleDateTime().getMilliseconden() - date.getMilliseconden();
+		
+		return difference;
 	}
 	
 	private static void cleanDir(File dir, long bytes)
