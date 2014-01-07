@@ -1,5 +1,12 @@
 package com.mobsoft.pxlapp;
 
+import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
@@ -8,6 +15,7 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -58,6 +66,24 @@ public class WeekmenuActivity extends Activity {
 	
 	public void geefMenu(View view){
 		findViewById(R.id.button_menuElfde).setVisibility(View.GONE);
+		String gedrukt = ((Button)view).getText().toString();
+		
+		TextView waarde = new TextView(this);
+		waarde.setText(gedrukt);
+		if(gedrukt.equals("Campus Elfde Linie")){
+			setContentView(waarde);
+			try {
+				Document weekmenu = Jsoup.connect("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html").get();
+				Elements dagen = weekmenu.select("h2.date");
+				for (Element dag: dagen){
+					waarde.append("\n"+dag.text());
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }
