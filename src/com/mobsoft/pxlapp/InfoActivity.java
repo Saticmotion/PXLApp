@@ -1,20 +1,9 @@
 package com.mobsoft.pxlapp;
 
-
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import android.R.string;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
 import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 

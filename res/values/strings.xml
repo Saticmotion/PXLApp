@@ -12,9 +12,6 @@
     <string name="geef_klas_message">Geef klas</string>
     <string name="info_message">Info</string>
     <string name="title_activity_extra_info">ExtraInfoActivity</string>
-<<<<<<< HEAD
-    
-=======
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_weekmenu">PXL Weekmenu</string>
@@ -22,5 +19,4 @@
     <string name="button_menuElfde">Campus Elfde Linie</string>
     <string name="button_menuDiep">Campus Diepenbeek</string>
     <string name="button_menuVild">Campus Vildersstraat</string>
->>>>>>> 09a26ac14676de4b0045fe4de61653fba4769703
 </resources>
