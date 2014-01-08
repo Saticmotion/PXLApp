@@ -74,19 +74,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int button_info=0x7f060005;
         public static final int button_lesroosters=0x7f060004;
         public static final int button_menu=0x7f060003;
-        public static final int button_menuDiep=0x7f060011;
-        public static final int button_menuElfde=0x7f060010;
-        public static final int button_menuVild=0x7f060012;
-        public static final int button_weekmenu=0x7f06000f;
-        public static final int dummy_button=0x7f06000c;
-        public static final int dummy_content=0x7f06000d;
+        public static final int button_menuDiep=0x7f06000e;
+        public static final int button_menuElfde=0x7f06000d;
+        public static final int button_menuVild=0x7f06000f;
+        public static final int button_weekmenu=0x7f06000c;
         public static final int geef_klas_message=0x7f060009;
         public static final int hello_world=0x7f060002;
-        public static final int info_message=0x7f06000a;
-        public static final int title_activity_extra_info=0x7f06000b;
+        public static final int title_activity_extra_info=0x7f06000a;
         public static final int title_activity_info=0x7f060008;
         public static final int title_activity_lesroosters=0x7f060007;
-        public static final int title_activity_weekmenu=0x7f06000e;
+        public static final int title_activity_weekmenu=0x7f06000b;
     }
     public static final class style {
         /** 

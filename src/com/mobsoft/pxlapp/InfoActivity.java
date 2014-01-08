@@ -30,28 +30,19 @@ public class InfoActivity extends Activity {
 			String quartier = "<u>Campus Quartier Canal</u> <br />Bootstraat 11 <br />B-3500 Hasselt <br />tel. + 32 11 77 50 60";
 			String vilder = "<u>Campus Vildersstraat</u> <br />Vildersstraat 5 <br />B-3500 Hasselt <br />tel. + 32 11 77 53 00";
 			
-			TextView aInfo = (TextView)findViewById(R.id.textView1);
-			aInfo.setText(Html.fromHtml(algemeneInfo));
-					
-			TextView fCmine = (TextView)findViewById(R.id.textView2);
-			fCmine.setText(Html.fromHtml(cMine));
-			
-			TextView fDiepenbeek = (TextView)findViewById(R.id.textView3);
-			fDiepenbeek.setText(Html.fromHtml(diepenbeek));
-			
-			TextView fElfde = (TextView)findViewById(R.id.textView4);
-			fElfde.setText(Html.fromHtml(elfde));
-			
-			TextView fGuffenslaan = (TextView)findViewById(R.id.textView5);
-			fGuffenslaan.setText(Html.fromHtml(guffensLaan));
-			
-			TextView fQuartier = (TextView)findViewById(R.id.textView6);
-			fQuartier.setText(Html.fromHtml(quartier));
-			
-			TextView fVilder = (TextView)findViewById(R.id.textView7);
-			fVilder.setText(Html.fromHtml(vilder));
-					
-	}		
+			fillTextView((TextView)findViewById(R.id.textView1), algemeneInfo);
+			fillTextView((TextView)findViewById(R.id.textView2), cMine);
+			fillTextView((TextView)findViewById(R.id.textView3), diepenbeek);
+			fillTextView((TextView)findViewById(R.id.textView4), elfde);
+			fillTextView((TextView)findViewById(R.id.textView5), guffensLaan);
+			fillTextView((TextView)findViewById(R.id.textView6), quartier);
+			fillTextView((TextView)findViewById(R.id.textView7), vilder);
+	}	
+	
+	private void fillTextView(TextView textView, String tekst)
+	{
+		textView.setText(Html.fromHtml(tekst));
+	}
 	
 
 	@Override
