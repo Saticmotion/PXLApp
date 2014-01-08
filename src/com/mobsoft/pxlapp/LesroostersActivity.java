@@ -1,7 +1,11 @@
 package com.mobsoft.pxlapp;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
+
+import com.mobsoft.pxlapp.util.LogUtil;
+import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
@@ -42,9 +46,7 @@ public class LesroostersActivity extends Activity
 	public void displayLesrooster(View view)
 	{
 		SimpleDateTime test = new SimpleDateTime();
-		Log.d("Pxl App", " " + test.getJaar());
-		
-		
+		Log.d(LogUtil.PXL_TAG, " " + test.getJaar());
 		
 		findViewById(R.id.gekozen_klas_string).setVisibility(View.GONE);
 		findViewById(R.id.lesrooster_weergeven_button).setVisibility(View.GONE);
@@ -69,21 +71,38 @@ public class LesroostersActivity extends Activity
 
 	private void vulLesrooster(String klas) throws InterruptedException, ExecutionException 
 	{
-		if (isOnline())
+		try
 		{
-			progress = new ProgressDialog(this);
-			progress.setTitle("Lesrooster downloaden");
-			progress.setMessage("Bezig...");
-			progress.show();
-			downloadLesrooster.execute("https://kalender.phl.be/kalenterit2/index.php?kt=lk&yks=&cluokka=" + klas + "&av=131118131124131124&guest=IT%2Fphl&lang=fla&print=arkipaivat");
+			if (CacheManager.getCacheAge(this, "lesrooster" + klas) >= 60 * 1000)
+			{		
+				if (isOnline())
+				{
+					progress = new ProgressDialog(this);
+					progress.setMessage("Lesrooster downloaden");
+					progress.show();
+					downloadLesrooster.execute(klas);
+				}
+				else
+				{
+					TextView text = new TextView(this);
+					text.setTextSize(12);
+					text.setText("No internet connection!");
+					
+					setContentView(text);
+				}
+			}
+			else
+			{
+				String cacheString = new String(CacheManager.retrieveData(this, "lesrooster" + klas), "UTF-8");
+				Lesrooster lesrooster = Lesrooster.lesroosterFromCache((cacheString));
+				Log.d("Pxl App", "van cache: ");
+				Log.d("Pxl App", lesrooster.toCacheString());
+			}
 		}
-		else
+		catch (IOException e)
 		{
-			TextView text = new TextView(this);
-			text.setTextSize(12);
-			text.setText("No internet connection!");
-			
-			setContentView(text);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -92,13 +111,13 @@ public class LesroostersActivity extends Activity
 		try
 		{
 			Log.d("Pxl App", lesrooster.toCacheString());
-			CacheManager.cacheData(this, lesrooster.toCacheString().getBytes(), "lesrooster");
-			Lesrooster lesrooster2 = new Lesrooster();
+			CacheManager.cacheData(this, lesrooster.toCacheString().getBytes(), "lesrooster" + lesrooster.getKlas());
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
+		
 		progress.dismiss();
 		TextView titel = new TextView(this);
 		titel.setText("Done");

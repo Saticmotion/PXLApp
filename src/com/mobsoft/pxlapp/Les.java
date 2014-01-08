@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
+import com.mobsoft.pxlapp.util.SimpleDateTime;
+
 /**
  * Stelt een les voor. <br>
  * Bevat volgende velden:
@@ -132,7 +134,7 @@ public class Les implements Serializable
 		Long beginUur = start.getMilliseconden();
 		Long eindUur = einde.getMilliseconden();
 		
-		cacheString = "\nles=" + naam + "," + lokaal + "," + leerkracht + "," + beginUur + "," + eindUur;
+		cacheString = "\n" + naam + "," + lokaal + "," + leerkracht + "," + beginUur + "," + eindUur;
 		
 		return cacheString;
 	}

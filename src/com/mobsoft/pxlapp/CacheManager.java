@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+
+import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.content.Context;
 
@@ -44,7 +47,6 @@ public class CacheManager
 
 	public static byte[] retrieveData(Context context, String name) throws IOException
 	{
-
 		File cacheDir = context.getCacheDir();
 		File file = new File(cacheDir, name);
 
@@ -68,6 +70,38 @@ public class CacheManager
 		return data;
 	}
 
+	public static Long getCacheAge(Context context, String name) throws IOException
+	{
+		File cacheDir = context.getCacheDir();
+		File file = new File(cacheDir, name);
+
+		if (!file.exists())
+		{
+			// Data doesn't exist
+			return null;
+		}
+
+		byte[] data = new byte[(int) file.length()];
+		FileInputStream is = new FileInputStream(file);
+		try
+		{
+			is.read(data);
+		}
+		finally
+		{
+			is.close();
+		}
+		
+		String dataString = new String(data, "UTF-8");
+		String[] parts = dataString.split("\n");
+		
+		SimpleDateTime date = new SimpleDateTime(Long.valueOf(parts[0]));
+		
+		Long difference = new SimpleDateTime().getMilliseconden() - date.getMilliseconden();
+		
+		return difference;
+	}
+	
 	private static void cleanDir(File dir, long bytes)
 	{
 

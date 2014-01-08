@@ -4,12 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context=".MainActivity" >
-    <Button 
-        android:id="@+id/button_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_menu" 
-        android:onClick="openMenu" />
 
     <Button
         android:id="@+id/button_lesroosters"
@@ -17,6 +11,13 @@
         android:layout_height="wrap_content"
         android:text="@string/button_lesroosters"  
         android:onClick="openLesroosters" />
+        
+	<Button
+        android:id="@+id/button_weekmenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_weekmenu"  
+        android:onClick="openWeekmenu" />  
 
     <Button
         android:id="@+id/button_info"

@@ -5,6 +5,7 @@ import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 public class Lesrooster
 {
+	private String klas;
 	private ArrayList<Les> lessen;
 	private SimpleDateTime beginDag;
 
@@ -16,13 +17,20 @@ public class Lesrooster
 		lessen = new ArrayList<Les>();
 	}
 
+	public Lesrooster(String klas)
+	{
+		this.klas = klas;
+		lessen = new ArrayList<Les>();
+	}
+
 	/**
 	 * maakt een lesrooster op basis van een lijst {@link Les}sen
 	 * 
 	 * @param lessen
 	 */
-	public Lesrooster(ArrayList<Les> lessen)
+	public Lesrooster(String klas, ArrayList<Les> lessen)
 	{
+		this.klas = klas;
 		this.lessen = lessen;
 	}
 
@@ -36,17 +44,6 @@ public class Lesrooster
 		this.lessen = lesrooster.getLessen();
 	}
 
-	public Lesrooster(String cacheString)
-	{
-		String[] lines = cacheString.split("\n");
-		beginDag = new SimpleDateTime(Long.valueOf(lines[1])); //Eerste lijn overslaan, omdat hier de datum van het cachen in staat.
-		
-		for (int i = 2; i < lines.length; i++) //Eerste twee lijnen overslaan, omdat deze al behandeld zijn.
-		{
-			lessen.add(new Les(lines[i]));
-		}
-	}
-	
 	/**
 	 * @return de lessen
 	 */
@@ -92,6 +89,18 @@ public class Lesrooster
 		this.beginDag = beginDag;
 	}
 
+	public String getKlas()
+	{
+		return klas;
+	}
+	
+
+	public void setKlas(String klas)
+	{
+		this.klas = klas;
+	}
+	
+
 	/**
 	 * @return Het weeknummer
 	 */
@@ -109,6 +118,23 @@ public class Lesrooster
 		this.beginDag.setWeek(week);
 	}
 
+	public static Lesrooster lesroosterFromCache(String cacheString)
+	{
+		Lesrooster lesrooster = new Lesrooster();
+		String[] lines = cacheString.split("\n");
+		lesrooster.klas = lines[1]; // Eerste lijn overslaan, omdat hier de
+									// datum van het cachen in staat.
+		lesrooster.beginDag = new SimpleDateTime(Long.valueOf(lines[2]));
+
+		for (int i = 3; i < lines.length; i++) // Eerste twee lijnen overslaan,
+												// omdat deze al behandeld zijn.
+		{
+			lesrooster.lessen.add(new Les(lines[i]));
+		}
+
+		return lesrooster;
+	}
+
 	public String toCacheString()
 	{
 		String cacheString;
@@ -116,7 +142,7 @@ public class Lesrooster
 		Long cacheDatum = new SimpleDateTime().getMilliseconden();
 		Long beginDatum = beginDag.getMilliseconden();
 
-		cacheString = "cacheDatum=" + cacheDatum + "\nbeginDatum=" + beginDatum;
+		cacheString = cacheDatum + "\n" + klas + "\n" + beginDatum;
 
 		for (Les les : lessen)
 		{

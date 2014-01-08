@@ -23,11 +23,6 @@ public class MainActivity extends Activity
 		return true;
 	}
 	
-	public void openMenu(View view) 
-	{
-		Intent intent = new Intent(this, MenuActivity.class);
-		startActivity(intent);
-	}
 	
 	public void openLesroosters(View view)
 	{
@@ -38,6 +33,12 @@ public class MainActivity extends Activity
 	public void openInfo(View view)
 	{
 		Intent intent = new Intent(this, InfoActivity.class);
+		startActivity(intent);
+	}
+	
+	public void openWeekmenu(View view)
+	{
+		Intent intent = new Intent(this, WeekmenuActivity.class);
 		startActivity(intent);
 	}
 }

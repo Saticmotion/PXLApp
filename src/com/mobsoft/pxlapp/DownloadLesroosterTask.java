@@ -29,14 +29,14 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 	}
 	
 	@Override
-	protected Void doInBackground(String... URLs) 
+	protected Void doInBackground(String... klas) 
 	{
-		String URL = URLs[0];
+		String URL = "https://kalender.phl.be/kalenterit2/index.php?kt=lk&yks=&cluokka=" + klas[0] + "&av=131118131124131124&guest=IT%2Fphl&lang=fla&print=arkipaivat";
 		
 		try 
 		{
 			Document document = Jsoup.connect(URL).get();
-			lesrooster = new Lesrooster();
+			lesrooster = new Lesrooster(klas[0]);
 			
 			SimpleDateTime beginDag = SimpleDateTime.parseDate(document.select("table th span.hdr_date font").first().text()); //Haal de datums op uit de tableheaders
 			lesrooster.setBeginDag(beginDag);
@@ -50,7 +50,7 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 		catch (IOException e) 
 		{
 			e.printStackTrace();
-			activity.showError("Fout", "Er is iets fout gegaan tijdens het downloaden van het lessenrooster, probeer opnieuw.");
+			//activity.showError("Fout", "Er is iets fout gegaan tijdens het downloaden van het lessenrooster, probeer opnieuw.");
 		}
 		
 		return null;
@@ -119,7 +119,6 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 				
 				String leerkrachtHTML = e.getElement().select("tr > td").first().ownText();
 				
-				Log.d(debugTag, "dag: " + e.getDag() + " begin: " + begin.toString("dd-MM-yyyy HH:mm") + " einde: " + einde.toString("dd-MM-yyyy HH:mm") + " naam: " + naam + " lokaal: " + lokaal + " leerkracht: " + leerkrachtHTML);
 				lesrooster.addLes(new Les(naam, lokaal, leerkrachtHTML, begin, einde));
 			}
 		} 

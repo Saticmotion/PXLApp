@@ -3,15 +3,14 @@ package com.mobsoft.pxlapp.util;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-/**
- * A wrapper class for a Calendar object.
+ /* A wrapper class for a Calendar object.
  * @author Simon
- *
- */
+
+*/
 public class SimpleDateTime 
 {
-	private Calendar datum;
-	
+	private Calendar datum;	
+
 	public SimpleDateTime()
 	{
 		datum = Calendar.getInstance();
@@ -43,20 +42,22 @@ public class SimpleDateTime
 		setMinuut(minuut);
 	}
 	
+	
 	public SimpleDateTime(SimpleDateTime dateTime) 
 	{
 		this();
 		this.datum = dateTime.datum;
 	}
-
+	
 	public SimpleDateTime(Long milliseconden)
 	{
 		this();
 		datum.setTimeInMillis(milliseconden);
-	}
-	
+	}	
+
+
 	public int getJaar()
-	{
+	{		
 		return datum.get(Calendar.YEAR);
 	}
 	
@@ -76,7 +77,6 @@ public class SimpleDateTime
 		datum.set(Calendar.MONTH, maand);
 	}
 	
-	
 	public int getWeek()
 	{
 		return datum.get(Calendar.WEEK_OF_YEAR);
@@ -86,7 +86,6 @@ public class SimpleDateTime
 	{
 		datum.set(Calendar.WEEK_OF_YEAR, week);
 	}
-	
 	
 	public int getDag()
 	{
@@ -130,7 +129,6 @@ public class SimpleDateTime
 	{
 		datum.set(Calendar.MINUTE, minuut);
 	}
-		
 	
 	/**
 	 * Parses a date from a string to a {@link SimpleDateTime} object.
@@ -153,13 +151,14 @@ public class SimpleDateTime
 	 */
 	public static SimpleDateTime parseDate(String date)
 	{
-		String[] dateParts = date.split("[-\\.:]");
+		String[] dateParts = date.split("[-\\.:/]");
 		int dag = Integer.parseInt(dateParts[0]);
 		int maand = Integer.parseInt(dateParts[1]);
 		int jaar = Integer.parseInt(dateParts[2]);
-		
+
 		return new SimpleDateTime(dag, maand, jaar);
 	}
+
 	
 	/**
 	 * Parses a time from a string to a {@link SimpleDateTime} object.
@@ -177,10 +176,11 @@ public class SimpleDateTime
 		String[] timeParts = time.split("[-\\.:]");
 		int uur = Integer.parseInt(timeParts[0]);
 		int minuut = Integer.parseInt(timeParts[1]);
+
 		
 		return new SimpleDateTime(minuut, uur);
 	}
-
+	
 	/**
 	 * Geeft de tijd sinds Epoch (1 januari 1970 00:00:00.000 GMT) in milliseconden
 	 * @return tijd in milliseconden
@@ -196,3 +196,4 @@ public class SimpleDateTime
 		return output;
 	}
 }
+
