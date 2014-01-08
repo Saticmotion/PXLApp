@@ -14,7 +14,5 @@
     <string name="geef_klas_message">Geef klas</string>
     <string name="info_message">Info</string>
     <string name="title_activity_extra_info">ExtraInfoActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-
+    
 </resources>
