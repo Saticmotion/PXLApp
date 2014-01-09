@@ -28,6 +28,11 @@ public class DownloadWeekMenuTask extends AsyncTask<String,Void, Void>{
 		return null;
 	}
 	
+	/**
+	 * haalt de gegevens op en steekt deze in een object van de klasse Weekmenu
+	 * @param url de url waar de gegevens staan
+	 * @return gevulde Weekmenu
+	 */
 	public Weekmenu zoekMenu(String url){
 			
 			//ophalen html pagina

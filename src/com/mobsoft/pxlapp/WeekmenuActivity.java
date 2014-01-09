@@ -68,12 +68,9 @@ public class WeekmenuActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	/**
-	 * methode voor het ophalen van de gegevens voor de weekmenu
-	 * @param url url van de pagina waar de gegevens zich bevinden
-	 * @param waarde textview waaraan de opgehaalde gegevens worden toegevoegd(voorlopig)
+	 * methode voor het kiezen van de campus, daarna worden de gegevens gedownload
+	 * @param view
 	 */
-	
-	
 	@SuppressLint("NewApi")
 	public void geefMenu(View view){
 		
@@ -105,7 +102,10 @@ public class WeekmenuActivity extends Activity {
 				fout.create().show();
 			}
 	}
-	
+	/**
+	 * checkt of er een internetverbinding is
+	 * @return true or false
+	 */
 	public boolean isOnline() 
 	{
         try
@@ -118,7 +118,9 @@ public class WeekmenuActivity extends Activity {
             return false;
         }
 	}
-	
+	/**
+	 * vult de view met gegevens(voorlopig)
+	 */
 	public void vulWeekmenu(){
 		ScrollView scroll = new ScrollView(this);
 		scroll.addView(overzicht);
