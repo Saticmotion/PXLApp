@@ -31,7 +31,8 @@
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.InfoActivity"
-            android:label="@string/title_activity_info" >
+            android:label="@string/title_activity_info"
+            android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.WeekmenuActivity"
