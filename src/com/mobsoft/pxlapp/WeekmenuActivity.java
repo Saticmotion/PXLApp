@@ -22,6 +22,8 @@ import android.widget.TextView;
 public class WeekmenuActivity extends Activity {
 	private DownloadWeekMenuTask weekmenuDownloader;
 	private ProgressDialog progress;
+	private Weekmenu weekmenu;
+	private TextView overzicht;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,28 +77,25 @@ public class WeekmenuActivity extends Activity {
 	@SuppressLint("NewApi")
 	public void geefMenu(View view){
 		
-		try{
-			
-				String gedrukt = ((Button)view).getText().toString();
-				//nieuwe scrollview maken waaraan later een textview met info wordt toegevoegd
-				TextView waarde = new TextView(this);
+			String gedrukt = ((Button)view).getText().toString();
+			//nieuwe scrollview maken waaraan later een textview met info wordt toegevoegd
+			overzicht = new TextView(this);
 			if(isOnline()){
-				waarde.setText(gedrukt);
-			
-				Weekmenu weekmenu= null;
+				overzicht.setText(gedrukt);
+				
 				progress = new ProgressDialog(this);
 				progress.setMessage("Weekmenu downloaden");
-				progress.show();
 				
-				weekmenuDownloader = new DownloadWeekMenuTask();
+				weekmenuDownloader = new DownloadWeekMenuTask(this);
+				weekmenuDownloader.setProgress(progress);
 				if(gedrukt.equals("Campus Elfde Linie")){
-					weekmenu=weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html").get();
+					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html");
 				}else if(gedrukt.equals("Campus Diepenbeek")){
-					weekmenu=weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html").get();
+					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html");
 				}else{
-					weekmenu=weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html").get();
+					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html");
 				}
-				vulWeekmenu(weekmenu,waarde);
+				
 				
 			}else{
 				AlertDialog.Builder fout  = new AlertDialog.Builder(this);
@@ -105,22 +104,8 @@ public class WeekmenuActivity extends Activity {
 				fout.setPositiveButton("OK", null);
 				fout.create().show();
 			}
-		}catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		finally{
-			if(progress!=null){
-				progress.dismiss();
-			}
-		}
-		
-		
-		
 	}
+	
 	public boolean isOnline() 
 	{
         try
@@ -134,19 +119,22 @@ public class WeekmenuActivity extends Activity {
         }
 	}
 	
-	public void vulWeekmenu(Weekmenu weekmenu,TextView tekst){
+	public void vulWeekmenu(){
 		ScrollView scroll = new ScrollView(this);
-		scroll.addView(tekst);
+		scroll.addView(overzicht);
 		
 		for(Dagmenu dag:weekmenu.getDagmenus()){
-			tekst.append("\n"+dag.getDag());
+			overzicht.append("\n"+dag.getDag());
 			
 			for(String gerecht:dag.getGerechten()){
-				tekst.append("\n -"+gerecht);
+				overzicht.append("\n -"+gerecht);
 			}
-			tekst.append("\n\n");
+			overzicht.append("\n\n");
 		}
 		setContentView(scroll);
+	}
+	public void setWeekmenu(Weekmenu weekmenu){
+		this.weekmenu = weekmenu;
 	}
 
 }

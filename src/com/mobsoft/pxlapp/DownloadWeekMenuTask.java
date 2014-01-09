@@ -9,14 +9,23 @@ import org.jsoup.select.Elements;
 
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-public class DownloadWeekMenuTask extends AsyncTask<String,Void, Weekmenu>{
-
+public class DownloadWeekMenuTask extends AsyncTask<String,Void, Void>{
+	
+	private WeekmenuActivity activiteit;
+	private ProgressDialog progress;
+	private Weekmenu weekmenu;
+	
+	public DownloadWeekMenuTask(WeekmenuActivity activiteit){
+		this.activiteit = activiteit;
+	}
+	
 	@Override
-	protected Weekmenu doInBackground(String... url) {
-		Weekmenu weekmenu = zoekMenu(url[0]);
-		return weekmenu;
+	protected Void doInBackground(String... url) {
+		weekmenu = zoekMenu(url[0]);
+		return null;
 	}
 	
 	public Weekmenu zoekMenu(String url){
@@ -25,7 +34,7 @@ public class DownloadWeekMenuTask extends AsyncTask<String,Void, Weekmenu>{
 			try {
 				Document weekmenudoc = Jsoup.connect(url).get();
 				Elements dagen = weekmenudoc.select("div[class=catering catering1]"); //selecteren van alle dagen met hun info
-				Weekmenu weekmenu = new Weekmenu();
+				weekmenu = new Weekmenu();
 				Dagmenu dagmenu;
 				for (Element dag: dagen){ //per dag de naam van de dag eruithalen en deze opslaan in de klasse Dagmenu
 					Element datum = dag.select("h2.date").first();
@@ -45,11 +54,25 @@ public class DownloadWeekMenuTask extends AsyncTask<String,Void, Weekmenu>{
 					}
 					weekmenu.AddDagmenu(dagmenu);
 				}
+				
 				return weekmenu;
 			} catch (IOException e) {
 				//fout bij verbinden
 				e.printStackTrace();
 			}
 			return null;
+	}
+	public void setProgress(ProgressDialog progress){
+		this.progress = progress;
+	}
+	@Override
+	protected void onPostExecute(Void test){
+		progress.dismiss();
+		activiteit.setWeekmenu(weekmenu);
+		activiteit.vulWeekmenu(); 
+	}
+	@Override
+	protected void onPreExecute(){
+		progress.show();
 	}
 }
