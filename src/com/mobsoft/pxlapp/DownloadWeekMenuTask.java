@@ -9,8 +9,10 @@ import org.jsoup.select.Elements;
 
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class DownloadWeekMenuTask extends AsyncTask<String,Void, Void>{
 	
@@ -57,13 +59,12 @@ public class DownloadWeekMenuTask extends AsyncTask<String,Void, Void>{
 							
 							
 					}
-					weekmenu.AddDagmenu(dagmenu);
+					weekmenu.AddDagmenu(dagmenu); //verschillende dagen + gerechten toevoegen
 				}
 				
 				return weekmenu;
 			} catch (IOException e) {
-				//fout bij verbinden
-				e.printStackTrace();
+				activiteit.toonFout("Fout!", "Helaas, er is een fout opgetreden tijdens het downloaden");
 			}
 			return null;
 	}
@@ -72,9 +73,9 @@ public class DownloadWeekMenuTask extends AsyncTask<String,Void, Void>{
 	}
 	@Override
 	protected void onPostExecute(Void test){
-		progress.dismiss();
-		activiteit.setWeekmenu(weekmenu);
-		activiteit.vulWeekmenu(); 
+		progress.dismiss(); //progressdialog dismissen
+		activiteit.setWeekmenu(weekmenu); //weekmenu doorgeven aan activity
+		activiteit.vulWeekmenu(); //activiteit scherm laten vullen
 	}
 	@Override
 	protected void onPreExecute(){

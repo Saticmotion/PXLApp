@@ -84,7 +84,9 @@ public class WeekmenuActivity extends Activity {
 				progress.setMessage("Weekmenu downloaden");
 				
 				weekmenuDownloader = new DownloadWeekMenuTask(this);
-				weekmenuDownloader.setProgress(progress);
+				weekmenuDownloader.setProgress(progress); //progress doorgeven aan task zodat deze dismissed kan worden na uitvoering
+				
+				//uitvoeren task met juiste url
 				if(gedrukt.equals("Campus Elfde Linie")){
 					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html");
 				}else if(gedrukt.equals("Campus Diepenbeek")){
@@ -95,11 +97,7 @@ public class WeekmenuActivity extends Activity {
 				
 				
 			}else{
-				AlertDialog.Builder fout  = new AlertDialog.Builder(this);
-				fout.setTitle("Fout !");
-				fout.setMessage("Er is geen verbinding met het internet, probeer opnieuw");
-				fout.setPositiveButton("OK", null);
-				fout.create().show();
+				toonFout("Fout!","Er is geen verbinding met het internet, probeer opnieuw");
 			}
 	}
 	/**
@@ -137,6 +135,18 @@ public class WeekmenuActivity extends Activity {
 	}
 	public void setWeekmenu(Weekmenu weekmenu){
 		this.weekmenu = weekmenu;
+	}
+	/**
+	 * aanmaken foutboodschap
+	 * @param titel titel foutboodschap
+	 * @param bericht bericht foutboodschap
+	 */
+	public void toonFout(String titel,String bericht){
+		AlertDialog.Builder fout  = new AlertDialog.Builder(this);
+		fout.setTitle(titel);
+		fout.setMessage(bericht);
+		fout.setPositiveButton("OK", null);
+		fout.create().show();
 	}
 
 }
