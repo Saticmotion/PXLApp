@@ -10,7 +10,6 @@ import org.jsoup.select.Elements;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.os.AsyncTask;
-import android.widget.TextView;
 
 public class DownloadWeekMenuTask extends AsyncTask<String,Void, Weekmenu>{
 

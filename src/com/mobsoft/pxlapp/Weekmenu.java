@@ -1,15 +1,11 @@
 package com.mobsoft.pxlapp;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 public class Weekmenu{
 	
-	private static final long serialVersionUID = 1L;
 	private SimpleDateTime begindatum;
 	private ArrayList<Dagmenu> dagmenus;
 	

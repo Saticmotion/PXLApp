@@ -1,12 +1,9 @@
 package com.mobsoft.pxlapp;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 
 import com.mobsoft.pxlapp.util.LogUtil;
-import com.mobsoft.pxlapp.util.SimpleDateTime;
-
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.app.Activity;
@@ -27,7 +24,7 @@ public class LesroostersActivity extends Activity
 	private DownloadLesroosterTask downloadLesrooster = new DownloadLesroosterTask(this);
 	private ProgressDialog progress;
 	private AlertDialog error;
-		
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -73,8 +70,8 @@ public class LesroostersActivity extends Activity
 	{
 		try
 		{
-			if (CacheManager.getCacheAge(this, "lesrooster" + klas) >= 60 * 1000)
-			{		
+			if (CacheManager.getCacheDate(this, "lesrooster" + klas).getWeek() < new SimpleDateTime().getWeek())
+			{	
 				if (isOnline())
 				{
 					progress = new ProgressDialog(this);
@@ -125,7 +122,7 @@ public class LesroostersActivity extends Activity
 		setContentView(titel);
 	}
 	
-	public boolean isOnline() 
+	private boolean isOnline() 
 	{
 	    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo netInfo = cm.getActiveNetworkInfo();

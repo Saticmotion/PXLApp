@@ -26,22 +26,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mobsoft.pxlapp.Lesroosters"
-            android:label="@string/title_activity_lesroosters" >
-        </activity>
-        <activity
             android:name="com.mobsoft.pxlapp.LesroostersActivity"
             android:label="@string/title_activity_lesroosters" >
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.InfoActivity"
             android:label="@string/title_activity_info" >
-        </activity>
-        <activity
-            android:name="com.mobsoft.pxlapp.ExtraInfoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_extra_info"
-            android:theme="@style/FullscreenTheme" >
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.WeekmenuActivity"
