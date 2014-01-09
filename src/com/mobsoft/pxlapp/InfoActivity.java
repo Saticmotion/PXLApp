@@ -1,5 +1,7 @@
 package com.mobsoft.pxlapp;
 
+import com.google.android.gms.ads.*;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
@@ -9,12 +11,14 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 
 public class InfoActivity extends Activity {
 
-	
+	private AdView adView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -23,11 +27,30 @@ public class InfoActivity extends Activity {
 			setContentView(R.layout.activity_info);	
 			setupActionBar();
 			
+			// Create the adView.
+		    adView = new AdView(this);
+		    adView.setAdUnitId("ca-app-pub-9643427369143894/6739888360");
+		    adView.setAdSize(AdSize.BANNER);
+
+		    // Lookup your LinearLayout assuming it's been given
+		    // the attribute android:id="@+id/mainLayout".
+		    LinearLayout layout = (LinearLayout)findViewById(R.id.LinearLayoutInfo);
+
+		    // Add the adView to it.
+		    layout.addView(adView);
+
+		    // Initiate a generic request.
+		    AdRequest adRequest = new AdRequest.Builder().build();
+
+		    // Load the adView with the ad request.
+		    adView.loadAd(adRequest);
+		    
 			ImageView im = (ImageView) findViewById(R.id.imageView1);  
 		    im.setImageResource(R.drawable.pxl_logo_noborder);
 		    
+		    
 		    String algemeneInfo = "<u>Hogeschool PXL</u> <br />Elfde-Liniestraat 24 <br />B-3500 Hasselt <br />tel. + 32 11 77 55 55 <br />fax. + 32 11 77 55 59 <br />pxl@pxl.be";
-			String cMine = "<u>Campus C-mine</u><br />C-mine <br />B-3600 Genk <br />tel. + 32 89 30 08 50 <br />fax. + 32 89 30 08 59 <br />infomad@khlim.be";
+		    String cMine = "<u>Campus C-mine</u><br />C-mine <br />B-3600 Genk <br />tel. + 32 89 30 08 50 <br />fax. + 32 89 30 08 59 <br />infomad@khlim.be";
 			String diepenbeek = "<u>Campus Diepenbeek</u> <br />Agoralaan <br />B-3590 Diepenbeek <br />tel. + 32 11 77 54 00";
 			String elfde = "<u>Campus Elfde Linie</u> <br />Elfde-Liniestraat 23 - 26 <br />B-3500 Hasselt <br />tel. + 32 11 77 55 00";
 			String guffensLaan ="<u>Campus Guffenslaan</u> <br />Guffenslaan 39 <br />B-3500 Hasselt <br />tel. + 32 11 77 52 00";
@@ -79,5 +102,24 @@ public class InfoActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+	  public void onPause() {
+	    adView.pause();
+	    super.onPause();
+	  }
+
+	  @Override
+	  public void onResume() {
+	    super.onResume();
+	    adView.resume();
+	  }
+
+	  @Override
+	  public void onDestroy() {
+	    adView.destroy();
+	    super.onDestroy();
+	  }
+	
 
 }
