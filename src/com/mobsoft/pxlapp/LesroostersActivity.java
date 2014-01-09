@@ -70,7 +70,7 @@ public class LesroostersActivity extends Activity
 	{
 		try
 		{
-			if (CacheManager.getCacheDate(this, "lesrooster" + klas).getWeek() < new SimpleDateTime().getWeek())
+			if (CacheManager.getCacheDate(this, "lesrooster" + klas).getWeek() ||  < new SimpleDateTime().getWeek())
 			{	
 				if (isOnline())
 				{
