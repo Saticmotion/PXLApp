@@ -149,4 +149,9 @@ public class LesroostersActivity extends Activity
 					}
 				}).show();		
 	}
+
+	private void toonLesrooster(Lesrooster lesrooster)
+	{
+		
+	}
 }
