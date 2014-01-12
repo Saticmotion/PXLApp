@@ -7,8 +7,6 @@ import android.widget.ListView;
 
 public class LesroosterViewRow extends Activity 
 {
-	private ListView listView;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{

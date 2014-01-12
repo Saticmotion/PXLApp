@@ -1,6 +1,7 @@
 package com.mobsoft.pxlapp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import com.mobsoft.pxlapp.util.LogUtil;
@@ -11,19 +12,20 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class LesroostersActivity extends Activity 
 {	
 	private DownloadLesroosterTask downloadLesrooster = new DownloadLesroosterTask(this);
 	private ProgressDialog progress;
-	private AlertDialog error;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -44,9 +46,6 @@ public class LesroostersActivity extends Activity
 	{
 		SimpleDateTime test = new SimpleDateTime();
 		Log.d(LogUtil.PXL_TAG, " " + test.getJaar());
-		
-		findViewById(R.id.gekozen_klas_string).setVisibility(View.GONE);
-		findViewById(R.id.lesrooster_weergeven_button).setVisibility(View.GONE);
 		
 		TextView klasText = (TextView) findViewById(R.id.gekozen_klas_string);
 		String klas = klasText.getText().toString().toUpperCase().replace("\n ", ""); //formatteer klas volgens voorbeeld: 2TING.
@@ -74,10 +73,7 @@ public class LesroostersActivity extends Activity
 			SimpleDateTime vandaag = new SimpleDateTime();
 			if (cacheDatum.getWeek() == vandaag.getWeek() && cacheDatum.getJaar() == vandaag.getJaar()) //Ook jaar controleren, bugs vermijden rond nieuwjaar
 			{	
-				TextView titel = new TextView(this);
-				titel.setText("Done");
-				
-				setContentView(titel);
+				toonLessenrooster(klas);
 			}
 			else
 			{
@@ -90,17 +86,12 @@ public class LesroostersActivity extends Activity
 				}
 				else
 				{
-					TextView text = new TextView(this);
-					text.setTextSize(12);
-					text.setText("Geen verbinding, oud rooster.");
-					
-					setContentView(text);
+					toonLessenrooster(klas);
 				}
 			}
 		}
 		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -111,6 +102,7 @@ public class LesroostersActivity extends Activity
 		{
 			Log.d("Pxl App", lesrooster.toCacheString());
 			CacheManager.cacheData(this, lesrooster.toCacheString().getBytes(), "lesrooster" + lesrooster.getKlas());
+			toonLessenrooster(lesrooster.getKlas());
 		}
 		catch (IOException e)
 		{
@@ -137,7 +129,7 @@ public class LesroostersActivity extends Activity
 
 	public void showError(String title, String message)
 	{
-		error = new AlertDialog.Builder(this)
+		AlertDialog error = new AlertDialog.Builder(this)
 				.setTitle(title)
 				.setMessage(message)
 				.setPositiveButton("OK", new DialogInterface.OnClickListener() 
@@ -147,11 +139,16 @@ public class LesroostersActivity extends Activity
 					{
 						dialog.cancel();
 					}
-				}).show();		
+				})
+				.create();
+		
+		error.show();
 	}
 
-	private void toonLesrooster(Lesrooster lesrooster)
+	private void toonLessenrooster(String klas)
 	{
-		
+		Intent intent = new Intent(this, LesroosterView.class);
+		intent.putExtra("klas", klas);
+		startActivity(intent);
 	}
 }

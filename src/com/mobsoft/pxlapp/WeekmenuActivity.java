@@ -67,6 +67,7 @@ public class WeekmenuActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 	/**
 	 * methode voor het kiezen van de campus, daarna worden de gegevens gedownload
 	 * @param view
@@ -100,6 +101,7 @@ public class WeekmenuActivity extends Activity {
 				toonFout("Fout!","Er is geen verbinding met het internet, probeer opnieuw");
 			}
 	}
+	
 	/**
 	 * checkt of er een internetverbinding is
 	 * @return true or false
@@ -116,6 +118,7 @@ public class WeekmenuActivity extends Activity {
             return false;
         }
 	}
+	
 	/**
 	 * vult de view met gegevens(voorlopig)
 	 */
@@ -133,9 +136,11 @@ public class WeekmenuActivity extends Activity {
 		}
 		setContentView(scroll);
 	}
+	
 	public void setWeekmenu(Weekmenu weekmenu){
 		this.weekmenu = weekmenu;
 	}
+	
 	/**
 	 * aanmaken foutboodschap
 	 * @param titel titel foutboodschap

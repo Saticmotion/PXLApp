@@ -43,7 +43,7 @@
                 android:value="com.mobsoft.pxlapp.MainActivity" />
         </activity>
         <activity
-            android:name="com.mobsoft.pxlapp.LesroosterView"
+            android:name=".LesroosterView"
             android:label="@string/title_activity_lesrooster_view"
             android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
             <meta-data

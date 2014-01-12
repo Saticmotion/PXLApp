@@ -1,5 +1,7 @@
 package com.mobsoft.pxlapp;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,9 +14,9 @@ public class LesroosterAdapter extends ArrayAdapter<Les>
 {
 	Context context;
 	int layoutResourceId;
-	Les lessen[] = null;
+	ArrayList<Les> lessen = null;
 
-	public LesroosterAdapter(Context context, int resource, Les[] lessen) 
+	public LesroosterAdapter(Context context, int resource, ArrayList<Les> lessen) 
 	{
 		super(context, resource, lessen);
 		this.context = context;
@@ -46,7 +48,7 @@ public class LesroosterAdapter extends ArrayAdapter<Les>
             holder = (LesHolder)row.getTag();
         }
        
-        Les les = lessen[position];
+        Les les = lessen.get(position);
         holder.txtLesnaam.setText(les.getNaam());
         holder.txtLesuren.setText(les.getStart().toString("hh:mm") + " - " + les.getEinde().toString("hh:mm"));
         holder.txtLokaal.setText(les.getLokaal());
