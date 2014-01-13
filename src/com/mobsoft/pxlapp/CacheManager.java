@@ -10,7 +10,6 @@ import android.content.Context;
 
 public class CacheManager
 {
-
 	private static final long MAX_SIZE = 5242880L; // 5MB
 
 	private CacheManager()

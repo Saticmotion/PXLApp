@@ -42,6 +42,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobsoft.pxlapp.MainActivity" />
         </activity>
+        <activity
+            android:name=".LesroosterView"
+            android:label="@string/title_activity_lesrooster_view"
+            android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobsoft.pxlapp.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.mobsoft.pxlapp.LesroosterViewRow"
+            android:label="@string/title_activity_lesrooster_view_row" >
+        </activity>
     </application>
 
 </manifest>

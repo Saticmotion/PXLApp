@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">PXL App</string>
     <string name="action_settings">Settings</string>
     <string name="button_lesroosters">Lesroosters</string>
@@ -15,4 +16,8 @@
     <string name="button_menuDiep">Campus Diepenbeek</string>
     <string name="button_menuVild">Campus Vildersstraat</string>
     <string name="pxl_logo">Pxl logo</string>
+    <string name="title_activity_lesrooster_view">LesroosterView</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_lesrooster_view_row">LesroosterViewRow</string>
+
 </resources>
