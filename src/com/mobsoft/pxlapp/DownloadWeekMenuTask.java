@@ -9,23 +9,39 @@ import org.jsoup.select.Elements;
 
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 
-public class DownloadWeekMenuTask extends AsyncTask<String,Void, Weekmenu>{
-
-	@Override
-	protected Weekmenu doInBackground(String... url) {
-		Weekmenu weekmenu = zoekMenu(url[0]);
-		return weekmenu;
+public class DownloadWeekMenuTask extends AsyncTask<String,Void, Void>{
+	
+	private WeekmenuActivity activiteit;
+	private ProgressDialog progress;
+	private Weekmenu weekmenu;
+	
+	public DownloadWeekMenuTask(WeekmenuActivity activiteit){
+		this.activiteit = activiteit;
 	}
 	
+	@Override
+	protected Void doInBackground(String... url) {
+		weekmenu = zoekMenu(url[0]);
+		return null;
+	}
+	
+	/**
+	 * haalt de gegevens op en steekt deze in een object van de klasse Weekmenu
+	 * @param url de url waar de gegevens staan
+	 * @return gevulde Weekmenu
+	 */
 	public Weekmenu zoekMenu(String url){
 			
 			//ophalen html pagina
 			try {
 				Document weekmenudoc = Jsoup.connect(url).get();
 				Elements dagen = weekmenudoc.select("div[class=catering catering1]"); //selecteren van alle dagen met hun info
-				Weekmenu weekmenu = new Weekmenu();
+				weekmenu = new Weekmenu();
 				Dagmenu dagmenu;
 				for (Element dag: dagen){ //per dag de naam van de dag eruithalen en deze opslaan in de klasse Dagmenu
 					Element datum = dag.select("h2.date").first();
@@ -43,13 +59,26 @@ public class DownloadWeekMenuTask extends AsyncTask<String,Void, Weekmenu>{
 							
 							
 					}
-					weekmenu.AddDagmenu(dagmenu);
+					weekmenu.AddDagmenu(dagmenu); //verschillende dagen + gerechten toevoegen
 				}
+				
 				return weekmenu;
 			} catch (IOException e) {
-				//fout bij verbinden
-				e.printStackTrace();
+				activiteit.toonFout("Fout!", "Helaas, er is een fout opgetreden tijdens het downloaden");
 			}
 			return null;
+	}
+	public void setProgress(ProgressDialog progress){
+		this.progress = progress;
+	}
+	@Override
+	protected void onPostExecute(Void test){
+		progress.dismiss(); //progressdialog dismissen
+		activiteit.setWeekmenu(weekmenu); //weekmenu doorgeven aan activity
+		activiteit.vulWeekmenu(); //activiteit scherm laten vullen
+	}
+	@Override
+	protected void onPreExecute(){
+		progress.show();
 	}
 }

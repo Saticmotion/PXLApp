@@ -70,8 +70,17 @@ public class LesroostersActivity extends Activity
 	{
 		try
 		{
-			if (CacheManager.getCacheDate(this, "lesrooster" + klas).getWeek() < new SimpleDateTime().getWeek())
+			SimpleDateTime cacheDatum = CacheManager.getCacheDate(this, "lesrooster" + klas);
+			SimpleDateTime vandaag = new SimpleDateTime();
+			if (cacheDatum.getWeek() == vandaag.getWeek() && cacheDatum.getJaar() == vandaag.getJaar()) //Ook jaar controleren, bugs vermijden rond nieuwjaar
 			{	
+				TextView titel = new TextView(this);
+				titel.setText("Done");
+				
+				setContentView(titel);
+			}
+			else
+			{
 				if (isOnline())
 				{
 					progress = new ProgressDialog(this);
@@ -83,17 +92,10 @@ public class LesroostersActivity extends Activity
 				{
 					TextView text = new TextView(this);
 					text.setTextSize(12);
-					text.setText("No internet connection!");
+					text.setText("Geen verbinding, oud rooster.");
 					
 					setContentView(text);
 				}
-			}
-			else
-			{
-				String cacheString = new String(CacheManager.retrieveData(this, "lesrooster" + klas), "UTF-8");
-				Lesrooster lesrooster = Lesrooster.lesroosterFromCache((cacheString));
-				Log.d("Pxl App", "van cache: ");
-				Log.d("Pxl App", lesrooster.toCacheString());
 			}
 		}
 		catch (IOException e)

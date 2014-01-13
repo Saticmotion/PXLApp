@@ -22,6 +22,8 @@ import android.widget.TextView;
 public class WeekmenuActivity extends Activity {
 	private DownloadWeekMenuTask weekmenuDownloader;
 	private ProgressDialog progress;
+	private Weekmenu weekmenu;
+	private TextView overzicht;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,61 +68,42 @@ public class WeekmenuActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	/**
-	 * methode voor het ophalen van de gegevens voor de weekmenu
-	 * @param url url van de pagina waar de gegevens zich bevinden
-	 * @param waarde textview waaraan de opgehaalde gegevens worden toegevoegd(voorlopig)
+	 * methode voor het kiezen van de campus, daarna worden de gegevens gedownload
+	 * @param view
 	 */
-	
-	
 	@SuppressLint("NewApi")
 	public void geefMenu(View view){
 		
-		try{
-			
-				String gedrukt = ((Button)view).getText().toString();
-				//nieuwe scrollview maken waaraan later een textview met info wordt toegevoegd
-				TextView waarde = new TextView(this);
+			String gedrukt = ((Button)view).getText().toString();
+			//nieuwe scrollview maken waaraan later een textview met info wordt toegevoegd
+			overzicht = new TextView(this);
 			if(isOnline()){
-				waarde.setText(gedrukt);
-			
-				Weekmenu weekmenu= null;
+				overzicht.setText(gedrukt);
+				
 				progress = new ProgressDialog(this);
 				progress.setMessage("Weekmenu downloaden");
-				progress.show();
 				
-				weekmenuDownloader = new DownloadWeekMenuTask();
+				weekmenuDownloader = new DownloadWeekMenuTask(this);
+				weekmenuDownloader.setProgress(progress); //progress doorgeven aan task zodat deze dismissed kan worden na uitvoering
+				
+				//uitvoeren task met juiste url
 				if(gedrukt.equals("Campus Elfde Linie")){
-					weekmenu=weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html").get();
+					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html");
 				}else if(gedrukt.equals("Campus Diepenbeek")){
-					weekmenu=weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html").get();
+					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html");
 				}else{
-					weekmenu=weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html").get();
+					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html");
 				}
-				vulWeekmenu(weekmenu,waarde);
+				
 				
 			}else{
-				AlertDialog.Builder fout  = new AlertDialog.Builder(this);
-				fout.setTitle("Fout !");
-				fout.setMessage("Er is geen verbinding met het internet, probeer opnieuw");
-				fout.setPositiveButton("OK", null);
-				fout.create().show();
+				toonFout("Fout!","Er is geen verbinding met het internet, probeer opnieuw");
 			}
-		}catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		finally{
-			if(progress!=null){
-				progress.dismiss();
-			}
-		}
-		
-		
-		
 	}
+	/**
+	 * checkt of er een internetverbinding is
+	 * @return true or false
+	 */
 	public boolean isOnline() 
 	{
         try
@@ -133,20 +116,37 @@ public class WeekmenuActivity extends Activity {
             return false;
         }
 	}
-	
-	public void vulWeekmenu(Weekmenu weekmenu,TextView tekst){
+	/**
+	 * vult de view met gegevens(voorlopig)
+	 */
+	public void vulWeekmenu(){
 		ScrollView scroll = new ScrollView(this);
-		scroll.addView(tekst);
+		scroll.addView(overzicht);
 		
 		for(Dagmenu dag:weekmenu.getDagmenus()){
-			tekst.append("\n"+dag.getDag());
+			overzicht.append("\n"+dag.getDag());
 			
 			for(String gerecht:dag.getGerechten()){
-				tekst.append("\n -"+gerecht);
+				overzicht.append("\n -"+gerecht);
 			}
-			tekst.append("\n\n");
+			overzicht.append("\n\n");
 		}
 		setContentView(scroll);
+	}
+	public void setWeekmenu(Weekmenu weekmenu){
+		this.weekmenu = weekmenu;
+	}
+	/**
+	 * aanmaken foutboodschap
+	 * @param titel titel foutboodschap
+	 * @param bericht bericht foutboodschap
+	 */
+	public void toonFout(String titel,String bericht){
+		AlertDialog.Builder fout  = new AlertDialog.Builder(this);
+		fout.setTitle(titel);
+		fout.setMessage(bericht);
+		fout.setPositiveButton("OK", null);
+		fout.create().show();
 	}
 
 }

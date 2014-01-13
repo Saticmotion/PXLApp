@@ -129,7 +129,7 @@ public class CacheManager
 		if (!file.exists())
 		{
 			// Data doesn't exist
-			return null;
+			return new SimpleDateTime(1, 1, 2000); //default datum terug geven
 		}
 
 		byte[] data = new byte[(int) file.length()];
