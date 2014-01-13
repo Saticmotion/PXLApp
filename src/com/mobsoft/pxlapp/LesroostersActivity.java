@@ -110,10 +110,6 @@ public class LesroostersActivity extends Activity
 		}
 		
 		progress.dismiss();
-		TextView titel = new TextView(this);
-		titel.setText("Done");
-		
-		setContentView(titel);
 	}
 	
 	private boolean isOnline() 

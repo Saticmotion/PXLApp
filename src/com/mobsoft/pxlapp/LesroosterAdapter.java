@@ -50,7 +50,7 @@ public class LesroosterAdapter extends ArrayAdapter<Les>
        
         Les les = lessen.get(position);
         holder.txtLesnaam.setText(les.getNaam());
-        holder.txtLesuren.setText(les.getStart().toString("hh:mm") + " - " + les.getEinde().toString("hh:mm"));
+        holder.txtLesuren.setText(les.getStart().toString("HH:mm") + " - " + les.getEinde().toString("hh:mm"));
         holder.txtLokaal.setText(les.getLokaal());
         holder.txtLeerkracht.setText(les.getLeerkracht());
        
