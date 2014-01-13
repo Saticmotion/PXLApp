@@ -31,7 +31,7 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 	@Override
 	protected Void doInBackground(String... klas) 
 	{
-		String URL = "https://kalender.phl.be/kalenterit2/index.php?kt=lk&yks=&cluokka=" + klas[0] + "&av=131118131124131124&guest=IT%2Fphl&lang=fla&print=arkipaivat";
+		String URL = "https://kalender.phl.be/kalenterit2/index.php?kt=lk&yks=&cluokka=" + klas[0] + "&guest=IT%2Fphl&lang=fla&print=arkipaivat";
 		
 		try 
 		{
