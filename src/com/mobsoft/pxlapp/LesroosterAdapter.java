@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,7 @@ public class LesroosterAdapter extends ArrayAdapter<Les>
         }
        
         Les les = lessen.get(position);
-        holder.txtLesnaam.setText(les.getNaam());
+        holder.txtLesnaam.setText(Html.fromHtml(les.getNaam()));
         holder.txtLesuren.setText(les.getStart().toString("HH:mm") + " - " + les.getEinde().toString("hh:mm"));
         holder.txtLokaal.setText(les.getLokaal());
         holder.txtLeerkracht.setText(les.getLeerkracht());

@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 public class LesroostersActivity extends Activity 
 {	
-	private DownloadLesroosterTask downloadLesrooster = new DownloadLesroosterTask(this);
 	private ProgressDialog progress;
 	
 	@Override
@@ -73,10 +72,6 @@ public class LesroostersActivity extends Activity
 			SimpleDateTime vandaag = new SimpleDateTime();
 			if (cacheDatum.getWeek() == vandaag.getWeek() && cacheDatum.getJaar() == vandaag.getJaar()) //Ook jaar controleren, bugs vermijden rond nieuwjaar
 			{
-				TextView titel = new TextView(this);
-				titel.setText("Done");
-				
-				setContentView(titel);
 				toonLessenrooster(klas);
 			}
 			else
@@ -86,16 +81,22 @@ public class LesroostersActivity extends Activity
 					progress = new ProgressDialog(this);
 					progress.setMessage("Lesrooster downloaden");
 					progress.show();
-					downloadLesrooster.execute(klas);
+					new DownloadLesroosterTask(this).execute(klas);
 				}
 				else
 				{
-					TextView text = new TextView(this);
-					text.setTextSize(12);
-					text.setText("Geen verbinding, oud rooster.");
-					
-					setContentView(text);
-					toonLessenrooster(klas);
+					if (CacheManager.fileExists(this, "lesrooster" + klas))
+					{
+						toonLessenrooster(klas);
+					}
+					else
+					{
+						TextView text = new TextView(this);
+						text.setTextSize(12);
+						text.setText("Geen verbinding, kan het lesrooster niet downloaden.");
+						
+						setContentView(text);
+					}
 				}
 			}
 		}

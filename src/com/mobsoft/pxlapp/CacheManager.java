@@ -74,6 +74,21 @@ public class CacheManager
 		return data;
 	}
 
+	public static boolean fileExists(Context context, String name)
+	{
+		File cacheDir = context.getCacheDir();
+		File file = new File(cacheDir, name);
+
+		if (file.exists())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	/**
 	 * Returns the age of the data in milliseconds
 	 * @param context The context is necessary to access the CacheDir

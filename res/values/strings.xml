@@ -6,18 +6,17 @@
     <string name="button_lesroosters">Lesroosters</string>
     <string name="button_info">Info</string>
     <string name="button_bekijk">Bekijk</string>
-    <string name="title_activity_lesroosters">Lesroosters</string>
+    <string name="title_activity_lesroosters">Lesrooster zoeken</string>
     <string name="title_activity_info">Info</string>
     <string name="geef_klas_message">Geef klas</string>
-    <string name="title_activity_extra_info">ExtraInfoActivity</string>
+    <string name="title_activity_extra_info">Extra info</string>
     <string name="title_activity_weekmenu">PXL Weekmenu</string>
     <string name="button_weekmenu">Weekmenu</string>
     <string name="button_menuElfde">Campus Elfde Linie</string>
     <string name="button_menuDiep">Campus Diepenbeek</string>
     <string name="button_menuVild">Campus Vildersstraat</string>
     <string name="pxl_logo">Pxl logo</string>
-    <string name="title_activity_lesrooster_view">LesroosterView</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_lesrooster_view_row">LesroosterViewRow</string>
+    <string name="title_activity_lesrooster_view">Lesrooster</string>
+    <string name="title_activity_lesrooster_view_row">Lesrooster rij</string>
 
 </resources>
