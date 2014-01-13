@@ -101,10 +101,6 @@ public class WeekmenuActivity extends Activity {
 				toonFout("Fout!","Er is geen verbinding met het internet, probeer opnieuw");
 			}
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> 2e579ab3e9dd8e41da1ae0d57cce35971c70499b
 	/**
 	 * checkt of er een internetverbinding is
 	 * @return true or false
@@ -121,10 +117,6 @@ public class WeekmenuActivity extends Activity {
             return false;
         }
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> 2e579ab3e9dd8e41da1ae0d57cce35971c70499b
 	/**
 	 * vult de view met gegevens(voorlopig)
 	 */
@@ -142,17 +134,11 @@ public class WeekmenuActivity extends Activity {
 		}
 		setContentView(scroll);
 	}
-<<<<<<< HEAD
-	public void setWeekmenu(Weekmenu weekmenu){
-		this.weekmenu = weekmenu;
-	}
-=======
 	
 	public void setWeekmenu(Weekmenu weekmenu){
 		this.weekmenu = weekmenu;
 	}
 	
->>>>>>> 2e579ab3e9dd8e41da1ae0d57cce35971c70499b
 	/**
 	 * aanmaken foutboodschap
 	 * @param titel titel foutboodschap

@@ -72,15 +72,12 @@ public class LesroostersActivity extends Activity
 			SimpleDateTime cacheDatum = CacheManager.getCacheDate(this, "lesrooster" + klas);
 			SimpleDateTime vandaag = new SimpleDateTime();
 			if (cacheDatum.getWeek() == vandaag.getWeek() && cacheDatum.getJaar() == vandaag.getJaar()) //Ook jaar controleren, bugs vermijden rond nieuwjaar
-			{	
-<<<<<<< HEAD
+			{
 				TextView titel = new TextView(this);
 				titel.setText("Done");
 				
 				setContentView(titel);
-=======
 				toonLessenrooster(klas);
->>>>>>> 2e579ab3e9dd8e41da1ae0d57cce35971c70499b
 			}
 			else
 			{
@@ -93,15 +90,12 @@ public class LesroostersActivity extends Activity
 				}
 				else
 				{
-<<<<<<< HEAD
 					TextView text = new TextView(this);
 					text.setTextSize(12);
 					text.setText("Geen verbinding, oud rooster.");
 					
 					setContentView(text);
-=======
 					toonLessenrooster(klas);
->>>>>>> 2e579ab3e9dd8e41da1ae0d57cce35971c70499b
 				}
 			}
 		}
