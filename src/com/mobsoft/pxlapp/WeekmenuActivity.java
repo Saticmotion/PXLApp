@@ -1,14 +1,7 @@
 package com.mobsoft.pxlapp;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import java.util.concurrent.ExecutionException;
-
-
-=======
->>>>>>> 0bd66da1f0159aa9d408580c4693c90b65b5eca9
-=======
->>>>>>> 0bd66da1f0159aa9d408580c4693c90b65b5eca9
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;

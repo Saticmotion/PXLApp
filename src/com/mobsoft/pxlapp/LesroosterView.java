@@ -8,7 +8,11 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -27,7 +31,24 @@ public class LesroosterView extends Activity
 		setupActionBar();
 		// einde gegenereerde code
 		
-		String cacheString;
+		Spinner spinner = (Spinner) findViewById(R.id.dagSpinner);
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener()
+		{
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
+			{
+				
+			}			
+	
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) 
+			{
+				
+			}
+		});
+		
+		
+		String cacheString;		
 		try
 		{
 			String klas = getIntent().getExtras().getString("klas");
@@ -38,7 +59,7 @@ public class LesroosterView extends Activity
 			LesroosterAdapter adapter = new LesroosterAdapter(this, R.layout.activity_lesrooster_view_row, lessen);
 			
 			listView = (ListView)findViewById(R.id.listViewLesrooster);
-			
+
 			listView.setAdapter(adapter);
 		}
 		catch (UnsupportedEncodingException e)
@@ -49,6 +70,8 @@ public class LesroosterView extends Activity
 		{
 			e.printStackTrace();
 		}
+		
+		
 	}
 
 	/**
@@ -89,6 +112,10 @@ public class LesroosterView extends Activity
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
 	
+
+	private void updateDag(int dag, int beginDag)
+	{
+		
+	}
 }
