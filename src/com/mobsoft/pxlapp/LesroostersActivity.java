@@ -1,7 +1,6 @@
 package com.mobsoft.pxlapp;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import com.mobsoft.pxlapp.util.LogUtil;
@@ -19,7 +18,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class LesroostersActivity extends Activity 

@@ -1,7 +1,5 @@
 package com.mobsoft.pxlapp;
 
-import java.util.concurrent.ExecutionException;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
