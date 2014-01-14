@@ -20,6 +20,7 @@ import android.os.Build;
 public class LesroosterView extends Activity
 {
 	private ListView listView;
+	private Lesrooster lesrooster;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -32,12 +33,14 @@ public class LesroosterView extends Activity
 		// einde gegenereerde code
 		
 		Spinner spinner = (Spinner) findViewById(R.id.dagSpinner);
+		listView = (ListView)findViewById(R.id.listViewLesrooster);
+		
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener()
 		{
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
 			{
-				
+				updateDag(pos);
 			}			
 	
 			@Override
@@ -47,20 +50,15 @@ public class LesroosterView extends Activity
 			}
 		});
 		
+		spinner.setSelection(0);
 		
-		String cacheString;		
 		try
 		{
+			String cacheString;	
 			String klas = getIntent().getExtras().getString("klas");
 			cacheString = new String(CacheManager.retrieveData(this, "lesrooster" + klas), "UTF-8");
-			Lesrooster lesrooster = Lesrooster.lesroosterFromCache(cacheString);
-			ArrayList<Les> lessen = lesrooster.getLessen();
-			
-			LesroosterAdapter adapter = new LesroosterAdapter(this, R.layout.activity_lesrooster_view_row, lessen);
-			
-			listView = (ListView)findViewById(R.id.listViewLesrooster);
-
-			listView.setAdapter(adapter);
+			lesrooster = Lesrooster.lesroosterFromCache(cacheString);
+			updateDag(spinner.getSelectedItemPosition());
 		}
 		catch (UnsupportedEncodingException e)
 		{
@@ -70,8 +68,6 @@ public class LesroosterView extends Activity
 		{
 			e.printStackTrace();
 		}
-		
-		
 	}
 
 	/**
@@ -114,8 +110,13 @@ public class LesroosterView extends Activity
 	}
 	
 
-	private void updateDag(int dag, int beginDag)
+	private void updateDag(int dag)
 	{
+		dag = (dag + 2) % 7;
+		ArrayList<Les> lessen = lesrooster.getLessen(dag);
 		
+		LesroosterAdapter adapter = new LesroosterAdapter(this, R.layout.activity_lesrooster_view_row, lessen);
+		
+		listView.setAdapter(adapter);
 	}
 }
