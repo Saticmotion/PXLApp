@@ -12,8 +12,11 @@ import com.mobsoft.pxlapp.util.SimpleDateTime;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.os.Looper;
 import android.util.Log;
+=======
+>>>>>>> 0bd66da1f0159aa9d408580c4693c90b65b5eca9
 =======
 >>>>>>> 0bd66da1f0159aa9d408580c4693c90b65b5eca9
 
