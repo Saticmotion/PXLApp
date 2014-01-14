@@ -1,7 +1,11 @@
 package com.mobsoft.pxlapp;
 
+<<<<<<< HEAD
 import java.util.concurrent.ExecutionException;
 
+
+=======
+>>>>>>> 0bd66da1f0159aa9d408580c4693c90b65b5eca9
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -89,11 +93,11 @@ public class WeekmenuActivity extends Activity {
 				
 				//uitvoeren task met juiste url
 				if(gedrukt.equals("Campus Elfde Linie")){
-					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html");
+					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html",gedrukt);
 				}else if(gedrukt.equals("Campus Diepenbeek")){
-					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html");
+					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html",gedrukt);
 				}else{
-					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html");
+					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html",gedrukt);
 				}
 				
 				

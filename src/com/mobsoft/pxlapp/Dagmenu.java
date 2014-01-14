@@ -23,4 +23,16 @@ public class Dagmenu {
 	public String getDag(){
 		return this.dag;
 	}
+	
+	public String toCacheString(){
+		String cacheString;
+		cacheString = "-dagmenu--dag-"+dag;
+		for(String gerecht: gerechten){
+			cacheString += cacheString+"-gerecht-"+gerecht;
+		}
+		return cacheString;
+	}
+	public void setGerechten(ArrayList<String> gerechten){
+		this.gerechten = gerechten;
+	}
 }
