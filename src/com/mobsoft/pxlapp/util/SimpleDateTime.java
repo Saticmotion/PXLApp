@@ -2,6 +2,7 @@ package com.mobsoft.pxlapp.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
  /* A wrapper class for a Calendar object.
  * @author Simon
@@ -192,7 +193,7 @@ public class SimpleDateTime
 	
 	public String toString(String patroon)
 	{
-		String output = new SimpleDateFormat(patroon).format(datum.getTime());
+		String output = new SimpleDateFormat(patroon, Locale.getDefault()).format(datum.getTime());
 		return output;
 	}
 }

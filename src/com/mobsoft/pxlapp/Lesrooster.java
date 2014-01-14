@@ -1,6 +1,10 @@
 package com.mobsoft.pxlapp;
 
 import java.util.ArrayList;
+
+import android.util.Log;
+
+import com.mobsoft.pxlapp.util.LogUtil;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 public class Lesrooster
@@ -52,6 +56,21 @@ public class Lesrooster
 		return lessen;
 	}
 
+	public ArrayList<Les> getLessen(int dag)
+	{
+		ArrayList<Les> geselecteerd = new ArrayList<Les>();
+		for (Les les : lessen) 
+		{
+			if (les.getStart().getDagVanWeek() == dag)
+			{
+				Log.d(LogUtil.PXL_TAG, "dagvanweek: " + les.getStart().getDagVanWeek() + "dag: " + dag);
+				geselecteerd.add(les);
+			}
+		}
+		
+		return geselecteerd;
+	}
+	
 	/**
 	 * @param lessen
 	 *            De lijst van lessen die je in het object wilt plaatsen
@@ -94,7 +113,6 @@ public class Lesrooster
 		return klas;
 	}
 	
-
 	public void setKlas(String klas)
 	{
 		this.klas = klas;

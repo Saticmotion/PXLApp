@@ -30,8 +30,7 @@
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.LesroostersActivity"
-            android:label="@string/title_activity_lesroosters"
-            android:parentActivityName="com.mobsoft.pxlapp.MainActivity"  >
+            android:label="@string/title_activity_lesroosters" >
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.InfoActivity"
