@@ -3,6 +3,7 @@ package com.mobsoft.pxlapp;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
 
 import com.mobsoft.pxlapp.util.SimpleDateTime;
@@ -88,7 +89,8 @@ public class WeekmenuActivity extends Activity {
 				//textview voor info (voorlopig)
 				overzicht = new TextView(this);
 				overzicht.setText(gedrukt);
-				if(cacheDatum.getDag()==vandaag.getDag() && cacheDatum.getWeek()==vandaag.getWeek() && cacheDatum.getJaar()==vandaag.getJaar()){
+				cacheDatum.add(Calendar.DAY_OF_MONTH, 7);
+				if(cacheDatum.getDag()>=vandaag.getDag() && cacheDatum.getWeek()>=vandaag.getWeek() && cacheDatum.getJaar()>=vandaag.getJaar()){
 					vulWeekmenu(gedrukt);
 				}else{
 					
