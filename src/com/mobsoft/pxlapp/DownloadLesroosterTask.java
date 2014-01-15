@@ -44,14 +44,12 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 			Elements rows = document.select("table.asio_basic > tbody > tr"); // Vraag alle tablerows op			
 			ArrayList<IndexedElement> elements = parseRows(rows);			
 			parseElements(elements);
-			
-			Log.d(debugTag, "Done");
 		} 
 		catch (IOException e) 
 		{
 			e.printStackTrace();
 			//activity.showError("Fout", "Er is iets fout gegaan tijdens het downloaden van het lessenrooster, probeer opnieuw.");
-		}
+		} //bla
 		
 		return null;
 	}
