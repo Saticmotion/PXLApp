@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+import com.mobsoft.pxlapp.util.SimpleDateTime;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -50,7 +52,7 @@ public class LesroosterView extends Activity
 			}
 		});
 		
-		spinner.setSelection(0);
+		spinner.setSelection((new SimpleDateTime().getDagVanWeek() - 2) % 7); //correctie om dag v week om te zetten naar de index van de spinner
 		
 		try
 		{
@@ -109,10 +111,9 @@ public class LesroosterView extends Activity
 		return super.onOptionsItemSelected(item);
 	}
 	
-
 	private void updateDag(int dag)
 	{
-		dag = (dag + 2) % 7;
+		dag = (dag + 2) % 7; //correctie om index van de spinner om te zetten naar de dag v week
 		ArrayList<Les> lessen = lesrooster.getLessen(dag);
 		
 		LesroosterAdapter adapter = new LesroosterAdapter(this, R.layout.activity_lesrooster_view_row, lessen);
