@@ -1,7 +1,12 @@
 package com.mobsoft.pxlapp;
 
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.concurrent.ExecutionException;
+
+import com.mobsoft.pxlapp.util.SimpleDateTime;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -74,32 +79,48 @@ public class WeekmenuActivity extends Activity {
 	 */
 	@SuppressLint("NewApi")
 	public void geefMenu(View view){
-		
+			
 			String gedrukt = ((Button)view).getText().toString();
-			//nieuwe scrollview maken waaraan later een textview met info wordt toegevoegd
-			overzicht = new TextView(this);
-			if(isOnline()){
+			try {
+				SimpleDateTime cacheDatum = CacheManager.getCacheDate(this, "weekmenu"+gedrukt);
+				SimpleDateTime vandaag = new SimpleDateTime();
+				
+				//textview voor info (voorlopig)
+				overzicht = new TextView(this);
 				overzicht.setText(gedrukt);
-				
-				progress = new ProgressDialog(this);
-				progress.setMessage("Weekmenu downloaden");
-				
-				weekmenuDownloader = new DownloadWeekMenuTask(this);
-				weekmenuDownloader.setProgress(progress); //progress doorgeven aan task zodat deze dismissed kan worden na uitvoering
-				
-				//uitvoeren task met juiste url
-				if(gedrukt.equals("Campus Elfde Linie")){
-					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html",gedrukt);
-				}else if(gedrukt.equals("Campus Diepenbeek")){
-					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html",gedrukt);
+				if(cacheDatum.getDag()==vandaag.getDag() && cacheDatum.getWeek()==vandaag.getWeek() && cacheDatum.getJaar()==vandaag.getJaar()){
+					vulWeekmenu(gedrukt);
 				}else{
-					weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html",gedrukt);
+					
+					if(isOnline()){
+						progress = new ProgressDialog(this);
+						progress.setMessage("Weekmenu downloaden");
+						
+						weekmenuDownloader = new DownloadWeekMenuTask(this);
+						weekmenuDownloader.setProgress(progress); //progress doorgeven aan task zodat deze dismissed kan worden na uitvoering
+						
+						//uitvoeren task met juiste url
+						if(gedrukt.equals("Campus Elfde Linie")){
+							weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html",gedrukt);
+						}else if(gedrukt.equals("Campus Diepenbeek")){
+							weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html",gedrukt);
+						}else{
+							weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html",gedrukt);
+						}
+					}else{
+						if (CacheManager.fileExists(this, "weekmenu"+gedrukt))
+						{
+							vulWeekmenu(gedrukt);
+						}else
+							toonFout("Fout!","Er is geen verbinding met het internet, probeer opnieuw");
+					}
 				}
 				
-				
-			}else{
-				toonFout("Fout!","Er is geen verbinding met het internet, probeer opnieuw");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			
 	}
 	/**
 	 * checkt of er een internetverbinding is
@@ -120,23 +141,40 @@ public class WeekmenuActivity extends Activity {
 	/**
 	 * vult de view met gegevens(voorlopig)
 	 */
-	public void vulWeekmenu(){
-		ScrollView scroll = new ScrollView(this);
-		scroll.addView(overzicht);
-		
-		for(Dagmenu dag:weekmenu.getDagmenus()){
-			overzicht.append("\n"+dag.getDag());
+	public void vulWeekmenu(String campus){
+		try {
+			String cacheString = new String(CacheManager.retrieveData(this, "weekmenu" + campus), "UTF-8");
+			weekmenu = Weekmenu.weekmenuFromCache(cacheString);
+			ScrollView scroll = new ScrollView(this);
+			scroll.addView(overzicht);
 			
-			for(String gerecht:dag.getGerechten()){
-				overzicht.append("\n -"+gerecht);
+			for(Dagmenu dag:weekmenu.getDagmenus()){
+				overzicht.append("\n"+dag.getDag());
+				
+				for(String gerecht:dag.getGerechten()){
+					overzicht.append("\n -"+gerecht);
+				}
+				overzicht.append("\n\n");
 			}
-			overzicht.append("\n\n");
+			setContentView(scroll);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		setContentView(scroll);
+
 	}
 	
 	public void setWeekmenu(Weekmenu weekmenu){
 		this.weekmenu = weekmenu;
+		try {
+			CacheManager.cacheData(this, weekmenu.toCacheString().getBytes(), "weekmenu" + weekmenu.getCampus());
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

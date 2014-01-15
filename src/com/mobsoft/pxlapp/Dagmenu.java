@@ -26,9 +26,12 @@ public class Dagmenu {
 	
 	public String toCacheString(){
 		String cacheString;
-		cacheString = "-dagmenu--dag-"+dag;
+		cacheString = dag+"-dag-";
 		for(String gerecht: gerechten){
-			cacheString += cacheString+"-gerecht-"+gerecht;
+			if(gerecht==gerechten.get(0))
+				cacheString += gerecht;
+			else
+				cacheString += "-gerecht-"+gerecht;
 		}
 		return cacheString;
 	}
