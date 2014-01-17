@@ -17,6 +17,7 @@
     <string translatable="false" name="pxl_logo">Pxl logo</string>
     <string translatable="false" name="title_activity_lesrooster_view">Lesrooster</string>
     <string translatable="false" name="title_activity_lesrooster_view_row">Lesrooster rij</string>
+    <string translatable="false" name="vernieuwen">Vernieuwen</string>
 
     <string-array name="weekdagen">
         <item>Maandag</item>

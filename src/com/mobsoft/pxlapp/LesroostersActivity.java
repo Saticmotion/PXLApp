@@ -1,9 +1,6 @@
 package com.mobsoft.pxlapp;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
-import com.mobsoft.pxlapp.util.LogUtil;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.annotation.TargetApi;
@@ -18,7 +15,6 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,35 +70,16 @@ public class LesroostersActivity extends Activity
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void displayLesrooster(View view)
+	public void vulLesrooster(View view)
 	{
-		SimpleDateTime test = new SimpleDateTime();
-		Log.d(LogUtil.PXL_TAG, " " + test.getJaar());
-		
 		TextView klasText = (TextView) findViewById(R.id.gekozen_klas_string);
 		String klas = klasText.getText().toString().toUpperCase().replace(" ", ""); //formatteer klas volgens voorbeeld: 2TING.
-		Log.d("Pxl App", klas);
 		
-		try 
-		{
-			vulLesrooster(klas);
-		} 
-		catch (InterruptedException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (ExecutionException e) 
-		{
-			e.printStackTrace();
-		}
-	}
-
-	private void vulLesrooster(String klas) throws InterruptedException, ExecutionException 
-	{
 		try
 		{
 			SimpleDateTime cacheDatum = CacheManager.getCacheDate(this, "lesrooster" + klas);
 			SimpleDateTime vandaag = new SimpleDateTime();
+			
 			if (cacheDatum.getWeek() == vandaag.getWeek() && cacheDatum.getJaar() == vandaag.getJaar()) //Ook jaar controleren, bugs vermijden rond nieuwjaar
 			{
 				toonLessenrooster(klas);
@@ -124,11 +101,7 @@ public class LesroostersActivity extends Activity
 					}
 					else
 					{
-						TextView text = new TextView(this);
-						text.setTextSize(12);
-						text.setText("Geen verbinding, kan het lesrooster niet downloaden.");
-						
-						setContentView(text);
+						toonFout("", "Geen internetverbinding");
 					}
 				}
 			}
@@ -143,7 +116,6 @@ public class LesroostersActivity extends Activity
 	{
 		try
 		{
-			Log.d("Pxl App", lesrooster.toCacheString());
 			CacheManager.cacheData(this, lesrooster.toCacheString().getBytes(), "lesrooster" + lesrooster.getKlas());
 			toonLessenrooster(lesrooster.getKlas());
 		}
@@ -166,28 +138,19 @@ public class LesroostersActivity extends Activity
 	    return false;
 	}
 
-	public void showError(String title, String message)
-	{
-		AlertDialog error = new AlertDialog.Builder(this)
-				.setTitle(title)
-				.setMessage(message)
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() 
-				{					
-					@Override
-					public void onClick(DialogInterface dialog, int which) 
-					{
-						dialog.cancel();
-					}
-				})
-				.create();
-		
-		error.show();
-	}
-
 	private void toonLessenrooster(String klas)
 	{
 		Intent intent = new Intent(this, LesroosterView.class);
 		intent.putExtra("klas", klas);
 		startActivity(intent);
+	}
+
+	public void toonFout(String titel,String bericht)
+	{
+		AlertDialog.Builder fout  = new AlertDialog.Builder(this);
+		fout.setTitle(titel);
+		fout.setMessage(bericht);
+		fout.setPositiveButton("OK", null);
+		fout.create().show();
 	}
 }

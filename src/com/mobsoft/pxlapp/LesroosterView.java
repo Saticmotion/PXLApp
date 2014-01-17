@@ -4,10 +4,16 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+import com.mobsoft.pxlapp.util.LogUtil;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,46 +23,50 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
 
 public class LesroosterView extends Activity
 {
 	private ListView listView;
 	private Lesrooster lesrooster;
-	
+	private ProgressDialog progress;
+	private Spinner spinner;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		//gegenereerde code
+		// gegenereerde code
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lesrooster_view);
 		// Show the Up button in the action bar.
 		setupActionBar();
 		// einde gegenereerde code
-		
-		Spinner spinner = (Spinner) findViewById(R.id.dagSpinner);
-		listView = (ListView)findViewById(R.id.listViewLesrooster);
-		
+
+		spinner = (Spinner) findViewById(R.id.dagSpinner);
+		listView = (ListView) findViewById(R.id.listViewLesrooster);
+
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener()
 		{
 			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) 
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 			{
 				updateDag(pos);
-			}			
-	
+			}
+
 			@Override
-			public void onNothingSelected(AdapterView<?> parent) 
+			public void onNothingSelected(AdapterView<?> parent)
 			{
-				
+
 			}
 		});
-		
-		spinner.setSelection((new SimpleDateTime().getDagVanWeek() - 2) % 7); //correctie om dag v week om te zetten naar de index van de spinner
-		
+
+		spinner.setSelection((new SimpleDateTime().getDagVanWeek() - 2) % 7); 	// correctie dag v week om te zetten naar de
+																				//index van de spinner
+
 		try
 		{
-			String cacheString;	
+			String cacheString;
 			String klas = getIntent().getExtras().getString("klas");
 			cacheString = new String(CacheManager.retrieveData(this, "lesrooster" + klas), "UTF-8");
 			lesrooster = Lesrooster.lesroosterFromCache(cacheString);
@@ -98,26 +108,72 @@ public class LesroosterView extends Activity
 		switch (item.getItemId())
 		{
 			case android.R.id.home:
-				// This ID represents the Home or Up button. In the case of this
-				// activity, the Up button is shown. Use NavUtils to allow users
-				// to navigate up one level in the application structure. For
-				// more details, see the Navigation pattern on Android Design:
-				//
-				// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-				//
 				NavUtils.navigateUpFromSameTask(this);
 				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	private void updateDag(int dag)
 	{
-		dag = (dag + 2) % 7; //correctie om index van de spinner om te zetten naar de dag v week
+		dag = (dag + 2) % 7; // correctie om index van de spinner om te zetten
+								// naar de dag v week
 		ArrayList<Les> lessen = lesrooster.getLessen(dag);
-		
+
 		LesroosterAdapter adapter = new LesroosterAdapter(this, R.layout.activity_lesrooster_view_row, lessen);
-		
+
 		listView.setAdapter(adapter);
+		Log.d(LogUtil.PXL_TAG, "Aangepast");
+	}
+
+	public void downloadOpnieuw(View view)
+	{
+		if (isOnline())
+		{
+			progress = new ProgressDialog(this);
+			progress.setMessage("Lesrooster downloaden");
+			progress.show();
+			new DownloadLesroosterTask(this).execute(lesrooster.getKlas());
+		}
+		else
+		{
+			toonFout("", "Geen internetverbinding");
+		}
+	}
+
+	public void ontvangLesrooster(Lesrooster lesrooster)
+	{
+		try
+		{
+			CacheManager.cacheData(this, lesrooster.toCacheString().getBytes(), "lesrooster" + lesrooster.getKlas());
+			this.lesrooster = lesrooster;
+			updateDag(spinner.getSelectedItemPosition());
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		progress.dismiss();
+	}
+
+	private boolean isOnline()
+	{
+		ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		if (netInfo != null && netInfo.isConnectedOrConnecting())
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public void toonFout(String titel, String bericht)
+	{
+		AlertDialog.Builder fout = new AlertDialog.Builder(this);
+		fout.setTitle(titel);
+		fout.setMessage(bericht);
+		fout.setPositiveButton("OK", null);
+		fout.create().show();
 	}
 }

@@ -19,12 +19,18 @@ import android.util.Log;
  */
 public class DownloadLesroosterTask extends AsyncTask<String, Void, Void> 
 {
-	private LesroostersActivity activity;
+	private LesroostersActivity lesroostersActivity = null;
+	private LesroosterView lesroosterView = null;
 	private Lesrooster lesrooster;
 	
 	public DownloadLesroosterTask(LesroostersActivity activity) 
 	{
-		this.activity = activity;
+		this.lesroostersActivity = activity;
+	}
+	
+	public DownloadLesroosterTask(LesroosterView view)
+	{
+		this.lesroosterView = view;
 	}
 	
 	@Override
@@ -55,7 +61,14 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 	
 	protected void onPostExecute(Void result)
 	{
-		activity.ontvangLesrooster(lesrooster);
+		if (lesroosterView == null)
+		{
+			lesroostersActivity.ontvangLesrooster(lesrooster);
+		}
+		else if (lesroostersActivity == null)
+		{
+			lesroosterView.ontvangLesrooster(lesrooster);
+		}
 	}
 	
 	private ArrayList<IndexedElement> parseRows(Elements rows)
