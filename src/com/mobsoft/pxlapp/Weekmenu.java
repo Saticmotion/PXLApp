@@ -76,5 +76,16 @@ public class Weekmenu{
 	public String getCampus(){
 		return campus;
 	}
+	public ArrayList<String> getDagenNaam(){
+		ArrayList<String> namen = new ArrayList<String>();
+		for(Dagmenu dag: dagmenus){
+			namen.add(dag.getDag());
+		}
+		return namen;
+	}
+	public Dagmenu getDagmenuAt(int pos){
+		return dagmenus.get(pos);
+		
+	}
 	
 }

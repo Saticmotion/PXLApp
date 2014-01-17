@@ -12,10 +12,12 @@ import com.mobsoft.pxlapp.util.SimpleDateTime;
 import android.R.string;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,8 +26,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class WeekmenuActivity extends Activity {
@@ -33,6 +42,8 @@ public class WeekmenuActivity extends Activity {
 	private ProgressDialog progress;
 	private Weekmenu weekmenu;
 	private TextView overzicht;
+	private ArrayAdapter<String> gerechtenLijst;
+	private ListView gerechten;
 	
 	
 	@Override
@@ -151,22 +162,54 @@ public class WeekmenuActivity extends Activity {
 	/**
 	 * vult de view met gegevens(voorlopig)
 	 */
+	
 	public void vulWeekmenu(String campus){
 		try {
 			String cacheString = new String(CacheManager.retrieveData(this, "weekmenu" + campus), "UTF-8");
 			weekmenu = Weekmenu.weekmenuFromCache(cacheString);
-			ScrollView scroll = new ScrollView(this);
+			/*ScrollView scroll = new ScrollView(this);
 			scroll.addView(overzicht);
 			
 			for(Dagmenu dag:weekmenu.getDagmenus()){
 				overzicht.append("\n"+dag.getDag());
-				
 				for(String gerecht:dag.getGerechten()){
 					overzicht.append("\n -"+gerecht);
 				}
 				overzicht.append("\n\n");
 			}
-			setContentView(scroll);
+			*/
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+				     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+			ScrollView scroll = new ScrollView(this);
+			scroll.setFillViewport(true);
+			LinearLayout ll = new LinearLayout(this);
+			ll.setOrientation(LinearLayout.VERTICAL);
+			scroll.addView(ll,layoutParams);
+			final Spinner dagen = new Spinner(this);
+			ArrayAdapter<String> dagenNamen = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,weekmenu.getDagenNaam());
+			dagenNamen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			
+			dagen.setAdapter(dagenNamen);
+			gerechten = new ListView(this);
+			gerechten.setAdapter(dagenNamen);
+			dagen.setOnItemSelectedListener(new OnItemSelectedListener(){
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view,
+						int pos, long id) {
+					updateDagmenu(pos);
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
+			dagen.setSelection(0);
+			ll.addView(dagen);
+			ll.addView(gerechten);
+			setContentView(scroll,layoutParams);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -199,6 +242,11 @@ public class WeekmenuActivity extends Activity {
 		fout.setMessage(bericht);
 		fout.setPositiveButton("OK", null);
 		fout.create().show();
+	}
+	public void updateDagmenu(int pos){
+		gerechtenLijst = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,weekmenu.getDagmenuAt(pos).getGerechten());
+		gerechten.setAdapter(gerechtenLijst);
+		
 	}
 
 }
