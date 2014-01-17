@@ -1,7 +1,6 @@
 package com.mobsoft.pxlapp;
 
 
-import java.util.concurrent.ExecutionException;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -25,6 +24,7 @@ public class WeekmenuActivity extends Activity {
 	private Weekmenu weekmenu;
 	private TextView overzicht;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,6 +32,9 @@ public class WeekmenuActivity extends Activity {
 		
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		   
+		
 	}
 
 	/**
@@ -132,6 +135,9 @@ public class WeekmenuActivity extends Activity {
 			}
 			overzicht.append("\n\n");
 		}
+		
+		
+		
 		setContentView(scroll);
 	}
 	

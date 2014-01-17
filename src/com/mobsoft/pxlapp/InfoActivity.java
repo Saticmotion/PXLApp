@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 public class InfoActivity extends Activity {
 
-	private AdView adView;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -25,25 +25,7 @@ public class InfoActivity extends Activity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_info);	
 			setupActionBar();
-			
-			// Create the adView.
-		    adView = new AdView(this);
-		    adView.setAdUnitId("ca-app-pub-9643427369143894/6739888360");
-		    adView.setAdSize(AdSize.BANNER);
-
-		    // Lookup your LinearLayout assuming it's been given
-		    // the attribute android:id="@+id/mainLayout".
-		    LinearLayout layout = (LinearLayout)findViewById(R.id.LinearLayoutInfo);
-
-		    // Add the adView to it.
-		    layout.addView(adView);
-
-		    // Initiate a generic request.
-		    AdRequest adRequest = new AdRequest.Builder().build();
-
-		    // Load the adView with the ad request.
-		    adView.loadAd(adRequest);
-		    
+				    
 			ImageView im = (ImageView) findViewById(R.id.imageView1);  
 		    im.setImageResource(R.drawable.pxl_logo_noborder);
 		    
@@ -102,23 +84,7 @@ public class InfoActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	@Override
-	  public void onPause() {
-	    adView.pause();
-	    super.onPause();
-	  }
-
-	  @Override
-	  public void onResume() {
-	    super.onResume();
-	    adView.resume();
-	  }
-
-	  @Override
-	  public void onDestroy() {
-	    adView.destroy();
-	    super.onDestroy();
-	  }
+	
 	
 
 }

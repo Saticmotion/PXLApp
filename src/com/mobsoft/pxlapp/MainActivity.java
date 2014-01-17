@@ -1,5 +1,8 @@
 package com.mobsoft.pxlapp;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,9 +10,9 @@ import android.view.Menu;
 import android.view.View;
 
 
+
 public class MainActivity extends Activity 
 {
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -17,7 +20,11 @@ public class MainActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		
+		// Look up the AdView as a resource and load a request.
+	    AdView adView = (AdView)this.findViewById(R.id.adView);
+	    AdRequest adRequest = new AdRequest.Builder().build();
+	    adView.loadAd(adRequest);
+
 	}
 
 	@Override
@@ -46,6 +53,7 @@ public class MainActivity extends Activity
 		Intent intent = new Intent(this, WeekmenuActivity.class);
 		startActivity(intent);
 	}
+	
 	
 	
 }
