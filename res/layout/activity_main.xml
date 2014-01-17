@@ -9,46 +9,103 @@
     tools:context=".MainActivity" >
 
     <LinearLayout
+        android:id="@+id/eersteRij"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:id="@+id/eersteRij" >
-        
-        <Button
-	        android:id="@+id/button_lesroosters"
-	        android:layout_width="0dp"
-	        android:layout_height="match_parent"
-	        android:layout_weight="2"
-	        android:text="@string/button_lesroosters"  
-	        android:onClick="openLesroosters" />
-        
-		<Button
-		    android:id="@+id/button_info"
-		    android:layout_width="0dp"
-		    android:layout_height="match_parent"
-		    android:layout_weight="1"
-		    android:onClick="openInfo"
-		    android:text="@string/button_info" />  
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/eersteRij"
-		android:id="@+id/tweedeRij">
-        
-        <Button
-        android:id="@+id/button_weekmenu"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_weight="1"
-        android:text="@string/button_weekmenu"  
-        android:onClick="openWeekmenu" />
-        
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:background="@drawable/textview_selector" 
+        android:onClick="openLesroosters" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="60dp"
+          	android:scaleType="centerInside"
+            android:layout_height="match_parent"
+            android:src="@drawable/lessenrooster" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:textSize="20sp"
+            android:text="Lessenrooster" />
          
+		
     </LinearLayout>
-	
+	<View
+	    android:id="@+id/eerstelijn"
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dip"
+	    android:background="@color/green_accent"
+	    android:layout_below="@+id/eersteRij"
+	/>	
+    <LinearLayout
+        android:id="@+id/tweedeRij"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:onClick="openWeekmenu" 
+        android:background="@drawable/textview_selector" 
+        android:layout_below="@+id/eerstelijn" >
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="60dp"
+            android:scaleType="centerInside"
+            android:layout_height="match_parent"
+            android:src="@drawable/restaurant" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:textSize="20sp"
+            android:text="Weekmenu" />
+    </LinearLayout>
+    <View
+	    android:id="@+id/tweedelijn"
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dip"
+	    android:background="@color/green_accent"
+	    android:layout_below="@+id/tweedeRij"
+	/>	
+    <LinearLayout
+        android:id="@+id/derdeRij"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:onClick="openInfo" 
+        android:background="@drawable/textview_selector" 
+        android:layout_below="@+id/tweedelijn" >
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="60dp"
+            android:scaleType="centerInside"
+            android:layout_height="match_parent"
+            android:src="@drawable/info" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:textSize="20sp"
+            android:text="Info" />
+        
+    </LinearLayout>
+	<View
+	    android:id="@+id/derdelijn"
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dip"
+	    android:background="@color/green_accent"
+	    android:layout_below="@+id/derdeRij"
+	/>
     <com.google.android.gms.ads.AdView 
         				android:id="@+id/adView"
                         android:layout_width="wrap_content"
@@ -56,4 +113,7 @@
                         android:layout_alignParentBottom="true"
                         ads:adUnitId="ca-app-pub-9643427369143894/6739888360"
                         ads:adSize="BANNER"/>
+    
 </RelativeLayout>
+
+
