@@ -3,20 +3,27 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-    <Spinner
-        android:id="@+id/dagSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:entries="@array/weekdagen" />
     
-    <Button 
-        android:id="@+id/downloadOpnieuwButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="downloadOpnieuw" 
-        android:text="@string/vernieuwen"/>
-   
+	<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+	    <Spinner
+	        android:id="@+id/dagSpinner"
+	        android:layout_width="match_parent"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content" 
+	        android:entries="@array/weekdagen" />
+	    
+	    <Button 
+	        android:id="@+id/downloadOpnieuwButton"
+	        android:layout_width="match_parent"
+	        android:layout_weight="2"
+	        android:layout_height="wrap_content"
+	        android:onClick="downloadOpnieuw" 
+	        android:text="@string/vernieuwen"/>
+	    </LinearLayout>
+	    	   
      <ListView
         android:id="@+id/listViewLesrooster"
         android:layout_width="fill_parent"

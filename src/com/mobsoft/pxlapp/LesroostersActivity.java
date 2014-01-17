@@ -74,6 +74,11 @@ public class LesroostersActivity extends Activity
 	{
 		TextView klasText = (TextView) findViewById(R.id.gekozen_klas_string);
 		String klas = klasText.getText().toString().toUpperCase().replace(" ", ""); //formatteer klas volgens voorbeeld: 2TING.
+		if (klas.equals(""))
+		{
+			toonFout("", "Geef een klas in");
+			return;
+		}
 		
 		try
 		{
