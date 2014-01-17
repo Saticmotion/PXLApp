@@ -21,7 +21,6 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 {
 	private LesroostersActivity activity;
 	private Lesrooster lesrooster;
-	private String debugTag = "Pxl App";
 	
 	public DownloadLesroosterTask(LesroostersActivity activity) 
 	{
@@ -49,7 +48,7 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 		{
 			e.printStackTrace();
 			//activity.showError("Fout", "Er is iets fout gegaan tijdens het downloaden van het lessenrooster, probeer opnieuw.");
-		} //bla
+		}
 		
 		return null;
 	}

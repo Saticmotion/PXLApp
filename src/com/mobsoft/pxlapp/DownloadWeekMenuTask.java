@@ -89,7 +89,7 @@ public class DownloadWeekMenuTask extends AsyncTask<String,Void, Void>{
 		}
 		else{
 			activiteit.setWeekmenu(weekmenu); //weekmenu doorgeven aan activity
-			activiteit.vulWeekmenu(); //activiteit scherm laten vullen
+			activiteit.vulWeekmenu(weekmenu.getCampus());
 		}
 	}
 	@Override

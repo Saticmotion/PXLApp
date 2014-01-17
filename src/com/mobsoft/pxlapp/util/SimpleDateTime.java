@@ -196,5 +196,8 @@ public class SimpleDateTime
 		String output = new SimpleDateFormat(patroon, Locale.getDefault()).format(datum.getTime());
 		return output;
 	}
+	public void add(int field,int waarde){
+		datum.add(field, waarde);
+	}
 }
 

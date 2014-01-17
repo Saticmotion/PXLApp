@@ -38,15 +38,18 @@ public class Weekmenu{
 		
 		Long cacheDatum = new SimpleDateTime().getMilliseconden();
 		Long beginDatum = begindatum.getMilliseconden();
-		cacheString = cacheDatum + "-weekmenu-" + campus + "-weekmenu-" + beginDatum+"-weekmenu-";
+		cacheString = cacheDatum + "\n" + campus + "\n" + beginDatum+"\n";
 		for(Dagmenu dag: dagmenus){
-			cacheString+=dag.toCacheString();
+			if(dag == this.getFirstDagmenu())
+				cacheString+=dag.toCacheString();
+			else
+				cacheString+="-dagmenu-"+dag.toCacheString();
 		}
 		return cacheString;
 	}
 	public static Weekmenu weekmenuFromCache(String cacheString){
 		Weekmenu weekmenu = new Weekmenu();
-		String waarden[] = cacheString.split("-weekmenu-");
+		String waarden[] = cacheString.split("\n");
 		
 		weekmenu.campus = waarden[1];
 		weekmenu.begindatum = new SimpleDateTime(Long.valueOf(waarden[2]));
@@ -59,12 +62,19 @@ public class Weekmenu{
 			
 			String gerechtenString[] = dagsplit[1].split("-gerecht-");
 			ArrayList<String> gerechten = new ArrayList<String>(Arrays.asList(gerechtenString));
+			dagmenu.setGerechten(gerechten);
 			
 			weekmenu.AddDagmenu(dagmenu);
 			
 		}
 		
 		return weekmenu;
+	}
+	public Dagmenu getFirstDagmenu(){
+		return dagmenus.get(0);
+	}
+	public String getCampus(){
+		return campus;
 	}
 	
 }
