@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import java.util.concurrent.ExecutionException;
+
 import com.mobsoft.pxlapp.util.SimpleDateTime;
+
+import android.R.string;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -20,6 +23,7 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -84,7 +88,8 @@ public class WeekmenuActivity extends Activity {
 	@SuppressLint("NewApi")
 	public void geefMenu(View view){
 			
-			String gedrukt = ((Button)view).getText().toString();
+			View test = ((ViewGroup)view).getChildAt(1);
+			String gedrukt = ((TextView)test).getText().toString();
 			try {
 				SimpleDateTime cacheDatum = CacheManager.getCacheDate(this, "weekmenu"+gedrukt);
 				SimpleDateTime vandaag = new SimpleDateTime();
