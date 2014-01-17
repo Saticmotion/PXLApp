@@ -30,13 +30,13 @@ public class InfoActivity extends Activity {
 		    im.setImageResource(R.drawable.pxl_logo_noborder);
 		    
 		    
-		    String algemeneInfo = "<u>Hogeschool PXL</u> <br />Elfde-Liniestraat 24 <br />B-3500 Hasselt <br />tel. + 32 11 77 55 55 <br />fax. + 32 11 77 55 59 <br />pxl@pxl.be";
-		    String cMine = "<u>Campus C-mine</u><br />C-mine <br />B-3600 Genk <br />tel. + 32 89 30 08 50 <br />fax. + 32 89 30 08 59 <br />infomad@khlim.be";
-			String diepenbeek = "<u>Campus Diepenbeek</u> <br />Agoralaan <br />B-3590 Diepenbeek <br />tel. + 32 11 77 54 00";
-			String elfde = "<u>Campus Elfde Linie</u> <br />Elfde-Liniestraat 23 - 26 <br />B-3500 Hasselt <br />tel. + 32 11 77 55 00";
-			String guffensLaan ="<u>Campus Guffenslaan</u> <br />Guffenslaan 39 <br />B-3500 Hasselt <br />tel. + 32 11 77 52 00";
-			String quartier = "<u>Campus Quartier Canal</u> <br />Bootstraat 11 <br />B-3500 Hasselt <br />tel. + 32 11 77 50 60";
-			String vilder = "<u>Campus Vildersstraat</u> <br />Vildersstraat 5 <br />B-3500 Hasselt <br />tel. + 32 11 77 53 00";
+		    String algemeneInfo = "<font color='#58a518'><b><u>Hogeschool PXL</u></b></font> <br />Elfde-Liniestraat 24 <br />B-3500 Hasselt <br />tel. + 32 11 77 55 55 <br />fax. + 32 11 77 55 59 <br />pxl@pxl.be";
+		    String cMine = "<font color='#58a518'><b><u>Campus C-mine</u></b></font><br />C-mine <br />B-3600 Genk <br />tel. + 32 89 30 08 50 <br />fax. + 32 89 30 08 59 <br />infomad@khlim.be";
+			String diepenbeek = "<font color='#58a518'><b><u>Campus Diepenbeek</u></b></font> <br />Agoralaan <br />B-3590 Diepenbeek <br />tel. + 32 11 77 54 00";
+			String elfde = "<font color='#58a518'><b><u>Campus Elfde Linie</u></b></font> <br />Elfde-Liniestraat 23 - 26 <br />B-3500 Hasselt <br />tel. + 32 11 77 55 00";
+			String guffensLaan ="<font color='#58a518'><b><u>Campus Guffenslaan</u></b></font> <br />Guffenslaan 39 <br />B-3500 Hasselt <br />tel. + 32 11 77 52 00";
+			String quartier = "<font color='#58a518'><b><u>Campus Quartier Canal</u></b></font> <br />Bootstraat 11 <br />B-3500 Hasselt <br />tel. + 32 11 77 50 60";
+			String vilder = "<font color='#58a518'><b><u>Campus Vildersstraat</u></b></font> <br />Vildersstraat 5 <br />B-3500 Hasselt <br />tel. + 32 11 77 53 00";
 			
 			fillTextView((TextView)findViewById(R.id.textView1), algemeneInfo);
 			fillTextView((TextView)findViewById(R.id.textView2), cMine);

@@ -22,7 +22,7 @@
 	            android:id="@+id/imageView1"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
-	            android:src="@drawable/pxl_logo_noborder" 
+	            android:src="@drawable/pxl_logo_noborder"
 	            android:contentDescription="@string/pxl_logo"/>
 	
 	        <TextView
@@ -30,42 +30,48 @@
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_marginTop="10dp"
-	            android:layout_marginLeft="10dp" />
+	            android:layout_marginLeft="10dp"
+	            android:textSize="15sp"/>
 	
 	        <TextView
 	            android:id="@+id/textView2"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_marginTop="10dp"
-	            android:layout_marginLeft="10dp" />
+	            android:layout_marginLeft="10dp"
+	            android:textSize="15sp" />
 	        
 	        <TextView
 	            android:id="@+id/textView3"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_marginTop="10dp"
-	            android:layout_marginLeft="10dp" />
+	            android:layout_marginLeft="10dp"
+	            android:textSize="15sp" />
 	        
 	        <TextView
 	            android:id="@+id/textView4"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_marginTop="10dp"
-	            android:layout_marginLeft="10dp" />
+	            android:layout_marginLeft="10dp"
+	            android:textSize="15sp" />
 	        
 	        <TextView
 	            android:id="@+id/textView5"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_marginTop="10dp"
-	            android:layout_marginLeft="10dp" />
+	            android:layout_marginLeft="10dp"
+	            android:textSize="15sp" />
 	        
 	        <TextView
 	            android:id="@+id/textView6"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_marginTop="10dp"
-	            android:layout_marginLeft="10dp" />
+	            android:layout_marginLeft="10dp"
+	            android:textSize="15sp" />
 	        
 	        <TextView
 	            android:id="@+id/textView7"
@@ -73,7 +79,8 @@
 	            android:layout_height="wrap_content"
 	            android:layout_marginTop="10dp"
 	            android:layout_marginBottom="10dp"
-	            android:layout_marginLeft="10dp" />
+	            android:layout_marginLeft="10dp"
+	            android:textSize="15sp" />
 		</LinearLayout>        
 	</ScrollView>
 </LinearLayout>
