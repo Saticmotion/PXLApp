@@ -61,7 +61,14 @@ public class LesroosterView extends Activity
 			}
 		});
 
-		spinner.setSelection((new SimpleDateTime().getDagVanWeek() - 2) % 7); 	// correctie dag v week om te zetten naar de
+		int dagVanWeek = new SimpleDateTime().getDagVanWeek();
+		int spinnerIndex = (dagVanWeek - 2) % 7; //correctie om dag van week om te zetten naar index spinner		
+		if (spinnerIndex > 4)
+		{
+			spinnerIndex = 0; 
+		}
+			
+		spinner.setSelection(spinnerIndex); 	// correctie dag v week om te zetten naar de
 																				//index van de spinner
 
 		try
