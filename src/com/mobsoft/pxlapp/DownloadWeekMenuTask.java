@@ -21,15 +21,27 @@ public class DownloadWeekMenuTask extends AsyncTask<String,Void, Void>{
 	private WeekmenuActivity activiteit;
 	private ProgressDialog progress;
 	private Weekmenu weekmenu;
+	private WeekmenuView weekmenuView;
 	private int e;
 	
 	public DownloadWeekMenuTask(WeekmenuActivity activiteit){
 		this.activiteit = activiteit;
 	}
+	public DownloadWeekMenuTask(WeekmenuView weekmenuView) {
+		this.weekmenuView= weekmenuView;
+	}
 	
 	@Override
 	protected Void doInBackground(String... waarden) {
-		weekmenu = zoekMenu(waarden[0],waarden[1]);
+		String url=null;
+		if(waarden[0].equals("Campus Elfde Linie")){
+			url="http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html";
+		}else if(waarden[0].equals("Campus Diepenbeek")){
+			url="http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html";
+		}else{
+			url="http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html";
+		}
+		weekmenu = zoekMenu(url,waarden[0]);
 		return null;
 	}
 	
@@ -88,8 +100,12 @@ public class DownloadWeekMenuTask extends AsyncTask<String,Void, Void>{
 			activiteit.toonFout("Fout", "Helaas, er is een fout opgetreden, probeer opnieuw");
 		}
 		else{
-			activiteit.setWeekmenu(weekmenu); //weekmenu doorgeven aan activity
-			activiteit.vulWeekmenu(weekmenu.getCampus());
+			if(weekmenuView==null){
+				activiteit.setWeekmenu(weekmenu); //weekmenu doorgeven aan activity
+				activiteit.toonWeekmenu(weekmenu.getCampus());
+			}else{
+				weekmenuView.setWeekmenu(weekmenu);
+			}
 		}
 	}
 	@Override

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string translatable="false" name="app_name">PXL App</string>
-    <string translatable="false" name="action_settings">Settings</string>
-    <string translatable="false" name="button_lesroosters">Lesroosters</string>
-    <string translatable="false" name="button_info">Info</string>
-    <string translatable="false" name="button_bekijk">Bekijk</string>
-    <string translatable="false" name="title_activity_lesroosters">Lesrooster zoeken</string>
-    <string translatable="false" name="title_activity_info">Info</string>
-    <string translatable="false" name="geef_klas_message">Geef klas</string>
-    <string translatable="false" name="title_activity_weekmenu">PXL Weekmenu</string>
-    <string translatable="false" name="button_weekmenu">Weekmenu</string>
-    <string translatable="false" name="button_menuElfde">Campus Elfde Linie</string>
-    <string translatable="false" name="button_menuDiep">Campus Diepenbeek</string>
-    <string translatable="false" name="button_menuVild">Campus Vildersstraat</string>
-    <string translatable="false" name="pxl_logo">Pxl logo</string>
-    <string translatable="false" name="title_activity_lesrooster_view">Lesrooster</string>
-    <string translatable="false" name="title_activity_lesrooster_view_row">Lesrooster rij</string>
-    <string translatable="false" name="vernieuwen">Vernieuwen</string>
+    <string name="app_name" translatable="false">PXL App</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="button_lesroosters" translatable="false">Lesroosters</string>
+    <string name="button_info" translatable="false">Info</string>
+    <string name="button_bekijk" translatable="false">Bekijk</string>
+    <string name="title_activity_lesroosters" translatable="false">Lesrooster zoeken</string>
+    <string name="title_activity_info" translatable="false">Info</string>
+    <string name="geef_klas_message" translatable="false">Geef klas</string>
+    <string name="title_activity_weekmenu" translatable="false">PXL Weekmenu</string>
+    <string name="button_weekmenu" translatable="false">Weekmenu</string>
+    <string name="button_menuElfde" translatable="false">Campus Elfde Linie</string>
+    <string name="button_menuDiep" translatable="false">Campus Diepenbeek</string>
+    <string name="button_menuVild" translatable="false">Campus Vildersstraat</string>
+    <string name="pxl_logo" translatable="false">Pxl logo</string>
+    <string name="title_activity_lesrooster_view" translatable="false">Lesrooster</string>
+    <string name="title_activity_lesrooster_view_row" translatable="false">Lesrooster rij</string>
+    <string name="vernieuwen" translatable="false">Vernieuwen</string>
 
     <string-array name="weekdagen">
         <item>Maandag</item>
@@ -26,4 +26,9 @@
         <item>Donderdag</item>
         <item>Vrijdag</item>
     </string-array>
+
+    <string name="title_activity_weekmenu_view">WeekmenuView</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_weekmenu_view_row">WeekmenuViewRow</string>
+
 </resources>

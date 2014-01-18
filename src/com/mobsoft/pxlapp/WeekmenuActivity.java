@@ -17,6 +17,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Build;
@@ -42,8 +43,6 @@ public class WeekmenuActivity extends Activity {
 	private ProgressDialog progress;
 	private Weekmenu weekmenu;
 	private TextView overzicht;
-	private ArrayAdapter<String> gerechtenLijst;
-	private ListView gerechten;
 	
 	
 	@Override
@@ -108,9 +107,9 @@ public class WeekmenuActivity extends Activity {
 				//textview voor info (voorlopig)
 				overzicht = new TextView(this);
 				overzicht.setText(gedrukt);
-				cacheDatum.add(Calendar.DAY_OF_MONTH, 7);
+				cacheDatum.add(Calendar.DAY_OF_MONTH, 3);
 				if(cacheDatum.getDag()>=vandaag.getDag() && cacheDatum.getWeek()>=vandaag.getWeek() && cacheDatum.getJaar()>=vandaag.getJaar()){
-					vulWeekmenu(gedrukt);
+					toonWeekmenu(gedrukt);
 				}else{
 					
 					if(isOnline()){
@@ -121,17 +120,12 @@ public class WeekmenuActivity extends Activity {
 						weekmenuDownloader.setProgress(progress); //progress doorgeven aan task zodat deze dismissed kan worden na uitvoering
 						
 						//uitvoeren task met juiste url
-						if(gedrukt.equals("Campus Elfde Linie")){
-							weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Weekmenu-Campus-Elfde-Linie.html",gedrukt);
-						}else if(gedrukt.equals("Campus Diepenbeek")){
-							weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Diepenbeek.html",gedrukt);
-						}else{
-							weekmenuDownloader.execute("http://www.pxl.be/Pub/Studenten/Voorzieningen-Student/Catering/Catering-Weekmenu-Campus-Vildersstraat.html",gedrukt);
-						}
+						weekmenuDownloader.execute(gedrukt);
+						
 					}else{
 						if (CacheManager.fileExists(this, "weekmenu"+gedrukt))
 						{
-							vulWeekmenu(gedrukt);
+							toonWeekmenu(gedrukt);
 						}else
 							toonFout("Fout!","Er is geen verbinding met het internet, probeer opnieuw");
 					}
@@ -163,62 +157,10 @@ public class WeekmenuActivity extends Activity {
 	 * vult de view met gegevens(voorlopig)
 	 */
 	
-	public void vulWeekmenu(String campus){
-		try {
-			String cacheString = new String(CacheManager.retrieveData(this, "weekmenu" + campus), "UTF-8");
-			weekmenu = Weekmenu.weekmenuFromCache(cacheString);
-			/*ScrollView scroll = new ScrollView(this);
-			scroll.addView(overzicht);
-			
-			for(Dagmenu dag:weekmenu.getDagmenus()){
-				overzicht.append("\n"+dag.getDag());
-				for(String gerecht:dag.getGerechten()){
-					overzicht.append("\n -"+gerecht);
-				}
-				overzicht.append("\n\n");
-			}
-			*/
-			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-				     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-			ScrollView scroll = new ScrollView(this);
-			scroll.setFillViewport(true);
-			LinearLayout ll = new LinearLayout(this);
-			ll.setOrientation(LinearLayout.VERTICAL);
-			scroll.addView(ll,layoutParams);
-			final Spinner dagen = new Spinner(this);
-			ArrayAdapter<String> dagenNamen = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,weekmenu.getDagenNaam());
-			dagenNamen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			
-			dagen.setAdapter(dagenNamen);
-			gerechten = new ListView(this);
-			gerechten.setAdapter(dagenNamen);
-			dagen.setOnItemSelectedListener(new OnItemSelectedListener(){
-				@Override
-				public void onItemSelected(AdapterView<?> parent, View view,
-						int pos, long id) {
-					updateDagmenu(pos);
-				}
-
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-			});
-			dagen.setSelection(0);
-			ll.addView(dagen);
-			ll.addView(gerechten);
-			setContentView(scroll,layoutParams);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		
+	public void toonWeekmenu(String campus){
+		Intent intent = new Intent(this,WeekmenuView.class);
+		intent.putExtra("campus", campus);
+		startActivity(intent);
 	}
 	
 	public void setWeekmenu(Weekmenu weekmenu){
@@ -243,10 +185,4 @@ public class WeekmenuActivity extends Activity {
 		fout.setPositiveButton("OK", null);
 		fout.create().show();
 	}
-	public void updateDagmenu(int pos){
-		gerechtenLijst = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,weekmenu.getDagmenuAt(pos).getGerechten());
-		gerechten.setAdapter(gerechtenLijst);
-		
-	}
-
 }
