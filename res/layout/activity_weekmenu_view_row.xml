@@ -7,7 +7,7 @@
     tools:context=".WeekmenuViewRow" >
 
     <TextView
-        android:id="@+id/gerechtTekst"
+        android:id="@+id/GerechtTekst"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"

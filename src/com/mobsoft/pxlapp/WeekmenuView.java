@@ -79,7 +79,7 @@ public class WeekmenuView extends Activity {
 		TextView tekst=null;
 		for(String menu: weekmenu.getDagmenuAt(pos).getGerechten()){
 			gerecht = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_weekmenu_view_row,null);
-			tekst=(TextView) gerecht.findViewById(R.id.gerechtTekst);
+			tekst=(TextView) gerecht.findViewById(R.id.GerechtTekst);
 			tekst.setText(menu);
 			gerechten.addView(gerecht);
 		}

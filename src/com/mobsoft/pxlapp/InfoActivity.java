@@ -38,7 +38,7 @@ public class InfoActivity extends Activity {
 			String quartier = "<font color='#58a518'><b><u>Campus Quartier Canal</u></b></font> <br />Bootstraat 11 <br />B-3500 Hasselt <br />tel. + 32 11 77 50 60";
 			String vilder = "<font color='#58a518'><b><u>Campus Vildersstraat</u></b></font> <br />Vildersstraat 5 <br />B-3500 Hasselt <br />tel. + 32 11 77 53 00";
 			
-			fillTextView((TextView)findViewById(R.id.gerechtTekst), algemeneInfo);
+			fillTextView((TextView)findViewById(R.id.textView1), algemeneInfo);
 			fillTextView((TextView)findViewById(R.id.textView2), cMine);
 			fillTextView((TextView)findViewById(R.id.textView3), diepenbeek);
 			fillTextView((TextView)findViewById(R.id.textView4), elfde);

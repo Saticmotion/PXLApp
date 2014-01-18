@@ -26,7 +26,7 @@
 	            android:contentDescription="@string/pxl_logo"/>
 	
 	        <TextView
-	            android:id="@+id/gerechtTekst"
+	            android:id="@+id/textView1"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
 	            android:layout_marginTop="10dp"
