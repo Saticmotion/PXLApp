@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -31,6 +33,8 @@ public class WeekmenuView extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_weekmenu_view);
+		// Show the Up button in the action bar.
+		setupActionBar();
 		
 		String campus = getIntent().getExtras().getString("campus");
 		this.setTitle(campus);
@@ -149,5 +153,14 @@ public class WeekmenuView extends Activity {
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
+	}
+	/**
+	 * Set up the {@link android.app.ActionBar}, if the API is available.
+	 */
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void setupActionBar() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
 }

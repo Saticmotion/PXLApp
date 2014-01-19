@@ -119,7 +119,7 @@ public class WeekmenuActivity extends Activity {
 						weekmenuDownloader = new DownloadWeekMenuTask(this);
 						weekmenuDownloader.setProgress(progress); //progress doorgeven aan task zodat deze dismissed kan worden na uitvoering
 						
-						//uitvoeren task met juiste url
+						//uitvoeren task, gegevens ophalen
 						weekmenuDownloader.execute(gedrukt);
 						
 					}else{
