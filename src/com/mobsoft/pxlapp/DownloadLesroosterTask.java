@@ -36,7 +36,7 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 	@Override
 	protected Void doInBackground(String... klas) 
 	{
-		String URL = "https://kalender.phl.be/kalenterit2/index.php?kt=lk&yks=&cluokka=" + klas[0] + "&guest=IT%2Fphl&lang=fla&print=arkipaivat";
+		String URL = "https://kalender.phl.be/kalenterit2/index.php?kt=lk&yks=&cluokka=" + klas[0] + "&print=arkipaivat&guest=IT/phl&lang=fla";
 		
 		try 
 		{
@@ -124,7 +124,10 @@ public class DownloadLesroosterTask extends AsyncTask<String, Void, Void>
 				
 				if (lokaalParts.length > 2) //Het is mogelijk dat er geen lokaal is opgegeven. In dat geval blijft lokaal een lege string
 				{
-					  lokaal = lokaalParts[2];
+					  for (int i = 2; i < lokaalParts.length; i++)
+					  {
+						  lokaal += lokaalParts[i];
+					  }
 				}
 				
 				String leerkrachtHTML = e.getElement().select("tr > td").first().ownText();

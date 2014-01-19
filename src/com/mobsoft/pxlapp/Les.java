@@ -44,7 +44,7 @@ public class Les
 	
 	public Les(String cacheString)
 	{
-		String[] waardes = cacheString.split(",");
+		String[] waardes = cacheString.split("\t");
 		
 		naam = waardes[0];
 		lokaal = waardes[1];
@@ -130,7 +130,8 @@ public class Les
 		Long beginUur = start.getMilliseconden();
 		Long eindUur = einde.getMilliseconden();
 		
-		cacheString = "\n" + naam + "," + lokaal + "," + leerkracht + "," + beginUur + "," + eindUur;
+		//Ik gebruik \t (tab) om collisions met komma en puntkomma te vermijden
+		cacheString = "\n" + naam + "\t" + lokaal + "\t" + leerkracht + "\t" + beginUur + "\t" + eindUur; 
 		
 		return cacheString;
 	}
