@@ -90,7 +90,7 @@ public class DownloadWeekMenuTask extends AsyncTask<String, Void, Void>
 				for (Element menu : menus)
 				{
 					String innerHtml = menu.html();
-					String[] parts = innerHtml.split("<br /> ");
+					String[] parts = innerHtml.split(" ?<br /> ?");
 					for (String part : parts)
 					{
 						dagmenu.AddGerecht(part);
