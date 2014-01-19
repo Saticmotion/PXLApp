@@ -64,7 +64,11 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
         <activity
             android:name="com.mobsoft.pxlapp.WeekmenuView"
-            android:label="@string/title_activity_weekmenu_view" >
+            android:label="@string/title_activity_weekmenu_view"
+            android:parentActivityName="com.mobsoft.pxlapp.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobsoft.pxlapp.MainActivity" />
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.WeekmenuViewRow"
