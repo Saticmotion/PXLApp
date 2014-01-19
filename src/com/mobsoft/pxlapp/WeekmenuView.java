@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,74 +23,86 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class WeekmenuView extends Activity {
+public class WeekmenuView extends Activity
+{
 	private Weekmenu weekmenu;
 	private ArrayAdapter<String> gerechtenLijst;
 	private Spinner dagen;
 	private LinearLayout gerechten;
 	private ProgressDialog progress;
-	
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_weekmenu_view);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		
+
 		String campus = getIntent().getExtras().getString("campus");
 		this.setTitle(campus);
 		String cacheString;
-		
-		try {
+
+		try
+		{
 			cacheString = new String(CacheManager.retrieveData(this, "weekmenu" + campus), "UTF-8");
 			weekmenu = Weekmenu.weekmenuFromCache(cacheString);
 			dagen = (Spinner) findViewById(R.id.spinnerDagmenu);
 			updateSpinner();
 			gerechten = (LinearLayout) findViewById(R.id.LinearLayoutGerechten);
-			dagen.setOnItemSelectedListener(new OnItemSelectedListener(){
+			dagen.setOnItemSelectedListener(new OnItemSelectedListener()
+			{
 
 				@Override
-				public void onItemSelected(AdapterView<?> parent, View view,
-						int pos, long id) {
+				public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+				{
 					updateDagmenu(pos);
 				}
 
 				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
+				public void onNothingSelected(AdapterView<?> arg0)
+				{
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
 			dagen.setSelection(0);
-			
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+
+		}
+		catch (UnsupportedEncodingException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.weekmenu_view, menu);
 		return true;
 	}
-	public void updateDagmenu(int pos){
+
+	public void updateDagmenu(int pos)
+	{
 		gerechten.removeAllViews();
-		LinearLayout gerecht=null;
-		TextView tekst=null;
-		for(String menu: weekmenu.getDagmenuAt(pos).getGerechten()){
-			gerecht = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_weekmenu_view_row,null);
-			tekst=(TextView) gerecht.findViewById(R.id.GerechtTekst);
+		LinearLayout gerecht = null;
+		TextView tekst = null;
+		for (String menu : weekmenu.getDagmenuAt(pos).getGerechten())
+		{
+			gerecht = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_weekmenu_view_row, null);
+			tekst = (TextView) gerecht.findViewById(R.id.GerechtTekst);
 			tekst.setText(menu);
 			gerechten.addView(gerecht);
 		}
 	}
-	
 
 	public void downloadOpnieuw(View view)
 	{
@@ -100,66 +113,81 @@ public class WeekmenuView extends Activity {
 			DownloadWeekMenuTask task = new DownloadWeekMenuTask(this);
 			task.setProgress(progress);
 			task.execute(weekmenu.getCampus());
-			
+
 		}
 		else
 		{
 			toonFout("", "Geen internetverbinding");
 		}
 	}
-	
-	public boolean isOnline() 
+
+	public boolean isOnline()
 	{
-        try
-        {
-            ConnectivityManager cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
-            return cm.getActiveNetworkInfo().isConnectedOrConnecting();
-        }
-        catch (Exception e)
-        {
-            return false;
-        }
+		try
+		{
+			ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+			return cm.getActiveNetworkInfo().isConnectedOrConnecting();
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
 	}
-	
-	public void toonFout(String titel,String bericht){
-		AlertDialog.Builder fout  = new AlertDialog.Builder(this);
+
+	public void toonFout(String titel, String bericht)
+	{
+		AlertDialog.Builder fout = new AlertDialog.Builder(this);
 		fout.setTitle(titel);
 		fout.setMessage(bericht);
 		fout.setPositiveButton("OK", null);
 		fout.create().show();
 	}
-	public void updateSpinner(){
-		ArrayAdapter<String> dagenNamen = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,weekmenu.getDagenNaam());
+
+	public void updateSpinner()
+	{
+		ArrayAdapter<String> dagenNamen = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+				weekmenu.getDagenNaam());
 		dagenNamen.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		dagen.setAdapter(dagenNamen);
 	}
-	public void setWeekmenu(Weekmenu weekmenu){
+
+	public void setWeekmenu(Weekmenu weekmenu)
+	{
 		this.weekmenu = weekmenu;
-		try {
+		try
+		{
 			CacheManager.cacheData(this, weekmenu.toCacheString().getBytes(), "weekmenu" + weekmenu.getCampus());
 			updateSpinner();
 			dagen.setSelection(0);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
+
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-	    switch (item.getItemId()) {
-	        case R.id.action_vernieuwen:
-	            downloadOpnieuw(null);
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		// Handle item selection
+		switch (item.getItemId())
+		{
+			case R.id.action_vernieuwen:
+				downloadOpnieuw(null);
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
+
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+	private void setupActionBar()
+	{
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+		{
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
