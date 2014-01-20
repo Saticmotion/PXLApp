@@ -50,11 +50,45 @@ public class LesroosterAdapter extends ArrayAdapter<Les>
         }
        
         Les les = lessen.get(position);
-        holder.txtLesnaam.setText(Html.fromHtml(les.getNaam()));
-        holder.txtLesuren.setText(les.getStart().toString("HH:mm") + " - " + les.getEinde().toString("HH:mm"));
-        holder.txtLokaal.setText(les.getLokaal());
-        holder.txtLeerkracht.setText(les.getLeerkracht());
-       
+        
+        //Controleren of deze items null zijn, indien ja een lege string invoegen.
+        if (les.getNaam() != null)
+        {
+        	holder.txtLesnaam.setText(Html.fromHtml(les.getNaam()));
+        }
+        else
+        {
+        	holder.txtLesnaam.setText("");
+        }
+        
+        
+        if (les.getStart() != null && les.getEinde() != null)
+        {
+        	holder.txtLesuren.setText(les.getStart().toString("HH:mm") + " - " + les.getEinde().toString("HH:mm"));
+        }
+        else
+        {
+        	holder.txtLesuren.setText("");
+        }
+        
+        
+        if (les.getLokaal() != null)
+        {
+        	holder.txtLokaal.setText(les.getLokaal());
+        }
+        else
+        {
+        	holder.txtLokaal.setText("");
+        }
+        
+        if (les.getLeerkracht() != null)
+        {
+        	holder.txtLeerkracht.setText(les.getLeerkracht());
+        }
+        else
+        {
+        	holder.txtLeerkracht.setText("");
+        }       
        
         return row;
 	}

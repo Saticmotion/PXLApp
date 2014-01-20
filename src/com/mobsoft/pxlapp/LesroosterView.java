@@ -126,11 +126,15 @@ public class LesroosterView extends Activity
 		dag = (dag + 2) % 7; // correctie om index van de spinner om te zetten
 								// naar de dag v week
 		ArrayList<Les> lessen = lesrooster.getLessen(dag);
+		
+		if (lessen.size() == 0)
+		{
+			lessen.add(new Les("Geen les vandaag!", null, null, null, null));
+		}
 
 		LesroosterAdapter adapter = new LesroosterAdapter(this, R.layout.activity_lesrooster_view_row, lessen);
 
 		listView.setAdapter(adapter);
-		Log.d(LogUtil.PXL_TAG, "Aangepast");
 	}
 
 	public void downloadOpnieuw(View view)
