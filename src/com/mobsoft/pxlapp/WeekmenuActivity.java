@@ -1,22 +1,15 @@
 package com.mobsoft.pxlapp;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
-import java.util.concurrent.ExecutionException;
 
-import com.mobsoft.pxlapp.util.SimpleDateTime;
-
-import android.R.string;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,16 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 public class WeekmenuActivity extends Activity
 {

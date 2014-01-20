@@ -11,7 +11,6 @@ import org.jsoup.select.Elements;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 /**
  * @author Simon

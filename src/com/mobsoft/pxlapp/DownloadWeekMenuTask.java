@@ -11,8 +11,6 @@ import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.os.Looper;
-import android.util.Log;
 
 public class DownloadWeekMenuTask extends AsyncTask<String, Void, Void>
 {

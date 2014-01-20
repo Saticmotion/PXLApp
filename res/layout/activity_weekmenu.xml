@@ -21,7 +21,8 @@
             android:layout_width="60dp"
           	android:scaleType="centerInside"
             android:layout_height="match_parent"
-            android:src="@drawable/restaurant" />
+            android:src="@drawable/restaurant"
+            android:contentDescription="@+string/eten"/>
 
         <TextView
             android:id="@+id/textViewEten1"
@@ -54,7 +55,8 @@
             android:layout_width="60dp"
           	android:scaleType="centerInside"
             android:layout_height="match_parent"
-            android:src="@drawable/restaurant" />
+            android:src="@drawable/restaurant"
+            android:contentDescription="@string/eten" />
 
         <TextView
             android:id="@+id/textViewEten2"
@@ -87,7 +89,8 @@
             android:layout_width="60dp"
             android:scaleType="centerInside"
             android:layout_height="match_parent"
-            android:src="@drawable/restaurant" />
+            android:src="@drawable/restaurant"
+            android:contentDescription="@string/eten" />
 
         <TextView
             android:id="@+id/textView3"
@@ -103,6 +106,6 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="1dip"
 	    android:background="@color/green_accent"
-	    android:layout_below="@+id/derdeRij"
+	    android:layout_below="@+id/derdeRijEten"
 	/>
 </RelativeLayout>

@@ -22,7 +22,8 @@
             android:layout_width="60dp"
           	android:scaleType="centerInside"
             android:layout_height="match_parent"
-            android:src="@drawable/lessenrooster" />
+            android:src="@drawable/lessenrooster" 
+            android:contentDescription="@+string/desc"/>
 
         <TextView
             android:id="@+id/textView1"
@@ -30,7 +31,7 @@
             android:layout_height="match_parent"
             android:gravity="fill_vertical"
             android:textSize="20sp"
-            android:text="Lessenrooster" />
+            android:text="@string/button_lesroosters" />
          
 		
     </LinearLayout>
@@ -56,7 +57,8 @@
             android:layout_width="60dp"
             android:scaleType="centerInside"
             android:layout_height="match_parent"
-            android:src="@drawable/restaurant" />
+            android:src="@drawable/restaurant" 
+            android:contentDescription="@string/desc" />
 
         <TextView
             android:id="@+id/textView2"
@@ -64,7 +66,7 @@
             android:layout_height="match_parent"
             android:gravity="fill_vertical"
             android:textSize="20sp"
-            android:text="Weekmenu" />
+            android:text="@string/button_weekmenu" />
     </LinearLayout>
     <View
 	    android:id="@+id/tweedelijn"
@@ -88,7 +90,8 @@
             android:layout_width="60dp"
             android:scaleType="centerInside"
             android:layout_height="match_parent"
-            android:src="@drawable/info" />
+            android:src="@drawable/info"
+            android:contentDescription="@string/desc" />
 
         <TextView
             android:id="@+id/textView3"
@@ -96,7 +99,7 @@
             android:layout_height="match_parent"
             android:gravity="fill_vertical"
             android:textSize="20sp"
-            android:text="Info" />
+            android:text="@string/button_info" />
         
     </LinearLayout>
 	<View

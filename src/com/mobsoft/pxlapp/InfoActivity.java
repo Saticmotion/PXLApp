@@ -1,7 +1,5 @@
 package com.mobsoft.pxlapp;
 
-import com.google.android.gms.ads.*;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
@@ -11,7 +9,6 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
