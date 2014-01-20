@@ -173,7 +173,7 @@ public class WeekmenuActivity extends Activity
 		this.weekmenu = weekmenu;
 		try
 		{
-			CacheManager.cacheData(this, weekmenu.toCacheString().getBytes(), "weekmenu" + weekmenu.getCampus());
+			CacheManager.cacheData(this, weekmenu.toCacheString().getBytes(), "weekmenu" + this.weekmenu.getCampus());
 
 		}
 		catch (IOException e)

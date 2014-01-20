@@ -26,7 +26,6 @@ import android.widget.TextView;
 public class WeekmenuView extends Activity
 {
 	private Weekmenu weekmenu;
-	private ArrayAdapter<String> gerechtenLijst;
 	private Spinner dagen;
 	private LinearLayout gerechten;
 	private ProgressDialog progress;
