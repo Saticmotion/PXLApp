@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Kalender
 {
-	ArrayList<KalenderRij> rijen;
-	ArrayList<String> titels;
+	private ArrayList<KalenderRij> rijen;
+	private ArrayList<String> titels;
 		
 
 	public Kalender()
@@ -56,10 +56,13 @@ public class Kalender
 		
 		for (KalenderRij rij : rijen)
 		{
-			//KalenderRij rij 
+			KalenderRij nieuweRij = new KalenderRij();
+			nieuweRij.addCel(rij.getCel(0));
+			nieuweRij.addCel(rij.getCel(1));
+			nieuweRij.addCel(rij.getCel(0));
+			
 			kalender.addRij(new KalenderRij());
 		}
-		
 		return null;
 	}
 }

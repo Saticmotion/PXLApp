@@ -6,9 +6,9 @@ import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 public class KalenderRij
 {
-	ArrayList<String> cellen;
-	SimpleDateTime datum;
-	KalenderRijType type;
+	private ArrayList<String> cellen;
+	private SimpleDateTime datum;
+	private KalenderRijType type;
 	
 	public KalenderRij()
 	{
