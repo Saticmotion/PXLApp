@@ -109,6 +109,40 @@
 	    android:background="@color/green_accent"
 	    android:layout_below="@+id/derdeRij"
 	/>
+	<LinearLayout
+        android:id="@+id/vierdeRij"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:clickable="true"
+        android:onClick="openKalender" 
+        android:background="@drawable/textview_selector" 
+        android:layout_below="@+id/derdelijn" >
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="60dp"
+            android:scaleType="centerInside"
+            android:layout_height="match_parent"
+            android:src="@drawable/info"
+            android:contentDescription="@string/desc" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:textSize="20sp"
+            android:text="@string/button_kalender" />
+        
+    </LinearLayout>
+	<View
+	    android:id="@+id/vierdelijn"
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dip"
+	    android:background="@color/green_accent"
+	    android:layout_below="@+id/vierdeRij"
+	/>
     <com.google.android.gms.ads.AdView 
         				android:id="@+id/adView"
                         android:layout_width="wrap_content"

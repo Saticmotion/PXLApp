@@ -1,6 +1,16 @@
 package com.mobsoft.pxlapp.activities.kalender;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import android.app.Activity;
 
 
 public class Kalender
@@ -64,6 +74,60 @@ public class Kalender
 			nieuweRij.setType(rij.getType());
 			
 			kalender.addRij(nieuweRij);
+		}
+		
+		return kalender;
+	}
+	
+	public static Kalender kalenderVanBestand(Activity activity) throws IOException
+	{
+		InputStream is = activity.getAssets().open("kalender.txt");
+		Writer writer = new StringWriter();
+        char[] buffer = new char[2048];
+		
+		try
+		{
+			Reader reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+	        int n;
+	        while ((n = reader.read(buffer)) != -1) 
+	        {
+	            writer.write(buffer, 0, n);
+	        }
+	    } 
+		finally 
+		{
+	        is.close();
+	    }
+		
+		
+	    String kalenderGegevens = writer.toString();
+		
+		Kalender kalender = new Kalender();
+		
+		String[] lijnen = kalenderGegevens.split("\n");
+		
+		
+		
+		String[] kTitels = lijnen[0].split(",");
+		
+		
+		kalender.setTitels(new ArrayList<String>(Arrays.asList(kTitels)));
+		
+		
+		
+		for (int i = 1; i < lijnen.length; i++) 
+		{
+			KalenderRij rij = new KalenderRij();
+			String[] cellen = lijnen[i].split(",");
+			
+			
+			for (int j = 0; j < cellen.length; j++) 
+			{
+				rij.addCel(new KalenderCel(cellen[j]));
+			}
+			
+			kalender.addRij(rij);
+			
 		}
 		
 		return kalender;

@@ -2,6 +2,7 @@ package com.mobsoft.pxlapp;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.mobsoft.pxlapp.activities.kalender.KalenderActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -54,6 +55,11 @@ public class MainActivity extends Activity
 		startActivity(intent);
 	}
 	
+	public void openKalender(View view)
+	{
+		Intent intent = new Intent(this, KalenderActivity.class);
+		startActivity(intent);
+	}
 	
 	
 }

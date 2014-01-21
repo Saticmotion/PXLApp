@@ -1,5 +1,7 @@
 package com.mobsoft.pxlapp.activities.kalender;
 
+import java.io.IOException;
+
 import com.mobsoft.pxlapp.R;
 import com.mobsoft.pxlapp.R.layout;
 import com.mobsoft.pxlapp.R.menu;
@@ -8,6 +10,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -22,6 +26,7 @@ public class KalenderActivity extends Activity
 		setContentView(R.layout.activity_kalender);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		toonKalender();
 	}
 
 	/**
@@ -62,5 +67,21 @@ public class KalenderActivity extends Activity
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
+	public void toonKalender()
+	{	
+		Kalender kalender;
+		
+		
+		try 
+		{
+			kalender = Kalender.kalenderVanBestand(this);
+			
+			
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}       
+	}
 }

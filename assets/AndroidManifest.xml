@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mobsoft.pxlapp"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.1" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -33,11 +33,17 @@
             android:name="com.mobsoft.pxlapp.LesroostersActivity"
             android:label="@string/title_activity_lesroosters"
             android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobsoft.pxlapp.MainActivity" />
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.InfoActivity"
             android:label="@string/title_activity_info"
             android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobsoft.pxlapp.MainActivity" />
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.WeekmenuActivity"
@@ -65,7 +71,7 @@
         <activity
             android:name="com.mobsoft.pxlapp.WeekmenuView"
             android:label="@string/title_activity_weekmenu_view"
-            android:parentActivityName="com.mobsoft.pxlapp.MainActivity">
+            android:parentActivityName="com.mobsoft.pxlapp.WeekmenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobsoft.pxlapp.MainActivity" />
@@ -73,6 +79,14 @@
         <activity
             android:name="com.mobsoft.pxlapp.WeekmenuViewRow"
             android:label="@string/title_activity_weekmenu_view_row" >
+        </activity>
+        <activity
+            android:name="com.mobsoft.pxlapp.activities.kalender.KalenderActivity"
+            android:label="@string/title_activity_kalender"
+            android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobsoft.pxlapp.MainActivity" />
         </activity>
     </application>
 
