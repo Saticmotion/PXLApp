@@ -33,11 +33,17 @@
             android:name="com.mobsoft.pxlapp.LesroostersActivity"
             android:label="@string/title_activity_lesroosters"
             android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobsoft.pxlapp.MainActivity" />
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.InfoActivity"
             android:label="@string/title_activity_info"
             android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobsoft.pxlapp.MainActivity" />
         </activity>
         <activity
             android:name="com.mobsoft.pxlapp.WeekmenuActivity"
