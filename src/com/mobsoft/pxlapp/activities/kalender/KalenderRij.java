@@ -6,45 +6,46 @@ import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 public class KalenderRij
 {
-	private ArrayList<String> cellen;
+	private ArrayList<KalenderCel> cellen;
 	private SimpleDateTime datum;
-	private KalenderRijType type;
+	private KalenderType type;
 	
 	public KalenderRij()
 	{
 		datum = new SimpleDateTime();
-		cellen = new ArrayList<String>();
+		cellen = new ArrayList<KalenderCel>();
+		type = KalenderType.NORMAAL;
 	}
 	
 	public KalenderRij(SimpleDateTime datum)
 	{
 		this.datum = datum;
-		cellen = new ArrayList<String>();
+		cellen = new ArrayList<KalenderCel>();
 	}
 	
-	public KalenderRij(ArrayList<String> cellen, SimpleDateTime datum)
+	public KalenderRij(ArrayList<KalenderCel> cellen, SimpleDateTime datum)
 	{
 		this.cellen = cellen;
 		this.datum = datum;
 	}
 	
-	public KalenderRij(ArrayList<String> cellen)
+	public KalenderRij(ArrayList<KalenderCel> cellen)
 	{
 		this.cellen = cellen;
 		datum = new SimpleDateTime();
 	}
 
-	public String getCel(int index)
+	public KalenderCel getCel(int index)
 	{
 		return cellen.get(index);
 	}
 	
-	public void addCel(String cel)
+	public void addCel(KalenderCel cel)
 	{
 		cellen.add(cel);
 	}
 	
-	public void setCel(int index, String cel)
+	public void setCel(int index, KalenderCel cel)
 	{
 		cellen.set(index, cel);
 	}
@@ -57,6 +58,18 @@ public class KalenderRij
 	public void setDatum(SimpleDateTime datum)
 	{
 		this.datum = datum;
+	}
+
+	
+	public KalenderType getType()
+	{
+		return type;
+	}
+
+	
+	public void setType(KalenderType type)
+	{
+		this.type = type;
 	}
 	
 	

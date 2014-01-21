@@ -1,6 +1,6 @@
 package com.mobsoft.pxlapp.activities.kalender;
 
-public enum KalenderRijType
+public enum KalenderType
 {
 	NORMAAL,
 	VAKANTIE,

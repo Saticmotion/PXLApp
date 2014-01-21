@@ -58,11 +58,14 @@ public class Kalender
 		{
 			KalenderRij nieuweRij = new KalenderRij();
 			nieuweRij.addCel(rij.getCel(0));
-			nieuweRij.addCel(rij.getCel(1));
-			nieuweRij.addCel(rij.getCel(0));
+			nieuweRij.addCel(rij.getCel(titels.indexOf(titel))); //dit is de kolom die we er uit filteren
+			nieuweRij.addCel(rij.getCel(5));
+			nieuweRij.setDatum(rij.getDatum());
+			nieuweRij.setType(rij.getType());
 			
-			kalender.addRij(new KalenderRij());
+			kalender.addRij(nieuweRij);
 		}
-		return null;
+		
+		return kalender;
 	}
 }
