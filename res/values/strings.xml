@@ -30,5 +30,6 @@
     <string name="title_activity_weekmenu_view">WeekmenuView</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_weekmenu_view_row">WeekmenuViewRow</string>
+    <string name="title_activity_kalender">Academische kalender</string>
 
 </resources>
