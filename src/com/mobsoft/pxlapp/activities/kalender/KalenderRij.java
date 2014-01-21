@@ -35,6 +35,12 @@ public class KalenderRij
 		datum = new SimpleDateTime();
 	}
 
+	
+	public ArrayList<KalenderCel> getCellen()
+	{
+		return cellen;
+	}
+
 	public KalenderCel getCel(int index)
 	{
 		return cellen.get(index);
@@ -59,13 +65,11 @@ public class KalenderRij
 	{
 		this.datum = datum;
 	}
-
 	
 	public KalenderType getType()
 	{
 		return type;
 	}
-
 	
 	public void setType(KalenderType type)
 	{

@@ -37,6 +37,11 @@ public class Kalender
 		this.titels = titels;
 	}
 
+
+	public ArrayList<KalenderRij> getRijen()
+	{
+		return rijen;
+	}
 	
 	public KalenderRij getRij(int index)
 	{

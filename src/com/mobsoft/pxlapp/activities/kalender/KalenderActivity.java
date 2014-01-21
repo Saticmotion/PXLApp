@@ -70,18 +70,23 @@ public class KalenderActivity extends Activity
 	
 	public void toonKalender()
 	{	
-		Kalender kalender;
-		
+		Kalender kalender;		
 		
 		try 
 		{
 			kalender = Kalender.kalenderVanBestand(this);
 			
-			
+			for (KalenderRij rij : kalender.getRijen())
+			{
+				for (KalenderCel cel : rij.getCellen())
+				{
+					
+				}
+			}
 		} 
 		catch (IOException e) 
 		{
 			e.printStackTrace();
-		}       
+		}
 	}
 }
