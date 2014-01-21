@@ -88,6 +88,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.mobsoft.pxlapp.MainActivity" />
         </activity>
+        <activity
+            android:name="com.mobsoft.pxlapp.DepartementActivity"
+            android:label="@string/title_activity_departement"
+            android:parentActivityName="com.mobsoft.pxlapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobsoft.pxlapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

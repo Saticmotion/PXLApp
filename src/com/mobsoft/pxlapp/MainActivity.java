@@ -38,7 +38,7 @@ public class MainActivity extends Activity
 	
 	public void openLesroosters(View view)
 	{
-		Intent intent = new Intent(this, LesroostersActivity.class);
+		Intent intent = new Intent(this, DepartementActivity.class);
 		startActivity(intent);
 	}
 	

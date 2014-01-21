@@ -1,0 +1,173 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lesrooster_activity_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="1dp"
+    android:paddingLeft="1dp"
+    android:paddingRight="1dp"
+    android:paddingTop="1dp"
+    tools:context=".LesroostersActivity" >
+
+    <LinearLayout
+        android:id="@+id/eersteRij"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/textview_selector"
+        android:clickable="true"
+        android:onClick="openKlassenlijst" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@+string/desc"
+            android:scaleType="centerInside"
+            android:src="@drawable/lessenrooster" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="@string/button_klassenBusiness"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/eerstelijn"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/green_accent" />
+
+    <LinearLayout
+        android:id="@+id/tweedeRij"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/textview_selector"
+        android:clickable="true"
+        android:onClick="openKlassenlijst" >
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@+string/desc"
+            android:scaleType="centerInside"
+            android:src="@drawable/lessenrooster" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="@string/button_klassenEducation"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/tweedelijn"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/green_accent" />
+    
+    <LinearLayout
+        android:id="@+id/derdeRij"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/textview_selector"
+        android:clickable="true"
+        android:onClick="openKlassenlijst" >
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@+string/desc"
+            android:scaleType="centerInside"
+            android:src="@drawable/lessenrooster" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="@string/button_klassenHealthcare"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/derdelijn"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/green_accent" />
+    
+    <LinearLayout
+        android:id="@+id/vierdeRij"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/textview_selector"
+        android:clickable="true"
+        android:onClick="openKlassenlijst" >
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@+string/desc"
+            android:scaleType="centerInside"
+            android:src="@drawable/lessenrooster" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="@string/button_klassenIT"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/vierdelijn"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/green_accent" />
+    
+    <LinearLayout
+        android:id="@+id/vijfdeRij"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/textview_selector"
+        android:clickable="true"
+        android:onClick="openKlassenlijst" >
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@+string/desc"
+            android:scaleType="centerInside"
+            android:src="@drawable/lessenrooster" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="fill_vertical"
+            android:text="@string/button_klassenTech"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/vijfdelijn"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/green_accent" />
+
+</LinearLayout>

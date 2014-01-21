@@ -31,5 +31,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_weekmenu_view_row">WeekmenuViewRow</string>
     <string name="title_activity_kalender">Academische kalender</string>
+    <string name="button_klassenBusiness" translatable="false">Business</string>
+    <string name="button_klassenEducation" translatable="false">Education</string>
+    <string name="button_klassenHealthcare" translatable="false">Healthcare</string>
+    <string name="button_klassenIT" translatable="false">IT</string>
+    <string name="button_klassenTech" translatable="false">Tech</string>
+    <string name="title_activity_departement">Departement kiezen</string>
 
 </resources>
