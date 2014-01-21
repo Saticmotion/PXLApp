@@ -86,9 +86,8 @@ public class WeekmenuActivity extends Activity
 	@SuppressLint("NewApi")
 	public void geefMenu(View view)
 	{
-
-		View test = ((ViewGroup) view).getChildAt(1);
-		String gedrukt = ((TextView) test).getText().toString();
+		View knop = ((ViewGroup) view).getChildAt(1);
+		String gedrukt = ((TextView) knop).getText().toString();
 		try
 		{
 			SimpleDateTime cacheDatum = CacheManager.getCacheDate(this, "weekmenu" + gedrukt);
