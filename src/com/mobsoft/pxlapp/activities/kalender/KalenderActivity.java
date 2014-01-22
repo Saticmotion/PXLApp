@@ -142,6 +142,10 @@ public class KalenderActivity extends Activity
 			for (KalenderCel cel : rij.getCellen())
 			{
 				txtCel = new TextView(this);
+				if (cel.getType()==KalenderType.EXAMEN) 
+				{
+					txtCel.setTypeface(Typeface.DEFAULT_BOLD);
+				}
 				txtCel.setText(cel.getTekst());
 				tr.addView(txtCel);
 			}

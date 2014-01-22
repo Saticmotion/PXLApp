@@ -9,6 +9,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
@@ -123,21 +125,61 @@ public class Kalender
 
 		String[] lijnen = kalenderGegevens.split("\n");
 		String[] kTitels = lijnen[0].split(",");
-
+		String matched = "";
 		kalender.setTitels(new ArrayList<String>(Arrays.asList(kTitels)));
-
+		Pattern pattern = Pattern.compile("<[a-z]*>");
 		for (int i = 1; i < lijnen.length; i++)
 		{
 			KalenderRij rij = new KalenderRij();
+			Matcher matcher = pattern.matcher(lijnen[i]);
+			
+			if (matcher.find()) 
+			{
+				matched = matcher.group(1);
+			}
+			rij.setType(vindType(matched));	
+			lijnen[i].replace(matched, "");
+			
 			String[] cellen = lijnen[i].split(",");
 			
 			rij.setDatum(SimpleDateTime.parseDate(cellen[0])); // De cel met de datum opslaan
 			for (int j = 1; j < cellen.length; j++)
 			{
-				rij.addCel(new KalenderCel(cellen[j]));
+				KalenderCel cel = new KalenderCel();
+				matcher = pattern.matcher(cellen[j]);
+				if (matcher.find()) 
+				{
+					matched = matcher.group(1);
+				}
+				cel.setType(vindType(matched));	
+				cel.setTekst(cellen[j].replace(matched, ""));
 			}
 			kalender.addRij(rij);
 		}
 		return kalender;
+	}
+	
+	private static KalenderType vindType(String stringType)
+	{
+		if (stringType.equals("examen")) 
+		{
+			return KalenderType.EXAMEN;
+		}
+		else if (stringType.equals("delibiratie")) 
+		{
+			return KalenderType.DELIBERATIE;
+		}
+		else if (stringType.equals("vakantie")) 
+		{
+			return KalenderType.VAKANTIE;
+		}
+		else if(stringType.equals("vrij"))
+		{
+			return KalenderType.VRIJ;
+		}
+		else 
+		{
+			return KalenderType.NORMAAL;
+		}
 	}
 }
