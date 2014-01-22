@@ -10,6 +10,8 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import android.R.integer;
+import android.R.string;
 import android.app.Activity;
 
 
@@ -46,6 +48,11 @@ public class Kalender
 	public KalenderRij getRij(int index)
 	{
 		return rijen.get(index);
+	}
+	
+	public ArrayList<String> getTitels()
+	{
+		return titels;
 	}
 	
 	public void addRij(KalenderRij rij)

@@ -1,24 +1,32 @@
 package com.mobsoft.pxlapp.activities.kalender;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import com.mobsoft.pxlapp.R;
-import com.mobsoft.pxlapp.R.layout;
-import com.mobsoft.pxlapp.R.menu;
-
-import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.graphics.Typeface;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.os.Build;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
+
+import com.mobsoft.pxlapp.R;
 
 public class KalenderActivity extends Activity
 {
-
+	
+	private Spinner spinner;
+	private Kalender kalenderVolledig;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -72,21 +80,69 @@ public class KalenderActivity extends Activity
 	{	
 		Kalender kalender;		
 		
+		spinner = (Spinner) findViewById(R.id.soortSpinner);
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener()
+		{
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+			{
+				String waarde = spinner.getSelectedItem().toString();
+				updateKalender(waarde);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent)
+			{
+
+			}
+		});
+		
 		try 
 		{
-			kalender = Kalender.kalenderVanBestand(this);
+			this.kalenderVolledig = Kalender.kalenderVanBestand(this);
 			
-			for (KalenderRij rij : kalender.getRijen())
-			{
-				for (KalenderCel cel : rij.getCellen())
-				{
-					
-				}
-			}
+			tekenKalender(kalenderVolledig);
 		} 
 		catch (IOException e) 
 		{
 			e.printStackTrace();
+		}
+	}
+
+	private void updateKalender(String waarde) 
+	{
+		Kalender kalender = kalenderVolledig.filterKalender(waarde);
+		tekenKalender(kalender);
+	}
+	
+	private void tekenKalender(Kalender kalender)
+	{
+		TableLayout tabel = (TableLayout)findViewById(R.id.KalenderTable);
+		
+		ArrayList<String> kTitels = kalender.getTitels();
+		TableRow tableRow = new TableRow(this);
+		for (String string : kTitels) 
+		{
+			
+			TextView txtTitel = new TextView(this);
+			txtTitel.setText(string);
+			txtTitel.setTypeface(Typeface.DEFAULT_BOLD);
+			tableRow.addView(txtTitel);
+			
+		}
+		tabel.addView(tableRow);
+		
+		for (KalenderRij rij : kalender.getRijen())
+		{
+			TableRow tr = new TableRow(this);
+			
+			for (KalenderCel cel : rij.getCellen())
+			{
+				TextView txtCel = new TextView(this);
+                txtCel.setText(cel.getTekst());
+                tr.addView(txtCel);
+			}
+			tabel.addView(tr);
 		}
 	}
 }
