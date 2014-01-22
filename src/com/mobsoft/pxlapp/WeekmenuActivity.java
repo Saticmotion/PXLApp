@@ -27,7 +27,6 @@ public class WeekmenuActivity extends Activity
 	private DownloadWeekMenuTask weekmenuDownloader;
 	private ProgressDialog progress;
 	private Weekmenu weekmenu;
-	private TextView overzicht;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -93,9 +92,6 @@ public class WeekmenuActivity extends Activity
 			SimpleDateTime cacheDatum = CacheManager.getCacheDate(this, "weekmenu" + gedrukt);
 			SimpleDateTime vandaag = new SimpleDateTime();
 
-			// textview voor info (voorlopig)
-			overzicht = new TextView(this);
-			overzicht.setText(gedrukt);
 			cacheDatum.add(Calendar.DAY_OF_MONTH, 3);
 			if (cacheDatum.getDag() >= vandaag.getDag() && cacheDatum.getWeek() >= vandaag.getWeek()
 					&& cacheDatum.getJaar() >= vandaag.getJaar())
