@@ -5,7 +5,7 @@ Datum,AJ,Sem,Trim(9),Trim(10+9+9),Blokken,Act
 07/10/2013,4,4,4,4,4, 
 14/10/2013,5,5,5,5,5, 
 21/10/2013,6,6,6,6,6, 
-28/10/2013,7,HV,,,,Vr 01/11 Allerheiligen
+28/10/2013,7,HV,HV,HV,HV,Vr 01/11 Allerheiligen
 04/11/2013,8,7,7,7,7, 
 11/11/2013,9,8,8,8,1,Ma11/11 Wapenstilstand
 18/11/2013,10,9,9,9,2,Wo 20/11 Infoavond ouders
@@ -13,8 +13,8 @@ Datum,AJ,Sem,Trim(9),Trim(10+9+9),Blokken,Act
 02/12/2013,12,11,2,1,4, 
 09/12/2013,13,12,1,2,5, 
 16/12/2013,14,13,2,1,6, 
-23/12/2013,15,KeV,,,,Wo 25/12 Kerstmis
-30/12/2013,16,,,,, 
+23/12/2013,15,KeV,KeV,KeV,KeV,Wo 25/12 Kerstmis
+30/12/2013,16,KeV,KeV,KeV,KeV, 
 06/01/2014,17,14,3,2,7,SID-in West-Vlaanderen: 9 t/m 11 januari
 13/01/2014,18,1,4,3,1, 
 20/01/2014,19,2,5,4,2,SID-in Oost-Vlaanderen: 23 t/m 25 januari
@@ -23,13 +23,13 @@ Datum,AJ,Sem,Trim(9),Trim(10+9+9),Blokken,Act
 10/02/2014,22,2,8,7,5,Do 13/2 PXL-Jobevent
 17/02/2014,23,3,9,8,6,SID-in Limburg: 20 t/m 22 februari
 24/02/2014,24,4,1,9,7, 
-03/03/2014,25,KrV,,,, 
+03/03/2014,25,KrV,KrV,KrV,KrV, 
 10/03/2014,26,5,2,1,1,SID-in Antwerpen: 13 t/m 15 maart
 17/03/2014,27,6,1,2,2, 
 24/03/2014,28,7,2,1,3, 
 31/03/2014,29,8,3,2,4, 
-07/04/2014,30,PV,,,, 
-14/04/2014,31,,,,,Zo 20/04 Pasen
+07/04/2014,30,PV,PV,PV,PV, 
+14/04/2014,31,PV,PV,PV,PV,Zo 20/04 Pasen
 21/04/2014,32,9,4,3,5,Ma 21/04 Paasmaandag
 28/04/2014,33,10,5,4,6,Do 01/05 Feest vd arbeid <br /> Vr 02/05 28/04/2014,brugdag
 05/05/2014,34,11,6,5,7, 
@@ -41,12 +41,12 @@ Datum,AJ,Sem,Trim(9),Trim(10+9+9),Blokken,Act
 16/06/2014,40,3,3,2,6, 
 23/06/2014,41,4,4,3,7, 
 30/06/2014,42,,,,, 
-07/07/2014,43,ZV,,,,Vr 11/07 Vlaamse feestdag
-14/07/2014,44,,,,, 
-21/07/2014,45,,,,,Ma 21/07 Nationale feestdag
-28/07/2014,46,,,,, 
-04/08/2014,47,,,,, 
-11/08/2014,48,,,,,Vr 15/08 O.L.V. Hemelvaart
+07/07/2014,43,ZV,ZV,ZV,ZV,Vr 11/07 Vlaamse feestdag
+14/07/2014,44,ZV,ZV,ZV,ZV, 
+21/07/2014,45,ZV,ZV,ZV,ZV,Ma 21/07 Nationale feestdag
+28/07/2014,46,ZV,ZV,ZV,ZV, 
+04/08/2014,47,ZV,ZV,ZV,ZV, 
+11/08/2014,48,ZV,ZV,ZV,ZV,Vr 15/08 O.L.V. Hemelvaart
 18/08/2014,49,,,,1,Ma 18/08 aanvang zittijd 2
 25/08/2014,50,,,,2, 
 01/09/2014,51,,,,3, 

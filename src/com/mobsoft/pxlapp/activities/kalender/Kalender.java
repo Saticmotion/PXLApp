@@ -74,6 +74,7 @@ public class Kalender
 		Kalender kalender = new Kalender();
 		ArrayList<String> nieuweTitels = new ArrayList<String>();
 		nieuweTitels.add(titels.get(0));
+		nieuweTitels.add(titels.get(1));
 		nieuweTitels.add(titel);
 		nieuweTitels.add(titels.get(6));
 		kalender.setTitels(nieuweTitels);
@@ -82,7 +83,9 @@ public class Kalender
 		{
 			KalenderRij nieuweRij = new KalenderRij();
 			nieuweRij.addCel(rij.getCel(0));
-			nieuweRij.addCel(rij.getCel(titels.indexOf(titel))); // dit is de kolom die we er uit filteren
+			// dit is de kolom die we er uit filteren
+			// - 1 omdat er een titel is voor de datumkolom.
+			nieuweRij.addCel(rij.getCel(titels.indexOf(titel) - 1)); 
 			nieuweRij.addCel(rij.getCel(5));
 			nieuweRij.setDatum(rij.getDatum());
 			nieuweRij.setType(rij.getType());

@@ -124,12 +124,10 @@ public class KalenderActivity extends Activity
 		TableRow tableRow = new TableRow(this);
 		for (String string : kTitels)
 		{
-
 			TextView txtTitel = new TextView(this);
 			txtTitel.setText(string);
 			txtTitel.setTypeface(Typeface.DEFAULT_BOLD);
 			tableRow.addView(txtTitel);
-
 		}
 		tabel.addView(tableRow);
 
