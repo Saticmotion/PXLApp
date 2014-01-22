@@ -62,14 +62,14 @@ public class LesroosterView extends Activity
 		});
 
 		int dagVanWeek = new SimpleDateTime().getDagVanWeek();
-		int spinnerIndex = (dagVanWeek - 2) % 7; //correctie om dag van week om te zetten naar index spinner		
+		int spinnerIndex = (dagVanWeek - 2) % 7; // correctie om dag van week om te zetten naar index spinner
 		if (spinnerIndex > 4)
 		{
-			spinnerIndex = 0; 
+			spinnerIndex = 0;
 		}
-			
-		spinner.setSelection(spinnerIndex); 	// correctie dag v week om te zetten naar de
-																				//index van de spinner
+
+		spinner.setSelection(spinnerIndex); // correctie dag v week om te zetten naar de
+											// index van de spinner
 
 		try
 		{
@@ -126,7 +126,7 @@ public class LesroosterView extends Activity
 		dag = (dag + 2) % 7; // correctie om index van de spinner om te zetten
 								// naar de dag v week
 		ArrayList<Les> lessen = lesrooster.getLessen(dag);
-		
+
 		if (lessen.size() == 0)
 		{
 			lessen.add(new Les("Geen les vandaag!", null, null, null, null));

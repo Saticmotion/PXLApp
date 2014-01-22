@@ -23,10 +23,10 @@ import com.mobsoft.pxlapp.R;
 
 public class KalenderActivity extends Activity
 {
-	
+
 	private Spinner spinner;
 	private Kalender kalenderVolledig;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -75,11 +75,11 @@ public class KalenderActivity extends Activity
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	public void toonKalender()
-	{	
-		Kalender kalender;		
-		
+	{
+		Kalender kalender;
+
 		spinner = (Spinner) findViewById(R.id.soortSpinner);
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener()
 		{
@@ -96,51 +96,56 @@ public class KalenderActivity extends Activity
 
 			}
 		});
-		
-		try 
+
+		try
 		{
 			this.kalenderVolledig = Kalender.kalenderVanBestand(this);
-			
+
 			tekenKalender(kalenderVolledig);
-		} 
-		catch (IOException e) 
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
 	}
 
-	private void updateKalender(String waarde) 
+	private void updateKalender(String waarde)
 	{
 		Kalender kalender = kalenderVolledig.filterKalender(waarde);
 		tekenKalender(kalender);
 	}
-	
+
 	private void tekenKalender(Kalender kalender)
 	{
-		TableLayout tabel = (TableLayout)findViewById(R.id.KalenderTable);
-		
+		TableLayout tabel = (TableLayout) findViewById(R.id.KalenderTable);
+		tabel.removeAllViews();
+
 		ArrayList<String> kTitels = kalender.getTitels();
 		TableRow tableRow = new TableRow(this);
-		for (String string : kTitels) 
+		for (String string : kTitels)
 		{
-			
+
 			TextView txtTitel = new TextView(this);
 			txtTitel.setText(string);
 			txtTitel.setTypeface(Typeface.DEFAULT_BOLD);
 			tableRow.addView(txtTitel);
-			
+
 		}
 		tabel.addView(tableRow);
-		
+
 		for (KalenderRij rij : kalender.getRijen())
 		{
 			TableRow tr = new TableRow(this);
 			
+			TextView txtCel = new TextView(this);
+			txtCel.setText(rij.getDatum().toString("dd/MM/yy"));
+			tr.addView(txtCel);
+
 			for (KalenderCel cel : rij.getCellen())
 			{
-				TextView txtCel = new TextView(this);
-                txtCel.setText(cel.getTekst());
-                tr.addView(txtCel);
+				txtCel = new TextView(this);
+				txtCel.setText(cel.getTekst());
+				tr.addView(txtCel);
 			}
 			tabel.addView(tr);
 		}
