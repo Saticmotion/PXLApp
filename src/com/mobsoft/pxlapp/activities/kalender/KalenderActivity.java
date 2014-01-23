@@ -10,9 +10,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -20,6 +22,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+import com.google.android.gms.internal.v;
 import com.mobsoft.pxlapp.R;
 
 public class KalenderActivity extends Activity
@@ -130,6 +133,12 @@ public class KalenderActivity extends Activity
 			tableRow.addView(txtTitel);
 		}
 		tabel.addView(tableRow);
+		View view = new View(this);
+		view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 3));
+		view.setBackgroundColor(getResources().getColor(R.color.green_accent));
+		tabel.addView(view);
+		
+		
 
 		for (KalenderRij rij : kalender.getRijen())
 		{
@@ -142,9 +151,19 @@ public class KalenderActivity extends Activity
 				tr.setBackgroundColor(getResources().getColor(R.color.oranje));
 			}
 			tr.addView(txtCel);
+			
+			View viewV = new View(this);
+			viewV.setLayoutParams(new TableRow.LayoutParams(1,TableRow.LayoutParams.FILL_PARENT));
+			viewV.setBackgroundColor(getResources().getColor(R.color.green_accent));
+			tr.addView(viewV);
 
+
+			
+			
 			for (KalenderCel cel : rij.getCellen())
 			{
+				
+				
 				txtCel = new TextView(this);
 				txtCel.setText(Html.fromHtml(cel.getTekst()));
 				if (cel.getType()==KalenderType.EXAMEN) 
@@ -159,10 +178,18 @@ public class KalenderActivity extends Activity
 				{
 					txtCel.setBackgroundColor(getResources().getColor(R.color.paars));
 				}
-				
 				tr.addView(txtCel);
+				View viewV2 = new View(this);
+				viewV2.setLayoutParams(new TableRow.LayoutParams(1,TableRow.LayoutParams.FILL_PARENT));
+				viewV2.setBackgroundColor(getResources().getColor(R.color.green_accent));
+				tr.addView(viewV2);
 			}
+			
 			tabel.addView(tr);
+			View v = new View(this);
+			v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1));
+			v.setBackgroundColor(getResources().getColor(R.color.green_accent));
+			tabel.addView(v);
 		}
 	}
 }

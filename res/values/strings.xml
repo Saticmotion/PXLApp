@@ -39,9 +39,9 @@
     <string name="title_activity_departement">Departement kiezen</string>
     <string name="button_kalender">Academische kalender</string>
     <string-array name="lessoort">
-        <item>Semester</item>
-        <item>Trimester (9)</item>
-        <item>Trimester (10+9+9)</item>
+        <item>Sem</item>
+        <item>Trim</item>
+        <item>Trim SP</item>
         <item>Blokken</item>
     </string-array>
 </resources>
