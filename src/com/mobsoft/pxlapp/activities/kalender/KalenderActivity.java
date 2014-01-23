@@ -125,8 +125,9 @@ public class KalenderActivity extends Activity
 		for (String string : kTitels)
 		{
 			TextView txtTitel = new TextView(this);
-			txtTitel.setText(string);
 			txtTitel.setTypeface(Typeface.DEFAULT_BOLD);
+			txtTitel.setText(string);
+			
 			tableRow.addView(txtTitel);
 		}
 		tabel.addView(tableRow);
@@ -142,11 +143,24 @@ public class KalenderActivity extends Activity
 			for (KalenderCel cel : rij.getCellen())
 			{
 				txtCel = new TextView(this);
+				txtCel.setText(cel.getTekst());
 				if (cel.getType()==KalenderType.EXAMEN) 
 				{
-					txtCel.setTypeface(Typeface.DEFAULT_BOLD);
+					txtCel.setBackgroundColor(getResources().getColor(R.color.roze));
 				}
-				txtCel.setText(cel.getTekst());
+				else if (cel.getType()==KalenderType.VRIJ) 
+				{
+					txtCel.setBackgroundColor(getResources().getColor(R.color.green_accent));
+				}
+				else if (cel.getType()==KalenderType.VAKANTIE) 
+				{
+					txtCel.setBackgroundColor(getResources().getColor(R.color.oranje));
+				}
+				else if (cel.getType()==KalenderType.DELIBERATIE) 
+				{
+					txtCel.setBackgroundColor(getResources().getColor(R.color.paars));
+				}
+				
 				tr.addView(txtCel);
 			}
 			tabel.addView(tr);

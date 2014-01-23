@@ -118,8 +118,6 @@ public class Kalender
 			is.close();
 		}
 		
-		
-
 		String kalenderGegevens = writer.toString();
 		Kalender kalender = new Kalender();
 
@@ -128,52 +126,83 @@ public class Kalender
 		String matched = "";
 		kalender.setTitels(new ArrayList<String>(Arrays.asList(kTitels)));
 		Pattern pattern = Pattern.compile("<[a-z]*>");
-		for (int i = 1; i < lijnen.length; i++)
-		{
+		
+		for (int i = 1; i < lijnen.length; i++) {
+			
 			KalenderRij rij = new KalenderRij();
 			Matcher matcher = pattern.matcher(lijnen[i]);
-			
-			if (matcher.find()) 
-			{
-				matched = matcher.group(1);
-			}
-			rij.setType(vindType(matched));	
-			lijnen[i].replace(matched, "");
-			
 			String[] cellen = lijnen[i].split(",");
-			
 			rij.setDatum(SimpleDateTime.parseDate(cellen[0])); // De cel met de datum opslaan
-			for (int j = 1; j < cellen.length; j++)
+			
+			for (int j = 1; j < cellen.length; j++) 
 			{
 				KalenderCel cel = new KalenderCel();
 				matcher = pattern.matcher(cellen[j]);
+				
+				if (matcher.find()) 
+				{
+					matched = matcher.group();
+					cel.setType(vindType(matched));	
+					cel.setTekst(cellen[j].replace(matched, ""));
+				}
+				else 
+				{
+					cel.setTekst(cellen[j]);
+				}
+				
+				
+				rij.addCel(cel);
+			}
+			kalender.addRij(rij);
+			
+		}
+		
+		/**for (int i = 1; i < lijnen.length; i++)
+		{
+			KalenderRij rij = new KalenderRij();
+			//Matcher matcher = pattern.matcher(lijnen[i]);
+			
+			
+			String[] cellen = lijnen[i].split(",");
+			
+			
+			
+			//rij.setDatum(SimpleDateTime.parseDate(cellen[0])); // De cel met de datum opslaan
+			
+			
+			for (int j = 1; j < cellen.length; j++)
+			{
+				KalenderCel cel = new KalenderCel();
+				*matcher = pattern.matcher(cellen[j]);
 				if (matcher.find()) 
 				{
 					matched = matcher.group(1);
 				}
 				cel.setType(vindType(matched));	
 				cel.setTekst(cellen[j].replace(matched, ""));
+				cel.setTekst(cellen[i]);
+				rij.addCel(cel);
 			}
 			kalender.addRij(rij);
-		}
+		}*/
 		return kalender;
 	}
 	
 	private static KalenderType vindType(String stringType)
 	{
-		if (stringType.equals("examen")) 
+		if (stringType.equals("<examen>")) 
 		{
 			return KalenderType.EXAMEN;
 		}
-		else if (stringType.equals("delibiratie")) 
+		else if (stringType.equals("<delibiratie>")) 
 		{
 			return KalenderType.DELIBERATIE;
 		}
-		else if (stringType.equals("vakantie")) 
+		else if (stringType.equals("<vakantie>")) 
 		{
 			return KalenderType.VAKANTIE;
 		}
-		else if(stringType.equals("vrij"))
+		else if(stringType.equals("<vrij>"))
 		{
 			return KalenderType.VRIJ;
 		}
