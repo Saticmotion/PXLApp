@@ -12,11 +12,13 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.mobsoft.pxlapp.util.LogUtil;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.R.integer;
 import android.R.string;
 import android.app.Activity;
+import android.util.Log;
 
 public class Kalender
 {
@@ -123,22 +125,25 @@ public class Kalender
 		String kalenderGegevens = writer.toString();
 		Kalender kalender = new Kalender();
 
-		String[] lijnen = kalenderGegevens.split("\n");
-		String[] kTitels = lijnen[0].split(",");
+		String[] lijnen = kalenderGegevens.split("\r\n");
+		String[] titels = lijnen[0].split(",");
 		String matched = "";
-		kalender.setTitels(new ArrayList<String>(Arrays.asList(kTitels)));
-		Pattern pattern = Pattern.compile("<[a-z]*>");
+		kalender.setTitels(new ArrayList<String>(Arrays.asList(titels)));
+		
 		for (int i = 1; i < lijnen.length; i++)
 		{
 			KalenderRij rij = new KalenderRij();
-			Matcher matcher = pattern.matcher(lijnen[i]);
 			
-			if (matcher.find()) 
+			if (lijnen[i].contains("<") && lijnen[i].contains(">"))
 			{
-				matched = matcher.group(1);
+				matched = lijnen[i].substring(lijnen[i].indexOf("<"), lijnen[i].indexOf(">") + 1);
 			}
-			rij.setType(vindType(matched));	
-			lijnen[i].replace(matched, "");
+			
+			rij.setType(vindType(matched));
+			if (!matched.equals(""))
+			{
+				lijnen[i] = lijnen[i].replace(matched, "");
+			}
 			
 			String[] cellen = lijnen[i].split(",");
 			
@@ -146,13 +151,19 @@ public class Kalender
 			for (int j = 1; j < cellen.length; j++)
 			{
 				KalenderCel cel = new KalenderCel();
-				matcher = pattern.matcher(cellen[j]);
-				if (matcher.find()) 
+				
+				if (cellen[j].contains("<") && cellen[j].contains(">"))
 				{
-					matched = matcher.group(1);
+					matched = cellen[j].substring(cellen[j].indexOf("<"), cellen[j].indexOf(">"));
 				}
-				cel.setType(vindType(matched));	
-				cel.setTekst(cellen[j].replace(matched, ""));
+				
+				cel.setType(vindType(matched));
+				if (!matched.equals(""))
+				{
+					cellen[j] = cellen[j].replace(matched, "");
+				}
+				cel.setTekst(cellen[j]);
+				rij.addCel(cel);
 			}
 			kalender.addRij(rij);
 		}
@@ -161,19 +172,19 @@ public class Kalender
 	
 	private static KalenderType vindType(String stringType)
 	{
-		if (stringType.equals("examen")) 
+		if (stringType.equals("<examen>")) 
 		{
 			return KalenderType.EXAMEN;
 		}
-		else if (stringType.equals("delibiratie")) 
+		else if (stringType.equals("<delibiratie>")) 
 		{
 			return KalenderType.DELIBERATIE;
 		}
-		else if (stringType.equals("vakantie")) 
+		else if (stringType.equals("<vakantie>")) 
 		{
 			return KalenderType.VAKANTIE;
 		}
-		else if(stringType.equals("vrij"))
+		else if(stringType.equals("<vrij>"))
 		{
 			return KalenderType.VRIJ;
 		}

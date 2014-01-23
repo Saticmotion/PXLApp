@@ -1,4 +1,4 @@
-Datum,AJ,Sem,Trim(9),Trim(10+9+9),Blokken,Act
+Datum,Academisch jaar,Semester,Trimester (9),Trimester (10+9+9),Blokken,Activiteit
 16/09/2013,1,1,1,1,1,Start AJ 13-14
 23/09/2013,2,2,2,2,2,Vr 27/09 Academische opening
 30/09/2013,3,3,3,3,3, 
