@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,8 +79,6 @@ public class KalenderActivity extends Activity
 
 	public void toonKalender()
 	{
-		Kalender kalender;
-
 		spinner = (Spinner) findViewById(R.id.soortSpinner);
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener()
 		{
@@ -120,9 +119,9 @@ public class KalenderActivity extends Activity
 		TableLayout tabel = (TableLayout) findViewById(R.id.KalenderTable);
 		tabel.removeAllViews();
 
-		ArrayList<String> kTitels = kalender.getTitels();
+		ArrayList<String> titels = kalender.getTitels();
 		TableRow tableRow = new TableRow(this);
-		for (String string : kTitels)
+		for (String string : titels)
 		{
 			TextView txtTitel = new TextView(this);
 			txtTitel.setTypeface(Typeface.DEFAULT_BOLD);
@@ -138,12 +137,16 @@ public class KalenderActivity extends Activity
 			
 			TextView txtCel = new TextView(this);
 			txtCel.setText(rij.getDatum().toString("dd/MM/yy"));
+			if (rij.getType() == KalenderType.VAKANTIE)
+			{
+				tr.setBackgroundColor(getResources().getColor(R.color.oranje));
+			}
 			tr.addView(txtCel);
 
 			for (KalenderCel cel : rij.getCellen())
 			{
 				txtCel = new TextView(this);
-				txtCel.setText(cel.getTekst());
+				txtCel.setText(Html.fromHtml(cel.getTekst()));
 				if (cel.getType()==KalenderType.EXAMEN) 
 				{
 					txtCel.setBackgroundColor(getResources().getColor(R.color.roze));
@@ -151,10 +154,6 @@ public class KalenderActivity extends Activity
 				else if (cel.getType()==KalenderType.VRIJ) 
 				{
 					txtCel.setBackgroundColor(getResources().getColor(R.color.green_accent));
-				}
-				else if (cel.getType()==KalenderType.VAKANTIE) 
-				{
-					txtCel.setBackgroundColor(getResources().getColor(R.color.oranje));
 				}
 				else if (cel.getType()==KalenderType.DELIBERATIE) 
 				{

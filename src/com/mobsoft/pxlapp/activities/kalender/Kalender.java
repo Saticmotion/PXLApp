@@ -125,27 +125,31 @@ public class Kalender
 
 		String[] lijnen = kalenderGegevens.split("\r\n");
 		String[] titels = lijnen[0].split(",");
-		String matched = "";
 		kalender.setTitels(new ArrayList<String>(Arrays.asList(titels)));
-		Pattern pattern = Pattern.compile("<[a-z]*>");
 		
 		for (int i = 1; i < lijnen.length; i++) {
 			
 			KalenderRij rij = new KalenderRij();
-			Matcher matcher = pattern.matcher(lijnen[i]);
+			
+			if (lijnen[i].contains("<vakantie>"))
+			{
+				String typeString = lijnen[i].substring(lijnen[i].indexOf("<"), lijnen[i].indexOf(">") + 1);
+				rij.setType(vindType(typeString));
+				lijnen[i] = lijnen[i].replace(typeString, "");
+			}
+			
 			String[] cellen = lijnen[i].split(",");
 			rij.setDatum(SimpleDateTime.parseDate(cellen[0])); // De cel met de datum opslaan
 			
 			for (int j = 1; j < cellen.length; j++) 
 			{
 				KalenderCel cel = new KalenderCel();
-				matcher = pattern.matcher(cellen[j]);
 				
-				if (matcher.find()) 
+				if (cellen[j].contains("<") && cellen[j].contains(">"))
 				{
-					matched = matcher.group();
-					cel.setType(vindType(matched));	
-					cel.setTekst(cellen[j].replace(matched, ""));
+					String typeString = cellen[j].substring(cellen[j].indexOf("<"), cellen[j].indexOf(">") + 1);
+					cel.setType(vindType(typeString));
+					cel.setTekst(cellen[j].replace(typeString, ""));
 				}
 				else 
 				{
