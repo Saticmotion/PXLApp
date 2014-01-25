@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-import com.mobsoft.pxlapp.util.LogUtil;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.net.ConnectivityManager;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;

@@ -1,8 +1,6 @@
 package com.mobsoft.pxlapp;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.annotation.TargetApi;
@@ -19,11 +17,6 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class LesroostersActivity extends Activity 

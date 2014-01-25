@@ -2,11 +2,9 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="white">#ffffff</color>
-    <color name="black">#000000</color>
-    <color name="dark_gray">#333333</color>
-    <color name="light_gray">#cccccc</color>
     <color name="green_accent">#58a518</color>
 	<color name="oranje">#FF8000</color>
 	<color name="roze">#FA58D0</color>
 	<color name="paars">#8258FA</color>
+	<color name="grijs">#666666</color>
 </resources>

@@ -10,11 +10,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -22,7 +20,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-import com.google.android.gms.internal.v;
 import com.mobsoft.pxlapp.R;
 
 public class KalenderActivity extends Activity
@@ -119,6 +116,17 @@ public class KalenderActivity extends Activity
 
 	private void tekenKalender(Kalender kalender)
 	{
+		TableRow.LayoutParams lijnOnder = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 1);
+		TableRow.LayoutParams lijnRechts = new TableRow.LayoutParams(1, TableRow.LayoutParams.MATCH_PARENT);
+		
+		View lijn = new View(this);
+		
+		int grijs = getResources().getColor(R.color.grijs);
+		int oranje = getResources().getColor(R.color.oranje);
+		int roze = getResources().getColor(R.color.roze);
+		int groen = getResources().getColor(R.color.green_accent);
+		int paars = getResources().getColor(R.color.paars);
+		
 		TableLayout tabel = (TableLayout) findViewById(R.id.KalenderTable);
 		tabel.removeAllViews();
 
@@ -128,68 +136,70 @@ public class KalenderActivity extends Activity
 		{
 			TextView txtTitel = new TextView(this);
 			txtTitel.setTypeface(Typeface.DEFAULT_BOLD);
+			txtTitel.setPadding(5, 3, 5, 3);
 			txtTitel.setText(string);
-			
+
 			tableRow.addView(txtTitel);
+			
+			lijn = new View(this);
+			lijn.setLayoutParams(lijnRechts);
+			lijn.setBackgroundColor(grijs);
+			tableRow.addView(lijn);
 		}
 		tabel.addView(tableRow);
-		View view = new View(this);
-		view.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 3));
-		view.setBackgroundColor(getResources().getColor(R.color.green_accent));
-		tabel.addView(view);
-		
-		
 
+		lijn = new View(this);
+		lijn.setLayoutParams(lijnOnder);
+		lijn.setBackgroundColor(grijs);
+		tabel.addView(lijn);
+		
 		for (KalenderRij rij : kalender.getRijen())
 		{
 			TableRow tr = new TableRow(this);
-			
+
 			TextView txtCel = new TextView(this);
 			txtCel.setText(rij.getDatum().toString("dd/MM/yy"));
+			txtCel.setPadding(5, 3, 5, 3);
 			if (rij.getType() == KalenderType.VAKANTIE)
 			{
-				tr.setBackgroundColor(getResources().getColor(R.color.oranje));
+				tr.setBackgroundColor(oranje);
 			}
 			tr.addView(txtCel);
-			
-			View viewV = new View(this);
-			viewV.setLayoutParams(new TableRow.LayoutParams(1,TableRow.LayoutParams.FILL_PARENT));
-			viewV.setBackgroundColor(getResources().getColor(R.color.green_accent));
-			tr.addView(viewV);
 
+			lijn = new View(this);
+			lijn.setLayoutParams(lijnRechts);
+			lijn.setBackgroundColor(grijs);
+			tr.addView(lijn);
 
-			
-			
 			for (KalenderCel cel : rij.getCellen())
 			{
-				
-				
 				txtCel = new TextView(this);
 				txtCel.setText(Html.fromHtml(cel.getTekst()));
-				if (cel.getType()==KalenderType.EXAMEN) 
+				txtCel.setPadding(5, 3, 5, 3);
+				if (cel.getType() == KalenderType.EXAMEN)
 				{
-					txtCel.setBackgroundColor(getResources().getColor(R.color.roze));
+					txtCel.setBackgroundColor(roze);
 				}
-				else if (cel.getType()==KalenderType.VRIJ) 
+				else if (cel.getType() == KalenderType.VRIJ)
 				{
-					txtCel.setBackgroundColor(getResources().getColor(R.color.green_accent));
+					txtCel.setBackgroundColor(groen);
 				}
-				else if (cel.getType()==KalenderType.DELIBERATIE) 
+				else if (cel.getType() == KalenderType.DELIBERATIE)
 				{
-					txtCel.setBackgroundColor(getResources().getColor(R.color.paars));
+					txtCel.setBackgroundColor(paars);
 				}
 				tr.addView(txtCel);
-				View viewV2 = new View(this);
-				viewV2.setLayoutParams(new TableRow.LayoutParams(1,TableRow.LayoutParams.FILL_PARENT));
-				viewV2.setBackgroundColor(getResources().getColor(R.color.green_accent));
-				tr.addView(viewV2);
+				lijn = new View(this);
+				lijn.setLayoutParams(lijnRechts);
+				lijn.setBackgroundColor(grijs);
+				tr.addView(lijn);
 			}
-			
+
 			tabel.addView(tr);
-			View v = new View(this);
-			v.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, 1));
-			v.setBackgroundColor(getResources().getColor(R.color.green_accent));
-			tabel.addView(v);
+			lijn = new View(this);
+			lijn.setLayoutParams(lijnOnder);
+			lijn.setBackgroundColor(grijs);
+			tabel.addView(lijn);
 		}
 	}
 }

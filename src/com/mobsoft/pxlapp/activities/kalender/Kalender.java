@@ -9,17 +9,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.mobsoft.pxlapp.util.LogUtil;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
-import android.R.integer;
-import android.R.string;
 import android.app.Activity;
-import android.telephony.CellIdentityCdma;
-import android.util.Log;
 
 public class Kalender
 {
@@ -80,22 +72,19 @@ public class Kalender
 		ArrayList<String> nieuweTitels = new ArrayList<String>();
 		nieuweTitels.add(titels.get(0));
 		nieuweTitels.add(titels.get(1));
-		nieuweTitels.add(titels.get(2));
-		nieuweTitels.add(titels.get(3));
 		nieuweTitels.add(titel);
-		nieuweTitels.add(titels.get(11));
-		nieuweTitels.add(titels.get(12));
+		nieuweTitels.add(titels.get(6));
 		kalender.setTitels(nieuweTitels);
 
 		for (KalenderRij rij : rijen)
 		{
 			KalenderRij nieuweRij = new KalenderRij();
-			nieuweRij.addCel(rij.getCel(1));
+			nieuweRij.addCel(rij.getCel(0));
 
 			// dit is de kolom die we er uit filteren
 			// - 1 omdat er een titel is voor de datumkolom.
 			nieuweRij.addCel(rij.getCel(titels.indexOf(titel) - 1));
-			nieuweRij.addCel(rij.getCel(11));
+			nieuweRij.addCel(rij.getCel(5));
 			nieuweRij.setDatum(rij.getDatum());
 			nieuweRij.setType(rij.getType());
 

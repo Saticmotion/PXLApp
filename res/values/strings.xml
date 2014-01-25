@@ -19,7 +19,7 @@
     <string name="title_activity_lesrooster_view_row" translatable="false">Lesrooster rij</string>
     <string name="vernieuwen" translatable="false">Vernieuwen</string>
 
-    <string-array name="weekdagen">
+    <string-array name="weekdagen" translatable="false">
         <item>Maandag</item>
         <item>Dinsdag</item>
         <item>Woensdag</item>
@@ -27,21 +27,20 @@
         <item>Vrijdag</item>
     </string-array>
 
-    <string name="title_activity_weekmenu_view">WeekmenuView</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_weekmenu_view_row">WeekmenuViewRow</string>
-    <string name="title_activity_kalender">Academische kalender</string>
+    <string name="title_activity_weekmenu_view" translatable="false">WeekmenuView</string>
+    <string name="title_activity_weekmenu_view_row" translatable="false">WeekmenuViewRow</string>
+    <string name="title_activity_kalender" translatable="false">Academische kalender</string>
     <string name="button_klassenBusiness" translatable="false">Business</string>
     <string name="button_klassenEducation" translatable="false">Education</string>
     <string name="button_klassenHealthcare" translatable="false">Healthcare</string>
     <string name="button_klassenIT" translatable="false">IT</string>
     <string name="button_klassenTech" translatable="false">Tech</string>
-    <string name="title_activity_departement">Departement kiezen</string>
-    <string name="button_kalender">Academische kalender</string>
-    <string-array name="lessoort">
+    <string name="title_activity_departement" translatable="false">Departement kiezen</string>
+    <string name="button_kalender" translatable="false">Academische kalender</string>
+    <string-array name="lessoort" translatable="false">
         <item>Sem</item>
-        <item>Trim</item>
-        <item>Trim SP</item>
-        <item>Blokken</item>
+        <item>9 weken</item>
+        <item>9 weken SP</item>
+        <item>6 weken</item>
     </string-array>
 </resources>
