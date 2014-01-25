@@ -82,7 +82,7 @@ public class Kalender
 			nieuweRij.addCel(rij.getCel(0));
 
 			// dit is de kolom die we er uit filteren
-			// - 1 omdat er een titel is voor de datumkolom.
+			// - 1 omdat er een ook een titel is voor de datumkolom, die hier geen rij heeft.
 			nieuweRij.addCel(rij.getCel(titels.indexOf(titel) - 1));
 			nieuweRij.addCel(rij.getCel(5));
 			nieuweRij.setDatum(rij.getDatum());

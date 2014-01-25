@@ -5,11 +5,13 @@ import java.util.ArrayList;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -116,90 +118,132 @@ public class KalenderActivity extends Activity
 
 	private void tekenKalender(Kalender kalender)
 	{
-		TableRow.LayoutParams lijnOnder = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 1);
-		TableRow.LayoutParams lijnRechts = new TableRow.LayoutParams(1, TableRow.LayoutParams.MATCH_PARENT);
-		
-		View lijn = new View(this);
-		
-		int grijs = getResources().getColor(R.color.grijs);
-		int oranje = getResources().getColor(R.color.oranje);
-		int roze = getResources().getColor(R.color.roze);
-		int groen = getResources().getColor(R.color.green_accent);
-		int paars = getResources().getColor(R.color.paars);
-		
+		LijnRechts lijnRechts;
+		LijnOnder lijnOnder;
+
 		TableLayout tabel = (TableLayout) findViewById(R.id.KalenderTable);
 		tabel.removeAllViews();
 
 		ArrayList<String> titels = kalender.getTitels();
 		TableRow tableRow = new TableRow(this);
+		
 		for (String string : titels)
 		{
-			TextView txtTitel = new TextView(this);
+			KalenderTextView txtTitel = new KalenderTextView(this, string);
 			txtTitel.setTypeface(Typeface.DEFAULT_BOLD);
-			txtTitel.setPadding(5, 3, 5, 3);
-			txtTitel.setText(string);
 
 			tableRow.addView(txtTitel);
-			
-			lijn = new View(this);
-			lijn.setLayoutParams(lijnRechts);
-			lijn.setBackgroundColor(grijs);
-			tableRow.addView(lijn);
+
+			lijnRechts = new LijnRechts(this);
+			tableRow.addView(lijnRechts);
 		}
+		
 		tabel.addView(tableRow);
 
-		lijn = new View(this);
-		lijn.setLayoutParams(lijnOnder);
-		lijn.setBackgroundColor(grijs);
-		tabel.addView(lijn);
-		
+		lijnOnder = new LijnOnder(this);
+		tabel.addView(lijnOnder);
+
 		for (KalenderRij rij : kalender.getRijen())
 		{
-			TableRow tr = new TableRow(this);
+			TableRow tr = new TableRow(this);			
 
-			TextView txtCel = new TextView(this);
-			txtCel.setText(rij.getDatum().toString("dd/MM/yy"));
-			txtCel.setPadding(5, 3, 5, 3);
-			if (rij.getType() == KalenderType.VAKANTIE)
-			{
-				tr.setBackgroundColor(oranje);
-			}
+			tr.setBackgroundColor(getCelColor(rij.getType()));
+
+			KalenderTextView txtCel = new KalenderTextView(this, rij.getDatum().toString("dd/MM/yy"));
+			
 			tr.addView(txtCel);
 
-			lijn = new View(this);
-			lijn.setLayoutParams(lijnRechts);
-			lijn.setBackgroundColor(grijs);
-			tr.addView(lijn);
+			lijnRechts = new LijnRechts(this);
+			tr.addView(lijnRechts);
 
 			for (KalenderCel cel : rij.getCellen())
 			{
-				txtCel = new TextView(this);
-				txtCel.setText(Html.fromHtml(cel.getTekst()));
-				txtCel.setPadding(5, 3, 5, 3);
-				if (cel.getType() == KalenderType.EXAMEN)
-				{
-					txtCel.setBackgroundColor(roze);
-				}
-				else if (cel.getType() == KalenderType.VRIJ)
-				{
-					txtCel.setBackgroundColor(groen);
-				}
-				else if (cel.getType() == KalenderType.DELIBERATIE)
-				{
-					txtCel.setBackgroundColor(paars);
-				}
+				txtCel = new KalenderTextView(this, Html.fromHtml(cel.getTekst()));
+				
+				txtCel.setBackgroundColor(getCelColor(cel.getType()));
+				
 				tr.addView(txtCel);
-				lijn = new View(this);
-				lijn.setLayoutParams(lijnRechts);
-				lijn.setBackgroundColor(grijs);
-				tr.addView(lijn);
-			}
 
+				lijnRechts = new LijnRechts(this);				
+				tr.addView(lijnRechts);
+			}
 			tabel.addView(tr);
-			lijn = new View(this);
-			lijn.setLayoutParams(lijnOnder);
-			lijn.setBackgroundColor(grijs);
-			tabel.addView(lijn);
+			
+			lijnOnder = new LijnOnder(this);
+			tabel.addView(lijnOnder);
 		}
+	}
+	
+	private int getCelColor(KalenderType type)
+	{
+		if (type == KalenderType.EXAMEN)
+		{
+			return getResources().getColor(R.color.roze);
+		}
+		else if (type == KalenderType.VRIJ)
+		{
+			return getResources().getColor(R.color.green_accent);
+		}
+		else if (type == KalenderType.DELIBERATIE)
+		{
+			return getResources().getColor(R.color.paars);
+		}
+		else if (type == KalenderType.VAKANTIE)
+		{
+			return getResources().getColor(R.color.oranje);
+		}
+		else
+		{
+			return 0x00000000;
+		}
+	}
+
+ 	private class KalenderTextView extends TextView
+	{
+
+		public KalenderTextView(Context context, String text)
+		{
+			super(context);
+			this.setText(text);
+			this.setPadding(5, 3, 5, 3);
+			this.setTextSize(14);
+		}
+
+		public KalenderTextView(Context context, Spanned text)
+		{
+			super(context);
+			this.setText(text);
+			this.setPadding(5, 3, 5, 3);
+			this.setTextSize(14);
+		}
+
+	}
+
+	private class LijnRechts extends View
+	{
+		TableRow.LayoutParams lijnRechts = new TableRow.LayoutParams(1, TableRow.LayoutParams.MATCH_PARENT);
+		int grijs = getResources().getColor(R.color.grijs);
+		
+		public LijnRechts(Context context)
+		{
+			super(context);
+			this.setLayoutParams(lijnRechts);
+			this.setBackgroundColor(grijs);
+		}
+		
+	}
+	
+	private class LijnOnder extends View
+	{
+		TableRow.LayoutParams lijnOnder = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 1);
+		int grijs = getResources().getColor(R.color.grijs);
+		
+		public LijnOnder(Context context)
+		{
+			super(context);
+			this.setLayoutParams(lijnOnder);
+			this.setBackgroundColor(grijs);
+		}
+		
 	}
 }
