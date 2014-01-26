@@ -178,19 +178,19 @@ public class KalenderActivity extends Activity
 	{
 		if (type == KalenderType.EXAMEN)
 		{
-			return getResources().getColor(R.color.roze);
+			return getResources().getColor(R.color.roze2);
 		}
 		else if (type == KalenderType.VRIJ)
 		{
-			return getResources().getColor(R.color.green_accent);
+			return getResources().getColor(R.color.groen2);
 		}
 		else if (type == KalenderType.DELIBERATIE)
 		{
-			return getResources().getColor(R.color.paars);
+			return getResources().getColor(R.color.paars2);
 		}
 		else if (type == KalenderType.VAKANTIE)
 		{
-			return getResources().getColor(R.color.oranje);
+			return getResources().getColor(R.color.oranje2);
 		}
 		else
 		{
@@ -206,7 +206,7 @@ public class KalenderActivity extends Activity
 			super(context);
 			this.setText(text);
 			this.setPadding(5, 3, 5, 3);
-			this.setTextSize(14);
+			this.setTextSize(13);
 		}
 
 		public KalenderTextView(Context context, Spanned text)
@@ -214,7 +214,7 @@ public class KalenderActivity extends Activity
 			super(context);
 			this.setText(text);
 			this.setPadding(5, 3, 5, 3);
-			this.setTextSize(14);
+			this.setTextSize(13);
 		}
 
 	}

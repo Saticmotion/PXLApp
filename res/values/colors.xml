@@ -7,4 +7,11 @@
 	<color name="roze">#FA58D0</color>
 	<color name="paars">#8258FA</color>
 	<color name="grijs">#666666</color>
+	
+    <color name="groen2">#66cc66</color>
+    <color name="oranje2">#ffaa66</color>
+    <color name="roze2">#ff99ff</color>
+    <color name="paars2">#aa66ff</color>
+    
+    
 </resources>
