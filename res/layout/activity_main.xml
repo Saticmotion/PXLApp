@@ -124,7 +124,7 @@
             android:layout_width="60dp"
             android:scaleType="centerInside"
             android:layout_height="match_parent"
-            android:src="@drawable/info"
+            android:src="@drawable/kalender"
             android:contentDescription="@string/desc" />
 
         <TextView
