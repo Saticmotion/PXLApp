@@ -69,16 +69,22 @@ public class DepartementActivity extends Activity
 		{
 			case R.id.eersteRij:
 				guest = "HB/phl";
+				break;
 			case R.id.tweedeRij:
 				guest = "lo/phl";
+				break;
 			case R.id.derdeRij:
 				guest = "GZ/phl";
+				break;
 			case R.id.vierdeRij:
 				guest = "IT/phl";
+				break;
 			case R.id.vijfdeRij:
 				guest = "bi/phl";
+				break;
 		}
 		Intent intent = new Intent(this, LesroostersActivity.class);
 		intent.putExtra("guest", guest);
+		startActivity(intent);
 	}
 }

@@ -1,6 +1,10 @@
 package com.mobsoft.pxlapp;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
+
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.annotation.TargetApi;
@@ -17,17 +21,25 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class LesroostersActivity extends Activity 
 {	
 	private ProgressDialog progress;
+	String guest;
+	ArrayList<String> klassen = new ArrayList<String>();
+	ArrayList<String> gefilterdeKlassen = new ArrayList<String>();
+	ViewGroup layout;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lesroosters);
+		guest = getIntent().getStringExtra("guest");
+		laadKlassenlijst();
 	}
 
 	@Override
@@ -158,4 +170,82 @@ public class LesroostersActivity extends Activity
 		fout.create().show();
 	}
 
+	private void laadKlassenlijst()
+	{
+		if (CacheManager.fileExists(this, "klassenlijst" + guest))
+		{
+			try
+			{
+				byte[] data = CacheManager.retrieveData(this, "klassenlijst" + guest);
+				String dataString = new String(data, "UTF-8");
+				klassen = (ArrayList<String>) Arrays.asList(dataString.split("\\s*,\\s*"));
+			}
+			catch (IOException e)
+			{
+				toonFout("", "Er is iets fout gegaan, probeer nog eens");
+			}
+		}
+		else
+		{
+			if (isOnline())
+			{
+				ProgressDialog progress = new ProgressDialog(this);
+				progress.setMessage("Klassenlijst Downloaden");
+				progress.show();
+				
+				DownloadKlassenLijstTask downloadTask = new DownloadKlassenLijstTask(this);
+				
+				try
+				{
+					downloadTask.execute(guest).get();
+				}
+				catch (Exception e)
+				{
+					toonFout("", "Er is iets fout gegaan, probeer nog eens");
+				}
+				progress.dismiss();
+			}
+			else
+			{
+				toonFout("", "Geen internetverbinding");
+			}
+		}
+	}
+	
+	public void updateKlassenlijst()
+	{
+		if (layout == null)
+		{
+			layout = (ViewGroup) findViewById(R.id.predicate_layout);
+		}
+		
+		for (String s : gefilterdeKlassen)
+		{
+			TextView txtKlas = new TextView(this);
+			txtKlas.setText(s);
+			txtKlas.setOnClickListener(new TextView.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					EditText gekozenKlas = (EditText)findViewById(R.id.gekozen_klas_string);
+					gekozenKlas.setText(((TextView)v).getText());
+				}
+			});
+		}
+		
+	}
+	
+	public void filterKlassenLijst(String filter)
+	{
+		gefilterdeKlassen.clear();
+		
+		for (String s : klassen)
+		{
+			if (s.contains(filter))
+			{
+				gefilterdeKlassen.add(s);
+			}
+		}
+	}
 }

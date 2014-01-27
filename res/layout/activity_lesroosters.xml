@@ -10,18 +10,33 @@
     android:paddingTop="1dp"
     tools:context=".LesroostersActivity" >
 
-    <EditText 
-        android:id="@+id/gekozen_klas_string"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:singleLine="true"
-        android:hint="@string/geef_klas_message" />
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+	    <EditText 
+	        android:id="@+id/gekozen_klas_string"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:singleLine="true"
+	        android:hint="@string/geef_klas_message" >
+	        <requestFocus />
+	    </EditText>
+	    
+	    <Button 
+	        android:id="@+id/lesrooster_weergeven_button"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/button_bekijk"
+	        android:onClick="vulLesrooster" />
+    </LinearLayout>
     
-    <Button 
-        android:id="@+id/lesrooster_weergeven_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_bekijk"
-        android:onClick="vulLesrooster" />
+    
+    <com.mobsoft.pxlapp.util.PredicateLayout
+        android:id="@+id/predicate_layout"
+    	android:layout_width="fill_parent" 
+    	android:layout_height="wrap_content" >
+        
+    </com.mobsoft.pxlapp.util.PredicateLayout>
 </LinearLayout>
