@@ -127,24 +127,28 @@ public class KalenderActivity extends Activity
 		ArrayList<String> titels = kalender.getTitels();
 		TableRow tableRow = new TableRow(this);
 		
-		for (String string : titels)
+		for (int i = 0; i < titels.size(); i++)
 		{
-			KalenderTextView txtTitel = new KalenderTextView(this, string);
+			KalenderTextView txtTitel = new KalenderTextView(this, titels.get(i));
 			txtTitel.setTypeface(Typeface.DEFAULT_BOLD);
 
 			tableRow.addView(txtTitel);
 
-			lijnRechts = new LijnRechts(this);
-			tableRow.addView(lijnRechts);
+			if (i < titels.size() - 1)
+			{
+				lijnRechts = new LijnRechts(this);
+				tableRow.addView(lijnRechts);
+			}
 		}
 		
 		tabel.addView(tableRow);
 
 		lijnOnder = new LijnOnder(this);
 		tabel.addView(lijnOnder);
-
-		for (KalenderRij rij : kalender.getRijen())
+		
+		for (int i = 0; i < kalender.getRijen().size(); i++)
 		{
+			KalenderRij rij = kalender.getRij(i);
 			TableRow tr = new TableRow(this);			
 
 			tr.setBackgroundColor(getCelColor(rij.getType()));
@@ -155,17 +159,29 @@ public class KalenderActivity extends Activity
 
 			lijnRechts = new LijnRechts(this);
 			tr.addView(lijnRechts);
-
-			for (KalenderCel cel : rij.getCellen())
+			
+			for (int j = 0; j < rij.getCellen().size(); j++)
 			{
-				txtCel = new KalenderTextView(this, Html.fromHtml(cel.getTekst()));
+				KalenderCel cel = rij.getCel(j);
+				
+				if (cel.getTekst().contains("<br />"))
+				{
+					txtCel = new KalenderTextView(this, Html.fromHtml(cel.getTekst()));
+				}
+				else
+				{
+					txtCel = new KalenderTextView(this, cel.getTekst());
+				}
 				
 				txtCel.setBackgroundColor(getCelColor(cel.getType()));
 				
 				tr.addView(txtCel);
 
-				lijnRechts = new LijnRechts(this);				
-				tr.addView(lijnRechts);
+				if (j < kalender.getRij(i).getCellen().size() - 1)
+				{
+					lijnRechts = new LijnRechts(this);
+					tr.addView(lijnRechts);
+				}
 			}
 			tabel.addView(tr);
 			
@@ -194,7 +210,7 @@ public class KalenderActivity extends Activity
 		}
 		else
 		{
-			return 0x00000000;
+			return 0x00000000; //Alpha-kanaal is nul, dus is volledig doorzichtig.
 		}
 	}
 
