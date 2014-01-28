@@ -9,6 +9,7 @@
     <string name="title_activity_lesroosters" translatable="false">Lesrooster zoeken</string>
     <string name="title_activity_info" translatable="false">Info</string>
     <string name="geef_klas_message" translatable="false">Geef klas</string>
+    <string name="filter" translatable="false">Filter</string>
     <string name="title_activity_weekmenu" translatable="false">PXL Weekmenu</string>
     <string name="button_weekmenu" translatable="false">Weekmenu</string>
     <string name="button_menuElfde" translatable="false">Campus Elfde Linie</string>
@@ -18,6 +19,7 @@
     <string name="title_activity_lesrooster_view" translatable="false">Lesrooster</string>
     <string name="title_activity_lesrooster_view_row" translatable="false">Lesrooster rij</string>
     <string name="vernieuwen" translatable="false">Vernieuwen</string>
+    <string name="klaslijst_vernieuwen">Klaslijst vernieuwen</string>
 
     <string-array name="weekdagen" translatable="false">
         <item>Maandag</item>

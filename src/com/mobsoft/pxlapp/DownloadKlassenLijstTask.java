@@ -27,7 +27,7 @@ public class DownloadKlassenLijstTask extends AsyncTask<String, Void, Void>
 
 		try
 		{
-			Document kalenderpagina = Jsoup.connect(url).get();
+			Document kalenderpagina = Jsoup.connect(url).timeout(20000).get();
 			Elements dagen = kalenderpagina.select("option:not([selected])");
 			String cacheString = "";
 
@@ -44,12 +44,24 @@ public class DownloadKlassenLijstTask extends AsyncTask<String, Void, Void>
 			
 			CacheManager.cacheData(activiteit, cacheString.getBytes(), "klassenlijst" + guest);
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			activiteit.runOnUiThread(new Runnable()
+			{				
+				@Override
+				public void run()
+				{
+					activiteit.toonFout("", "Er is iets fout gegaan, probeer opnieuw");
+				}
+			});
 		}
+		
 		return null;
 	}
-
+	
+	@Override
+	protected void onPostExecute(Void result)
+	{
+		activiteit.klaarDownloaden();
+	}
 }

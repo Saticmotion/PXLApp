@@ -60,13 +60,13 @@ public class LesroostersActivity extends Activity
 			public void afterTextChanged(Editable s)
 			{
 				gefilterdeKlassen = filterKlassenLijst(klassen, gekozenKlas.getText().toString());
-				updateKlassenlijst();
+				tekenKlassenlijst();
 			}
 		});
 		
 		laadKlassenlijst();
 		gefilterdeKlassen = klassen;
-		updateKlassenlijst();
+		tekenKlassenlijst();
 	}
 
 	@Override
@@ -222,7 +222,7 @@ public class LesroostersActivity extends Activity
 		{
 			if (isOnline())
 			{
-				ProgressDialog progress = new ProgressDialog(this);
+				progress = new ProgressDialog(this);
 				progress.setMessage("Klassenlijst Downloaden");
 				progress.show();
 				
@@ -230,14 +230,12 @@ public class LesroostersActivity extends Activity
 				
 				try
 				{
-					downloadTask.execute(guest).get();
-					laadKlassenlijst();
+					downloadTask.execute(guest);
 				}
 				catch (Exception e)
 				{
 					toonFout("", "Er is iets fout gegaan, probeer nog eens");
 				}
-				progress.dismiss();
 			}
 			else
 			{
@@ -246,7 +244,39 @@ public class LesroostersActivity extends Activity
 		}
 	}
 	
-	public void updateKlassenlijst()
+	public void vernieuwKlassenlijst(View v)
+	{
+		
+		if (isOnline())
+		{
+			progress = new ProgressDialog(this);
+			progress.setMessage("Klassenlijst Downloaden");
+			progress.show();
+			
+			DownloadKlassenLijstTask downloadTask = new DownloadKlassenLijstTask(this);
+			
+			try
+			{
+				downloadTask.execute(guest);
+			}
+			catch (Exception e)
+			{
+				toonFout("", "Er is iets fout gegaan, probeer nog eens");
+			}
+		}
+		else
+		{
+			toonFout("", "Geen internetverbinding");
+		}
+	}
+	
+	public void klaarDownloaden()
+	{
+		progress.dismiss();
+		laadKlassenlijst();
+	}
+	
+	public void tekenKlassenlijst()
 	{
 		if (layout == null)
 		{
