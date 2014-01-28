@@ -63,7 +63,6 @@ public class Lesrooster
 		{
 			if (les.getStart().getDagVanWeek() == dag)
 			{
-				Log.d(LogUtil.PXL_TAG, "dagvanweek: " + les.getStart().getDagVanWeek() + "dag: " + dag);
 				geselecteerd.add(les);
 			}
 		}

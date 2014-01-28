@@ -211,7 +211,6 @@ public class LesroostersActivity extends Activity
 			{
 				byte[] data = CacheManager.retrieveData(this, "klassenlijst" + guest);
 				String dataString = new String(data, "UTF-8");
-				Log.d(LogUtil.PXL_TAG, dataString);
 				klassen = new ArrayList<String>(Arrays.asList(dataString.split(",")));
 			}
 			catch (IOException e)
