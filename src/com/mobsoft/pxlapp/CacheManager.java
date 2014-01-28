@@ -19,7 +19,7 @@ public class CacheManager
 
 	public static void cacheData(Context context, byte[] data, String name) throws IOException
 	{
-
+		name = name.replace("/", "-");
 		File cacheDir = context.getCacheDir();
 		long size = getDirSize(cacheDir);
 		long newSize = data.length + size;
@@ -51,6 +51,7 @@ public class CacheManager
 	 */
 	public static byte[] retrieveData(Context context, String name) throws IOException
 	{
+		name = name.replace("/", "-");
 		File cacheDir = context.getCacheDir();
 		File file = new File(cacheDir, name);
 
@@ -76,6 +77,7 @@ public class CacheManager
 
 	public static boolean fileExists(Context context, String name)
 	{
+		name = name.replace("/", "-");
 		File cacheDir = context.getCacheDir();
 		File file = new File(cacheDir, name);
 
@@ -98,6 +100,7 @@ public class CacheManager
 	 */
 	public static Long getCacheAge(Context context, String name) throws IOException
 	{
+		name = name.replace("/", "-");
 		File cacheDir = context.getCacheDir();
 		File file = new File(cacheDir, name);
 
@@ -137,6 +140,7 @@ public class CacheManager
 	 */
 	public static SimpleDateTime getCacheDate(Context context, String name) throws IOException
 	{
+		name = name.replace("/", "-");
 		File cacheDir = context.getCacheDir();
 		File file = new File(cacheDir, name);
 

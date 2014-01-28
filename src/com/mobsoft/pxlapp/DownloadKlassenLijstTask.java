@@ -41,7 +41,7 @@ public class DownloadKlassenLijstTask extends AsyncTask<String, Void, Void>
 				cacheString = cacheString.substring(0, cacheString.length() - 1); // laatste overbodige komma
 																					// verwijderen
 			}
-				
+			
 			CacheManager.cacheData(activiteit, cacheString.getBytes(), "klassenlijst" + guest);
 		}
 		catch (IOException e)

@@ -12,7 +12,7 @@
 
     <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal" >
 	    <EditText 
 	        android:id="@+id/gekozen_klas_string"
@@ -32,11 +32,14 @@
 	        android:onClick="vulLesrooster" />
     </LinearLayout>
     
-    
-    <com.mobsoft.pxlapp.util.PredicateLayout
-        android:id="@+id/predicate_layout"
-    	android:layout_width="fill_parent" 
-    	android:layout_height="wrap_content" >
+    <com.mobsoft.pxlapp.util.RowLayout 
+        android:id="@+id/row_layout"
+        android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="left"
+	    android:padding="10dp"
+	    android:horizontalSpacing="10dp"
+	    android:verticalSpacing="10dp" >
         
-    </com.mobsoft.pxlapp.util.PredicateLayout>
+    </com.mobsoft.pxlapp.util.RowLayout>
 </LinearLayout>

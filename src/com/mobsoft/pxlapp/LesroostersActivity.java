@@ -3,8 +3,8 @@ package com.mobsoft.pxlapp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
-
+import com.mobsoft.pxlapp.util.LogUtil;
+import com.mobsoft.pxlapp.util.RowLayout;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
 import android.annotation.TargetApi;
@@ -18,6 +18,9 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +35,7 @@ public class LesroostersActivity extends Activity
 	ArrayList<String> klassen = new ArrayList<String>();
 	ArrayList<String> gefilterdeKlassen = new ArrayList<String>();
 	ViewGroup layout;
+	EditText gekozenKlas;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -39,7 +43,30 @@ public class LesroostersActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lesroosters);
 		guest = getIntent().getStringExtra("guest");
+		
+		gekozenKlas = (EditText)findViewById(R.id.gekozen_klas_string);
+		gekozenKlas.addTextChangedListener(new TextWatcher()
+		{
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count)
+			{}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after)
+			{}
+			
+			@Override
+			public void afterTextChanged(Editable s)
+			{
+				gefilterdeKlassen = filterKlassenLijst(klassen, gekozenKlas.getText().toString());
+				updateKlassenlijst();
+			}
+		});
+		
 		laadKlassenlijst();
+		gefilterdeKlassen = klassen;
+		updateKlassenlijst();
 	}
 
 	@Override
@@ -84,10 +111,16 @@ public class LesroostersActivity extends Activity
 	public void vulLesrooster(View view)
 	{
 		TextView klasText = (TextView) findViewById(R.id.gekozen_klas_string);
-		String klas = klasText.getText().toString().toUpperCase().replace(" ", ""); //formatteer klas volgens voorbeeld: 2TING.
+		String klas = klasText.getText().toString(); //formatteer klas volgens voorbeeld: 2TING.
 		if (klas.equals(""))
 		{
 			toonFout("", "Geef een klas in");
+			return;
+		}
+		
+		if(!klassen.contains(klas))
+		{
+			toonFout("", "Klas bestaat niet");
 			return;
 		}
 		
@@ -178,7 +211,8 @@ public class LesroostersActivity extends Activity
 			{
 				byte[] data = CacheManager.retrieveData(this, "klassenlijst" + guest);
 				String dataString = new String(data, "UTF-8");
-				klassen = (ArrayList<String>) Arrays.asList(dataString.split("\\s*,\\s*"));
+				Log.d(LogUtil.PXL_TAG, dataString);
+				klassen = new ArrayList<String>(Arrays.asList(dataString.split(",")));
 			}
 			catch (IOException e)
 			{
@@ -198,6 +232,7 @@ public class LesroostersActivity extends Activity
 				try
 				{
 					downloadTask.execute(guest).get();
+					laadKlassenlijst();
 				}
 				catch (Exception e)
 				{
@@ -216,36 +251,44 @@ public class LesroostersActivity extends Activity
 	{
 		if (layout == null)
 		{
-			layout = (ViewGroup) findViewById(R.id.predicate_layout);
+			layout = (ViewGroup) findViewById(R.id.lesrooster_activity_layout);
 		}
-		
+
+		RowLayout rowLayout = (RowLayout) findViewById(R.id.row_layout);
+		rowLayout.removeAllViews();
 		for (String s : gefilterdeKlassen)
 		{
 			TextView txtKlas = new TextView(this);
 			txtKlas.setText(s);
+			txtKlas.setTextSize(15);
 			txtKlas.setOnClickListener(new TextView.OnClickListener()
 			{
 				@Override
 				public void onClick(View v)
 				{
-					EditText gekozenKlas = (EditText)findViewById(R.id.gekozen_klas_string);
+					gekozenKlas = (EditText)findViewById(R.id.gekozen_klas_string);
 					gekozenKlas.setText(((TextView)v).getText());
 				}
 			});
+			rowLayout.addView(txtKlas);
 		}
 		
 	}
 	
-	public void filterKlassenLijst(String filter)
+	public ArrayList<String> filterKlassenLijst(ArrayList<String> klassen, String filter)
 	{
-		gefilterdeKlassen.clear();
+		ArrayList<String> gefilterdeLijst = new ArrayList<String>();
+		
+		filter = filter.toUpperCase();
 		
 		for (String s : klassen)
 		{
-			if (s.contains(filter))
+			if (s.toUpperCase().contains(filter))
 			{
-				gefilterdeKlassen.add(s);
+				gefilterdeLijst.add(s);
 			}
 		}
+		
+		return gefilterdeLijst;
 	}
 }
