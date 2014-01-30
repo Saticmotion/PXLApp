@@ -5,17 +5,22 @@ import java.util.ArrayList;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Html;
 import android.text.Spanned;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -214,6 +219,26 @@ public class KalenderActivity extends Activity
 		}
 	}
 
+	public void toonLegende(View view)
+	{
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+		LayoutInflater inflater = getLayoutInflater();
+
+	    // Inflate and set the layout for the dialog
+	    // Pass null as the parent view because its going in the dialog layout
+		dialog.setView(inflater.inflate(R.layout.kalender_legende, null))
+		      .setPositiveButton("OK", new OnClickListener()
+			{
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					dialog.dismiss();
+				}
+			}); 
+		dialog.show();
+	}
+	
  	private class KalenderTextView extends TextView
 	{
 
