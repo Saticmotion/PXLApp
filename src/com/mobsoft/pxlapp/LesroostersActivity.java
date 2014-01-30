@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import com.mobsoft.pxlapp.util.LogUtil;
+import com.mobsoft.pxlapp.util.PreferencesUtil;
 import com.mobsoft.pxlapp.util.RowLayout;
 import com.mobsoft.pxlapp.util.SimpleDateTime;
 
@@ -13,6 +14,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -25,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -111,17 +114,31 @@ public class LesroostersActivity extends Activity
 	public void vulLesrooster(View view)
 	{
 		TextView klasText = (TextView) findViewById(R.id.gekozen_klas_string);
-		String klas = klasText.getText().toString(); //formatteer klas volgens voorbeeld: 2TING.
+		String klas = klasText.getText().toString();
+		
+		//Als de klas niet ingevoerd is
 		if (klas.equals(""))
 		{
 			toonFout("", "Geef een klas in");
 			return;
 		}
 		
+		//Staat de ingevoerde klas in de klassenlijst; is de naam geldig?
 		if(!klassen.contains(klas))
 		{
 			toonFout("", "Klas bestaat niet");
 			return;
+		}
+		
+		//Opslaan standaardklas
+		CheckBox chkStandaard = (CheckBox)(findViewById(R.id.chkStandaard));
+		if(chkStandaard.isChecked()) 
+		{
+			SharedPreferences settings = getPreferences(0);
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putString(PreferencesUtil.STANDAARD_KLAS, klas);
+			
+			editor.commit();
 		}
 		
 		try
@@ -129,7 +146,8 @@ public class LesroostersActivity extends Activity
 			SimpleDateTime cacheDatum = CacheManager.getCacheDate(this, "lesrooster" + klas);
 			SimpleDateTime vandaag = new SimpleDateTime();
 			
-			if (cacheDatum.getWeek() == vandaag.getWeek() && cacheDatum.getJaar() == vandaag.getJaar()) //Ook jaar controleren, bugs vermijden rond nieuwjaar
+			//Ook jaar controleren, bugs vermijden rond nieuwjaar
+			if (cacheDatum.getWeek() == vandaag.getWeek() && cacheDatum.getJaar() == vandaag.getJaar()) 
 			{
 				toonLessenrooster(klas);
 			}
@@ -274,6 +292,8 @@ public class LesroostersActivity extends Activity
 	{
 		progress.dismiss();
 		laadKlassenlijst();
+		gefilterdeKlassen = filterKlassenLijst(klassen, "");
+		tekenKlassenlijst();
 	}
 	
 	public void tekenKlassenlijst()

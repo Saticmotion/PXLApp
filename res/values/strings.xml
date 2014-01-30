@@ -19,7 +19,8 @@
     <string name="title_activity_lesrooster_view" translatable="false">Lesrooster</string>
     <string name="title_activity_lesrooster_view_row" translatable="false">Lesrooster rij</string>
     <string name="vernieuwen" translatable="false">Vernieuwen</string>
-    <string name="klaslijst_vernieuwen">Klaslijst vernieuwen</string>
+    <string name="klaslijst_vernieuwen" translatable="false">Klaslijst vernieuwen</string>
+    <string name="standaard_instellen" translatable="false">Instellen als standaard?</string>
 
     <string-array name="weekdagen" translatable="false">
         <item>Maandag</item>

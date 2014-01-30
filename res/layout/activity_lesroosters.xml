@@ -32,6 +32,15 @@
 	        android:onClick="vulLesrooster" />
     </LinearLayout>
 
+    <CheckBox
+        android:id="@+id/chkStandaard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:gravity="center_vertical|start"
+        android:text="@string/standaard_instellen"
+        android:textAllCaps="false" />
+
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
