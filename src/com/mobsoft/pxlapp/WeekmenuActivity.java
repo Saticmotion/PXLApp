@@ -121,7 +121,7 @@ public class WeekmenuActivity extends Activity
 						toonWeekmenu(gedrukt);
 					}
 					else
-						toonFout("Fout!", "Er is geen verbinding met het internet, probeer opnieuw");
+						toonFout("Er is geen verbinding met het internet, probeer opnieuw");
 				}
 			}
 
@@ -185,10 +185,9 @@ public class WeekmenuActivity extends Activity
 	 * @param bericht
 	 *            bericht foutboodschap
 	 */
-	public void toonFout(String titel, String bericht)
+	public void toonFout(String bericht)
 	{
 		AlertDialog.Builder fout = new AlertDialog.Builder(this);
-		fout.setTitle(titel);
 		fout.setMessage(bericht);
 		fout.setPositiveButton("OK", null);
 		fout.create().show();

@@ -122,11 +122,11 @@ public class DownloadWeekMenuTask extends AsyncTask<String, Void, Void>
 		progress.dismiss(); // progressdialog dismissen
 		if (e == 1)
 		{
-			activiteit.toonFout("Fout", "Helaas, de weekmenu is momenteel niet beschikbaar");
+			activiteit.toonFout("Het weekmenu is momenteel niet beschikbaar");
 		}
 		else if (e == 2)
 		{
-			activiteit.toonFout("Fout", "Helaas, er is een fout opgetreden, probeer opnieuw");
+			activiteit.toonFout("Er is een fout opgetreden, probeer opnieuw");
 		}
 		else
 		{
