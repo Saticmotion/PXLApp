@@ -75,7 +75,7 @@ public class SimpleDateTime
 	
 	public void setMaand(int maand)
 	{
-		datum.set(Calendar.MONTH, maand);
+		datum.set(Calendar.MONTH, maand - 1);
 	}
 	
 	public int getWeek()
@@ -196,6 +196,12 @@ public class SimpleDateTime
 		String output = new SimpleDateFormat(patroon, Locale.getDefault()).format(datum.getTime());
 		return output;
 	}
+	
+	public String toString()
+	{
+		return getDag() + "/" + getMaand() + "/" + getJaar();
+	}
+	
 	public void add(int field,int waarde){
 		datum.add(field, waarde);
 	}
