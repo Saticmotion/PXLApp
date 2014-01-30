@@ -14,14 +14,29 @@
 	        android:layout_weight="1"
 	        android:layout_height="wrap_content" 
 	        android:entries="@array/weekdagen" />
-	    
-	    <Button 
-	        android:id="@+id/downloadOpnieuwButton"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:onClick="downloadOpnieuw" 
-	        android:text="@string/vernieuwen"/>
 	    </LinearLayout>
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+
+		<Button
+		    android:id="@+id/nieuwe_klas"
+		    android:layout_width="wrap_content"
+		    android:layout_weight="1"
+		    android:layout_height="wrap_content"
+		    android:onClick="andereKlas"
+		    android:text="@string/andere_klas" />
+
+		<Button
+		    android:id="@+id/downloadOpnieuwButton"
+		    android:layout_width="wrap_content"
+		    android:layout_weight="1"
+		    android:layout_height="wrap_content"
+		    android:onClick="downloadOpnieuw"
+		    android:text="@string/vernieuwen" />
+
+	</LinearLayout>
 	    	   
      <ListView
         android:id="@+id/listViewLesrooster"

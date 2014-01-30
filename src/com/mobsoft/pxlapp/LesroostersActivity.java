@@ -19,6 +19,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -130,17 +131,6 @@ public class LesroostersActivity extends Activity
 			return;
 		}
 		
-		//Opslaan standaardklas
-		CheckBox chkStandaard = (CheckBox)(findViewById(R.id.chkStandaard));
-		if(chkStandaard.isChecked()) 
-		{
-			SharedPreferences settings = getPreferences(0);
-			SharedPreferences.Editor editor = settings.edit();
-			editor.putString(PreferencesUtil.STANDAARD_KLAS, klas);
-			
-			editor.commit();
-		}
-		
 		try
 		{
 			SimpleDateTime cacheDatum = CacheManager.getCacheDate(this, "lesrooster" + klas);
@@ -207,6 +197,14 @@ public class LesroostersActivity extends Activity
 
 	private void toonLessenrooster(String klas)
 	{
+		CheckBox chkStandaard = (CheckBox)(findViewById(R.id.chkStandaard));
+		if(chkStandaard.isChecked()) 
+		{
+			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+			settings.edit().putString(PreferencesUtil.STANDAARD_KLAS, klas).commit();
+			Log.d(LogUtil.PXL_TAG, settings.getString(PreferencesUtil.STANDAARD_KLAS, "Geen klas :("));
+		}
+		
 		Intent intent = new Intent(this, LesroosterView.class);
 		intent.putExtra("klas", klas);
 		startActivity(intent);

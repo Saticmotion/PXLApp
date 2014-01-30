@@ -1,5 +1,7 @@
 package com.mobsoft.pxlapp;
 
+import com.mobsoft.pxlapp.util.PreferencesUtil;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -8,7 +10,10 @@ import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 
 public class DepartementActivity extends Activity
 {
@@ -17,6 +22,17 @@ public class DepartementActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		if (preferences.contains(PreferencesUtil.STANDAARD_KLAS))
+		{
+			//Als gebruiker geen nieuwe klas wilt, doorsturen naar lesrooster
+			if (getIntent().getExtras() == null)
+			{
+				Intent intent = new Intent(this, LesroosterView.class);
+				intent.putExtra("klas", preferences.getString(PreferencesUtil.STANDAARD_KLAS, ""));
+				startActivity(intent);
+			}
+		}
 		setContentView(R.layout.activity_departement);
 		// Show the Up button in the action bar.
 		setupActionBar();

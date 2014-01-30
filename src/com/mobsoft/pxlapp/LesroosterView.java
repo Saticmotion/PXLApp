@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 
 public class LesroosterView extends Activity
@@ -150,6 +151,13 @@ public class LesroosterView extends Activity
 		}
 	}
 
+	public void andereKlas(View view)
+	{
+		Intent intent = new Intent(this, DepartementActivity.class);
+		intent.putExtra("nieuweKlas", true);
+		startActivity(intent);
+	}
+	
 	public void ontvangLesrooster(Lesrooster lesrooster)
 	{
 		try

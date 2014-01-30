@@ -21,6 +21,7 @@
     <string name="vernieuwen" translatable="false">Vernieuwen</string>
     <string name="klaslijst_vernieuwen" translatable="false">Klaslijst vernieuwen</string>
     <string name="standaard_instellen" translatable="false">Instellen als standaard?</string>
+    <string name="andere_klas" translatable="false">Andere klas</string>
 
     <string-array name="weekdagen" translatable="false">
         <item>Maandag</item>
