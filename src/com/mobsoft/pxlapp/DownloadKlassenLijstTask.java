@@ -6,6 +6,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import android.os.AsyncTask;
+import android.util.Log;
+
+import com.mobsoft.pxlapp.util.LogUtil;
 
 public class DownloadKlassenLijstTask extends AsyncTask<String, Void, Void>
 {
@@ -20,8 +23,8 @@ public class DownloadKlassenLijstTask extends AsyncTask<String, Void, Void>
 	protected Void doInBackground(String... params)
 	{
 		String guest = params[0];
-		String url = "https://kalender.phl.be/kalenterit2/index.php?kt=lk&av=140120140126140121&guest=" + guest
-				+ "&lang=fla";
+		Log.d(LogUtil.PXL_TAG, guest);
+		String url = "https://kalender.pxl.be/kalenterit2/index.php?kt=lk&guest=" + guest + "&lang=fla";
 
 		try
 		{
@@ -33,19 +36,19 @@ public class DownloadKlassenLijstTask extends AsyncTask<String, Void, Void>
 			{
 				cacheString += dag.text() + ",";
 			}
-			
+
 			if (cacheString.length() != 0)
 			{
 				cacheString = cacheString.substring(0, cacheString.length() - 1); // laatste overbodige komma
 																					// verwijderen
 			}
-			
+
 			CacheManager.cacheData(activiteit, cacheString.getBytes(), "klassenlijst" + guest);
 		}
 		catch (Exception e)
 		{
 			activiteit.runOnUiThread(new Runnable()
-			{				
+			{
 				@Override
 				public void run()
 				{
@@ -53,10 +56,10 @@ public class DownloadKlassenLijstTask extends AsyncTask<String, Void, Void>
 				}
 			});
 		}
-		
+
 		return null;
 	}
-	
+
 	@Override
 	protected void onPostExecute(Void result)
 	{
